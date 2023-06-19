@@ -1,0 +1,169 @@
+//
+//  GameScene.swift
+//  Last Woof
+//
+//  Created by Leonardo Wijaya on 15/06/23.
+//
+
+import SpriteKit
+import GameplayKit
+
+class GameScene: SKScene, SKPhysicsContactDelegate {
+    
+    private var cameraNode: SKCameraNode = SKCameraNode()
+    private var background: SKSpriteNode?
+    private var obstacles: [SKSpriteNode] = []
+    private var character: SKSpriteNode?
+    
+    private let characterMovePointsPerSec: CGFloat = 480.0
+    private var characterVelocity = CGPoint.zero
+    
+    private var lastUpdateTime: TimeInterval = 0
+    private var dt: TimeInterval = 0
+    
+    private var lastTouchLocation: CGPoint?
+    
+    override func didMove(to view: SKView) {
+        physicsWorld.contactDelegate = self
+        guard let backgroundNode = childNode(withName: "background") as? SKSpriteNode else {
+            fatalError("Background node not found in .sks file")
+        }
+        self.background = backgroundNode
+        self.background?.zPosition = -1
+        let pond = generateEntity(imagedName: "Pond", width: 1604, height: 844, xPosition: 1647, yPosition: -1217, zPosition: 2, zRotation: 0, isDynamic: false)
+        let plant1 = generateEntity(imagedName: "Plant1-Task", width: 1288, height: 651, xPosition: 1777, yPosition: 325, zPosition: 2, zRotation: 0, isDynamic: false)
+        let plant2 = generateEntity(imagedName: "Plant2-Decoration", width: 1097, height: 617, xPosition: 1932, yPosition: -651, zPosition: 2, zRotation: -90, isDynamic: false)
+        let fence = generateEntity(imagedName: "Fence", width: 1340, height: 2481, xPosition: 2105, yPosition: -519, zPosition: 1, zRotation: 0, isDynamic: false)
+        obstacles = [pond, plant1, plant2, fence]
+        for obstacle in obstacles {
+            addChild(obstacle)
+        }
+        
+        character = generateEntity(imagedName: "DummyCharacter", width: 200, height: 200, xPosition: 140, yPosition: -183, zPosition: 1, zRotation: 0, isDynamic: true)
+        addChild(character!)
+        
+        cameraNode.position = character!.position
+    }
+    
+    private func generateEntity(imagedName: String, width: Double, height: Double, xPosition: Double, yPosition: Double, zPosition: CGFloat, zRotation: CGFloat, isDynamic: Bool, allowsRotation: Bool = false) -> SKSpriteNode {
+        let texture = SKTexture(imageNamed: imagedName)
+        let textureSize = CGSize(width: width, height: height)
+        let entity = SKSpriteNode(texture: texture, size: textureSize)
+        entity.physicsBody = SKPhysicsBody(texture: texture, size: textureSize)
+        entity.physicsBody?.isDynamic = isDynamic
+        entity.physicsBody?.allowsRotation = allowsRotation
+        entity.physicsBody?.affectedByGravity = false
+        entity.physicsBody?.categoryBitMask = PhysicsCategory.obstacle
+        entity.position = CGPoint(x: xPosition, y: yPosition)
+        entity.zPosition = zPosition
+        entity.zRotation = zRotation * CGFloat.pi / 180
+        
+        return entity
+    }
+    
+    private func boundsCheckCharacter() {
+        let minX = background!.position.x - background!.size.width / 2 + character!.size.width / 2
+        let minY = background!.position.y - background!.size.height / 2 + character!.size.height / 2
+        let maxX = background!.position.x + background!.size.width / 2 - character!.size.width / 2
+        let maxY = background!.position.y + background!.size.height / 2 - character!.size.height / 2
+        
+        if character!.position.x < minX {
+            character!.position.x = minX
+        } else if character!.position.x > maxX {
+            character!.position.x = maxX
+        }
+        
+        if character!.position.y < minY {
+            character!.position.y = minY
+        } else if character!.position.y > maxY {
+            character!.position.y = maxY
+        }
+    }
+    
+    private func boundsCheckCamera() {
+        let minX = background!.position.x - background!.size.width / 2 + size.width / 2
+        let minY = background!.position.y - background!.size.height / 2 + size.height / 2
+        let maxX = background!.position.x + background!.size.width / 2 - size.width / 2
+        let maxY = background!.position.y + background!.size.height / 2 - size.height / 2
+        
+        let cameraX = cameraNode.position.x
+        let cameraY = cameraNode.position.y
+        
+        if cameraX < minX {
+            cameraNode.position.x = minX
+        } else if cameraX > maxX {
+            cameraNode.position.x = maxX
+        }
+        
+        if cameraY < minY {
+            cameraNode.position.y = minY
+        } else if cameraY > maxY {
+            cameraNode.position.y = maxY
+        }
+    }
+    
+    func moveCharacterToward(location: CGPoint) {
+        let offset = CGPoint(x: location.x - character!.position.x, y: location.y - character!.position.y)
+        let xSquared = offset.x * offset.x
+        let ySquared = offset.y * offset.y
+        let sumOfSquares = xSquared + ySquared
+        let length = sqrt(Double(sumOfSquares))
+        
+        let direction = CGPoint(x: offset.x / CGFloat(length), y: offset.y / CGFloat(length))
+        
+        characterVelocity = CGPoint(x: direction.x * characterMovePointsPerSec, y: direction.y * characterMovePointsPerSec)
+    }
+    
+    func moveCharacter(sprite: SKSpriteNode, velocity: CGPoint) {
+        let amountToMove = CGPoint(x: velocity.x * CGFloat(dt), y: velocity.y * CGFloat(dt))
+        print("Amount to move: \(amountToMove)")
+        
+        sprite.position = CGPoint(x: sprite.position.x + amountToMove.x, y: sprite.position.y + amountToMove.y)
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else {
+            return
+        }
+        
+        let touchLocation = touch.location(in: self)
+        lastTouchLocation = touchLocation
+        moveCharacterToward(location: touchLocation)
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else {
+            return
+        }
+        
+        let touchLocation = touch.location(in: self)
+        lastTouchLocation = touchLocation
+        moveCharacterToward(location: touchLocation)
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        if lastUpdateTime > 0 {
+            dt = currentTime - lastUpdateTime
+        } else {
+            dt = 0
+        }
+        lastUpdateTime = currentTime
+        print("\(dt*1000) milliseconds since last update")
+        
+        if let lastTouchLocation = lastTouchLocation {
+            let diff = CGPoint(x: lastTouchLocation.x - character!.position.x, y: lastTouchLocation.y - character!.position.y )
+            let diffLength = hypot(diff.x, diff.y)
+            if (diffLength <= characterMovePointsPerSec * CGFloat(dt)) {
+                character!.position = lastTouchLocation
+                characterVelocity = CGPointZero
+            } else {
+                moveCharacter(sprite: character!, velocity: characterVelocity)
+            }
+        }
+        cameraNode.position = character!.position
+        scene?.camera = cameraNode
+        boundsCheckCamera()
+        boundsCheckCharacter()
+    }
+    
+}
