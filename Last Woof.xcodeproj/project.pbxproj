@@ -15,6 +15,12 @@
 		91F3587D2A3B13AD0072FF71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3587B2A3B13AD0072FF71 /* AppDelegate.swift */; };
 		91F3587E2A3B13AD0072FF71 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 91F3587C2A3B13AD0072FF71 /* Actions.sks */; };
 		91F358AC2A3B27860072FF71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91F358AA2A3B27860072FF71 /* Main.storyboard */; };
+		D69830BE2A405CD20000E55F /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69830BD2A405CD20000E55F /* MainMenuScene.swift */; };
+		D69830C12A405D1C0000E55F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69830C02A405D1C0000E55F /* Extensions.swift */; };
+		D69830C42A405DE70000E55F /* Chapter1Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69830C32A405DE70000E55F /* Chapter1Scene.swift */; };
+		D69830C72A405E5C0000E55F /* AnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69830C62A405E5C0000E55F /* AnalogJoystick.swift */; };
+		D69830CA2A405FCC0000E55F /* HomeSmoke.sks in Resources */ = {isa = PBXBuildFile; fileRef = D69830C92A405FCC0000E55F /* HomeSmoke.sks */; };
+		D69830CC2A4060910000E55F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D69830CB2A4060910000E55F /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +33,12 @@
 		91F3587B2A3B13AD0072FF71 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91F3587C2A3B13AD0072FF71 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		91F358AB2A3B27860072FF71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LastWoof/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D69830BD2A405CD20000E55F /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
+		D69830C02A405D1C0000E55F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		D69830C32A405DE70000E55F /* Chapter1Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter1Scene.swift; sourceTree = "<group>"; };
+		D69830C62A405E5C0000E55F /* AnalogJoystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalogJoystick.swift; sourceTree = "<group>"; };
+		D69830C92A405FCC0000E55F /* HomeSmoke.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = HomeSmoke.sks; path = "../../../../i-wish-you-were-there/I-Wish-You-Were-There/I-Wish-You-Were-There/ParticleEmitters/HomeSmoke.sks"; sourceTree = "<group>"; };
+		D69830CB2A4060910000E55F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../i-wish-you-were-there/I-Wish-You-Were-There/I-Wish-You-Were-There/ParticleEmitters/Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +71,7 @@
 		91F357ED2A3A1EFF0072FF71 /* LastWoof */ = {
 			isa = PBXGroup;
 			children = (
+				D69830BF2A405D0E0000E55F /* Extensions */,
 				91F358092A3A20F90072FF71 /* Database */,
 				91F358052A3A20A60072FF71 /* Managers */,
 				91F358042A3A209B0072FF71 /* GameObjects */,
@@ -86,6 +99,8 @@
 		91F358032A3A207E0072FF71 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				D69830C22A405DCC0000E55F /* Chapter1 */,
+				D69830BC2A405B910000E55F /* MainMenu */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -93,6 +108,8 @@
 		91F358042A3A209B0072FF71 /* GameObjects */ = {
 			isa = PBXGroup;
 			children = (
+				D69830C82A405FB50000E55F /* ParticleEmitters */,
+				D69830C52A405E480000E55F /* Mechanics */,
 				91F358062A3A20D50072FF71 /* Characters */,
 				91F358072A3A20DC0072FF71 /* Environments */,
 				91F358082A3A20E30072FF71 /* UIs */,
@@ -133,6 +150,47 @@
 			children = (
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		D69830BC2A405B910000E55F /* MainMenu */ = {
+			isa = PBXGroup;
+			children = (
+				D69830BD2A405CD20000E55F /* MainMenuScene.swift */,
+			);
+			path = MainMenu;
+			sourceTree = "<group>";
+		};
+		D69830BF2A405D0E0000E55F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				D69830C02A405D1C0000E55F /* Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		D69830C22A405DCC0000E55F /* Chapter1 */ = {
+			isa = PBXGroup;
+			children = (
+				D69830C32A405DE70000E55F /* Chapter1Scene.swift */,
+			);
+			path = Chapter1;
+			sourceTree = "<group>";
+		};
+		D69830C52A405E480000E55F /* Mechanics */ = {
+			isa = PBXGroup;
+			children = (
+				D69830C62A405E5C0000E55F /* AnalogJoystick.swift */,
+			);
+			path = Mechanics;
+			sourceTree = "<group>";
+		};
+		D69830C82A405FB50000E55F /* ParticleEmitters */ = {
+			isa = PBXGroup;
+			children = (
+				D69830C92A405FCC0000E55F /* HomeSmoke.sks */,
+				D69830CB2A4060910000E55F /* Assets.xcassets */,
+			);
+			path = ParticleEmitters;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,7 +254,9 @@
 			files = (
 				91F357FB2A3A1F000072FF71 /* LaunchScreen.storyboard in Resources */,
 				91F358AC2A3B27860072FF71 /* Main.storyboard in Resources */,
+				D69830CA2A405FCC0000E55F /* HomeSmoke.sks in Resources */,
 				91F3587A2A3B13A40072FF71 /* GameScene.sks in Resources */,
+				D69830CC2A4060910000E55F /* Assets.xcassets in Resources */,
 				91F357F82A3A1F000072FF71 /* Assets.xcassets in Resources */,
 				91F3587E2A3B13AD0072FF71 /* Actions.sks in Resources */,
 			);
@@ -209,8 +269,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D69830C12A405D1C0000E55F /* Extensions.swift in Sources */,
 				91F3587D2A3B13AD0072FF71 /* AppDelegate.swift in Sources */,
 				91F358792A3B13A40072FF71 /* GameScene.swift in Sources */,
+				D69830C42A405DE70000E55F /* Chapter1Scene.swift in Sources */,
+				D69830C72A405E5C0000E55F /* AnalogJoystick.swift in Sources */,
+				D69830BE2A405CD20000E55F /* MainMenuScene.swift in Sources */,
 				91F358782A3B13A40072FF71 /* GameViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -364,7 +428,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -394,7 +458,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
