@@ -8,11 +8,17 @@
 import SpriteKit
 import GameplayKit
 
+struct PhysicsCategory {
+    static let none: UInt32 = 0
+    static let character: UInt32 = 0b1
+    static let obstacle: UInt32 = 0b10
+}
+
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     private var cameraNode: SKCameraNode = SKCameraNode()
     private var background: SKSpriteNode?
-    private var obstacles: [SKSpriteNode] = []
+    private var entities: [GKEntity] = []
     private var character: SKSpriteNode?
     
     private let characterMovePointsPerSec: CGFloat = 480.0
@@ -30,22 +36,45 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
         self.background = backgroundNode
         self.background?.zPosition = -1
-        let pond = generateEntity(imagedName: "Pond", width: 1604, height: 844, xPosition: 1647, yPosition: -1217, zPosition: 2, zRotation: 0, isDynamic: false)
-        let plant1 = generateEntity(imagedName: "Plant1-Task", width: 1288, height: 651, xPosition: 1777, yPosition: 325, zPosition: 2, zRotation: 0, isDynamic: false)
-        let plant2 = generateEntity(imagedName: "Plant2-Decoration", width: 1097, height: 617, xPosition: 1932, yPosition: -651, zPosition: 2, zRotation: -90, isDynamic: false)
-        let fence = generateEntity(imagedName: "Fence", width: 1340, height: 2481, xPosition: 2105, yPosition: -519, zPosition: 1, zRotation: 0, isDynamic: false)
-        obstacles = [pond, plant1, plant2, fence]
-        for obstacle in obstacles {
-            addChild(obstacle)
-        }
         
-        character = generateEntity(imagedName: "DummyCharacter", width: 200, height: 200, xPosition: 140, yPosition: -183, zPosition: 1, zRotation: 0, isDynamic: true)
+        character = generateCharacter(imagedName: "DummyCharacter", width: 200, height: 200, xPosition: 140, yPosition: -183, zPosition: 1, zRotation: 0, isDynamic: true)
         addChild(character!)
         
         cameraNode.position = character!.position
+        
+        let pond = generateEntity(components: [
+            VisualComponent(imageName: "Pond", size: CGSize(width: 1604, height: 844), position: CGPoint(x: 1647, y: -1217), zPosition: 2, zRotation: 0, isDynamic: false, categoryBitMask: PhysicsCategory.obstacle)
+        ])
+        
+        let plant1 = generateEntity(components: [
+            VisualComponent(imageName: "Plant1-Task", size: CGSize(width: 1288, height: 651), position: CGPoint(x: 177, y: 325), zPosition: 2, zRotation: 0, isDynamic: false, categoryBitMask: PhysicsCategory.obstacle)
+        ])
+        
+        let plant2 = generateEntity(components: [
+            VisualComponent(imageName: "Plant2-Decoration", size: CGSize(width: 1097, height: 617), position: CGPoint(x: 1932, y: -651), zPosition: 2, zRotation: -90, isDynamic: false, categoryBitMask: PhysicsCategory.obstacle)
+        ])
+        
+        let fence = generateEntity(components: [
+            VisualComponent(imageName: "Fence", size: CGSize(width: 1340, height: 2481), position: CGPoint(x: 2105, y: -519), zPosition: 1, zRotation: 0, isDynamic: false, categoryBitMask: PhysicsCategory.obstacle)
+        ])
+        
+        entities = [pond, plant1, plant2, fence]
+        entities.forEach { entity in
+            if let visualComponent = entity.component(ofType: VisualComponent.self) {
+                addChild(visualComponent.node)
+            }
+        }
     }
     
-    private func generateEntity(imagedName: String, width: Double, height: Double, xPosition: Double, yPosition: Double, zPosition: CGFloat, zRotation: CGFloat, isDynamic: Bool, allowsRotation: Bool = false) -> SKSpriteNode {
+    private func generateEntity(components: [GKComponent]) -> GKEntity {
+        let entity = GKEntity()
+        components.forEach { component in
+            entity.addComponent(component)
+        }
+        return entity
+    }
+    
+    private func generateCharacter(imagedName: String, width: Double, height: Double, xPosition: Double, yPosition: Double, zPosition: CGFloat, zRotation: CGFloat, isDynamic: Bool, allowsRotation: Bool = false) -> SKSpriteNode {
         let texture = SKTexture(imageNamed: imagedName)
         let textureSize = CGSize(width: width, height: height)
         let entity = SKSpriteNode(texture: texture, size: textureSize)
@@ -53,7 +82,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         entity.physicsBody?.isDynamic = isDynamic
         entity.physicsBody?.allowsRotation = allowsRotation
         entity.physicsBody?.affectedByGravity = false
-        entity.physicsBody?.categoryBitMask = PhysicsCategory.obstacle
+        entity.physicsBody?.categoryBitMask = PhysicsCategory.character
         entity.position = CGPoint(x: xPosition, y: yPosition)
         entity.zPosition = zPosition
         entity.zRotation = zRotation * CGFloat.pi / 180
