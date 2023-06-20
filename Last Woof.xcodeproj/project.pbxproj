@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B7ECDE12A41AD5F00B0709B /* EpilogueScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0B7ECDE02A41AD5F00B0709B /* EpilogueScene.sks */; };
+		0B7ECDE32A41AD6800B0709B /* EpilogueScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7ECDE22A41AD6800B0709B /* EpilogueScene.swift */; };
 		15434F2F2A406B550086583E /* VisualComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F2E2A406B550086583E /* VisualComponent.swift */; };
 		15434F332A40A1780086583E /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F322A40A1780086583E /* MovementComponent.swift */; };
 		91F357F82A3A1F000072FF71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91F357F72A3A1F000072FF71 /* Assets.xcassets */; };
@@ -20,6 +22,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B7ECDE02A41AD5F00B0709B /* EpilogueScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = EpilogueScene.sks; sourceTree = "<group>"; };
+		0B7ECDE22A41AD6800B0709B /* EpilogueScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EpilogueScene.swift; sourceTree = "<group>"; };
 		15434F2E2A406B550086583E /* VisualComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualComponent.swift; sourceTree = "<group>"; };
 		15434F322A40A1780086583E /* MovementComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		91F357EB2A3A1EFF0072FF71 /* Last Woof.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Last Woof.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,6 +48,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B7ECDDD2A41AD3700B0709B /* Epilogue */ = {
+			isa = PBXGroup;
+			children = (
+				0B7ECDE02A41AD5F00B0709B /* EpilogueScene.sks */,
+				0B7ECDE22A41AD6800B0709B /* EpilogueScene.swift */,
+			);
+			path = Epilogue;
+			sourceTree = "<group>";
+		};
 		15434F2D2A405FB60086583E /* Scene1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +110,7 @@
 		91F358032A3A207E0072FF71 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				0B7ECDDD2A41AD3700B0709B /* Epilogue */,
 				15434F2D2A405FB60086583E /* Scene1 */,
 			);
 			path = Scenes;
@@ -212,6 +226,7 @@
 				91F358AC2A3B27860072FF71 /* Main.storyboard in Resources */,
 				91F3587A2A3B13A40072FF71 /* GameScene.sks in Resources */,
 				91F357F82A3A1F000072FF71 /* Assets.xcassets in Resources */,
+				0B7ECDE12A41AD5F00B0709B /* EpilogueScene.sks in Resources */,
 				91F3587E2A3B13AD0072FF71 /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -223,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B7ECDE32A41AD6800B0709B /* EpilogueScene.swift in Sources */,
 				91F3587D2A3B13AD0072FF71 /* AppDelegate.swift in Sources */,
 				91F358792A3B13A40072FF71 /* GameScene.swift in Sources */,
 				91F358782A3B13A40072FF71 /* GameViewController.swift in Sources */,
