@@ -14,8 +14,12 @@ struct PhysicsCategory {
     static let obstacle: UInt32 = 0b10
 }
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
-    
+protocol PhysicsContactDelegate: AnyObject {
+    func didBegin(_ contact: SKPhysicsContact)
+    func didEnd(_ contact: SKPhysicsContact)
+}
+
+class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private var cameraNode: SKCameraNode = SKCameraNode()
     private var background: SKSpriteNode?
     private var entities: [GKEntity] = []
@@ -37,25 +41,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.background = backgroundNode
         self.background?.zPosition = -1
         
+//        let character = generateEntity(components: [
+//            VisualComponent(imageName: "DummyCharacter", size: CGSize(width: 200, height: 200), position: CGPoint(x: 140, y: -183), zPosition: 1, zRotation: 0, isDynamic: true, categoryBitMask: PhysicsCategory.character),
+//            MovementComponent(node: SKShapeNode(fileNamed: "DummyCharacter")!)
+//        ])
+        
+        
         character = generateCharacter(imagedName: "DummyCharacter", width: 200, height: 200, xPosition: 140, yPosition: -183, zPosition: 1, zRotation: 0, isDynamic: true)
         addChild(character!)
         
         cameraNode.position = character!.position
         
         let pond = generateEntity(components: [
-            VisualComponent(imageName: "Pond", size: CGSize(width: 1604, height: 844), position: CGPoint(x: 1647, y: -1217), zPosition: 2, zRotation: 0, isDynamic: false, categoryBitMask: PhysicsCategory.obstacle)
+            VisualComponent(imageName: "Pond", size: CGSize(width: 1604, height: 844), position: CGPoint(x: 1647, y: -1217), zPosition: 2, zRotation: 0, isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ])
         
         let plant1 = generateEntity(components: [
-            VisualComponent(imageName: "Plant1-Task", size: CGSize(width: 1288, height: 651), position: CGPoint(x: 177, y: 325), zPosition: 2, zRotation: 0, isDynamic: false, categoryBitMask: PhysicsCategory.obstacle)
+            VisualComponent(imageName: "Plant1-Task", size: CGSize(width: 1288, height: 651), position: CGPoint(x: 1777, y: 325), zPosition: 2, zRotation: 0, isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ])
         
         let plant2 = generateEntity(components: [
-            VisualComponent(imageName: "Plant2-Decoration", size: CGSize(width: 1097, height: 617), position: CGPoint(x: 1932, y: -651), zPosition: 2, zRotation: -90, isDynamic: false, categoryBitMask: PhysicsCategory.obstacle)
+            VisualComponent(imageName: "Plant2-Decoration", size: CGSize(width: 1097, height: 617), position: CGPoint(x: 1932, y: -651), zPosition: 2, zRotation: -90, isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ])
         
         let fence = generateEntity(components: [
-            VisualComponent(imageName: "Fence", size: CGSize(width: 1340, height: 2481), position: CGPoint(x: 2105, y: -519), zPosition: 1, zRotation: 0, isDynamic: false, categoryBitMask: PhysicsCategory.obstacle)
+            VisualComponent(imageName: "Fence", size: CGSize(width: 1340, height: 2481), position: CGPoint(x: 2105, y: -519), zPosition: 1, zRotation: 0, isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ])
         
         entities = [pond, plant1, plant2, fence]
@@ -83,6 +93,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         entity.physicsBody?.allowsRotation = allowsRotation
         entity.physicsBody?.affectedByGravity = false
         entity.physicsBody?.categoryBitMask = PhysicsCategory.character
+        entity.physicsBody?.collisionBitMask = PhysicsCategory.obstacle
+        entity.physicsBody?.contactTestBitMask = PhysicsCategory.obstacle
         entity.position = CGPoint(x: xPosition, y: yPosition)
         entity.zPosition = zPosition
         entity.zRotation = zRotation * CGFloat.pi / 180
@@ -145,7 +157,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func moveCharacter(sprite: SKSpriteNode, velocity: CGPoint) {
         let amountToMove = CGPoint(x: velocity.x * CGFloat(dt), y: velocity.y * CGFloat(dt))
-        print("Amount to move: \(amountToMove)")
         
         sprite.position = CGPoint(x: sprite.position.x + amountToMove.x, y: sprite.position.y + amountToMove.y)
     }
@@ -177,7 +188,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             dt = 0
         }
         lastUpdateTime = currentTime
-        print("\(dt*1000) milliseconds since last update")
         
         if let lastTouchLocation = lastTouchLocation {
             let diff = CGPoint(x: lastTouchLocation.x - character!.position.x, y: lastTouchLocation.y - character!.position.y )
@@ -192,7 +202,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         cameraNode.position = character!.position
         scene?.camera = cameraNode
         boundsCheckCamera()
-        boundsCheckCharacter()
+    }
+        
+    // MARK: PhysicsContactDelegate Protocol
+    func didBegin(_ contact: SKPhysicsContact) {
+        let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+
+        if collision == PhysicsCategory.character | PhysicsCategory.obstacle {
+            handleCharacterObstacleCollision(contact: contact)
+        }
     }
     
+    func didEnd(_ contact: SKPhysicsContact) {
+        print("collision ended")
+    }
+    
+    private func handleCharacterObstacleCollision(contact: SKPhysicsContact) {
+        let characterNode = contact.bodyA.categoryBitMask == PhysicsCategory.character ? contact.bodyA.node : contact.bodyB.node
+        let obstacleNode = contact.bodyA.categoryBitMask == PhysicsCategory.obstacle ? contact.bodyA.node : contact.bodyB.node
+        
+        // Perform actions or logic when character collides with an obstacle
+        print("Character collided with obstacle")
+    }
 }
