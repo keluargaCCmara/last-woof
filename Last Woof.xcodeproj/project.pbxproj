@@ -9,9 +9,6 @@
 /* Begin PBXBuildFile section */
 		0B1FD3332A3C45BF00375A36 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B1FD3322A3C45BF00375A36 /* PersistenceController.swift */; };
 		0B1FD33A2A3C488600375A36 /* LastWoof.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B1FD3382A3C488600375A36 /* LastWoof.xcdatamodeld */; };
-		0B3BE7E92A3EE7DC00B8BEFD /* ChangeStateComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3BE7E82A3EE7DC00B8BEFD /* ChangeStateComponent.swift */; };
-		0B3BE7EB2A401BC700B8BEFD /* StoreComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3BE7EA2A401BC700B8BEFD /* StoreComponent.swift */; };
-		0B3BE7ED2A403C6300B8BEFD /* RemoveComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B3BE7EC2A403C6300B8BEFD /* RemoveComponent.swift */; };
 		0B7ECDDC2A41A06000B0709B /* MissionsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7ECDDB2A41A06000B0709B /* MissionsList.swift */; };
 		91F357F82A3A1F000072FF71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91F357F72A3A1F000072FF71 /* Assets.xcassets */; };
 		91F357FB2A3A1F000072FF71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91F357F92A3A1F000072FF71 /* LaunchScreen.storyboard */; };
@@ -28,9 +25,6 @@
 		0B1FD3312A3C456500375A36 /* Last-Woof-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "Last-Woof-Info.plist"; sourceTree = "<group>"; };
 		0B1FD3322A3C45BF00375A36 /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		0B1FD3392A3C488600375A36 /* LastWoof.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LastWoof.xcdatamodel; sourceTree = "<group>"; };
-		0B3BE7E82A3EE7DC00B8BEFD /* ChangeStateComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeStateComponent.swift; sourceTree = "<group>"; };
-		0B3BE7EA2A401BC700B8BEFD /* StoreComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreComponent.swift; sourceTree = "<group>"; };
-		0B3BE7EC2A403C6300B8BEFD /* RemoveComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveComponent.swift; sourceTree = "<group>"; };
 		0B7ECDDB2A41A06000B0709B /* MissionsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionsList.swift; sourceTree = "<group>"; };
 		91F357EB2A3A1EFF0072FF71 /* Last Woof.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Last Woof.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F357F72A3A1F000072FF71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -65,9 +59,6 @@
 		0B3BE7E62A3EE6D800B8BEFD /* Characters */ = {
 			isa = PBXGroup;
 			children = (
-				0B3BE7E82A3EE7DC00B8BEFD /* ChangeStateComponent.swift */,
-				0B3BE7EA2A401BC700B8BEFD /* StoreComponent.swift */,
-				0B3BE7EC2A403C6300B8BEFD /* RemoveComponent.swift */,
 			);
 			path = Characters;
 			sourceTree = "<group>";
@@ -249,12 +240,9 @@
 			files = (
 				0B7ECDDC2A41A06000B0709B /* MissionsList.swift in Sources */,
 				91F3587D2A3B13AD0072FF71 /* AppDelegate.swift in Sources */,
-				0B3BE7ED2A403C6300B8BEFD /* RemoveComponent.swift in Sources */,
-				0B3BE7E92A3EE7DC00B8BEFD /* ChangeStateComponent.swift in Sources */,
 				91F358792A3B13A40072FF71 /* GameScene.swift in Sources */,
 				91F358782A3B13A40072FF71 /* GameViewController.swift in Sources */,
 				0B1FD33A2A3C488600375A36 /* LastWoof.xcdatamodeld in Sources */,
-				0B3BE7EB2A401BC700B8BEFD /* StoreComponent.swift in Sources */,
 				0B1FD3332A3C45BF00375A36 /* PersistenceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
