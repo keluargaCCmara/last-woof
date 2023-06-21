@@ -22,13 +22,13 @@ class StoryScene: SKScene {
         
         let epilogueEntity = GKEntity()
         
-        let vc = VisualComponent(imageName: "Epilogue1", size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), position: .zero, zPosition: .zero, zRotation: .zero, isDynamic: false, categoryBitMask: PhysicsCategory.none, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.none)
+        let vc = VisualComponent(imageName: "Epilogue1", size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), position: .zero, zPosition: .zero, zRotation: .zero)
         
         epilogueEntity.addComponent(vc)
         
-        setupAnimation(node: vc.node)
+        setupAnimation(node: vc.visualNode)
         
-        self.addChild(vc.node)
+        self.addChild(vc.visualNode)
     }
     
     func setupAnimation(node: SKSpriteNode) {
