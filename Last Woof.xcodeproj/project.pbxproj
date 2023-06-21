@@ -18,10 +18,11 @@
 		D69830BE2A405CD20000E55F /* MainMenuScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69830BD2A405CD20000E55F /* MainMenuScene.swift */; };
 		D69830C12A405D1C0000E55F /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69830C02A405D1C0000E55F /* Extensions.swift */; };
 		D69830C42A405DE70000E55F /* Chapter1Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69830C32A405DE70000E55F /* Chapter1Scene.swift */; };
-		D69830C72A405E5C0000E55F /* AnalogJoystick.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69830C62A405E5C0000E55F /* AnalogJoystick.swift */; };
 		D69830CA2A405FCC0000E55F /* HomeSmoke.sks in Resources */ = {isa = PBXBuildFile; fileRef = D69830C92A405FCC0000E55F /* HomeSmoke.sks */; };
 		D69830CC2A4060910000E55F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D69830CB2A4060910000E55F /* Assets.xcassets */; };
-		D69830DE2A41A0330000E55F /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69830DD2A41A0330000E55F /* MovementComponent.swift */; };
+		D69830E62A4274990000E55F /* PlayerComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69830E52A4274990000E55F /* PlayerComponent.swift */; };
+		D69830ED2A42873B0000E55F /* JoystickComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69830EC2A42873A0000E55F /* JoystickComponent.swift */; };
+		D69830EF2A428D070000E55F /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D69830EE2A428D070000E55F /* MovementComponent.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,10 +38,11 @@
 		D69830BD2A405CD20000E55F /* MainMenuScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuScene.swift; sourceTree = "<group>"; };
 		D69830C02A405D1C0000E55F /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		D69830C32A405DE70000E55F /* Chapter1Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapter1Scene.swift; sourceTree = "<group>"; };
-		D69830C62A405E5C0000E55F /* AnalogJoystick.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalogJoystick.swift; sourceTree = "<group>"; };
 		D69830C92A405FCC0000E55F /* HomeSmoke.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = HomeSmoke.sks; path = "../../../../i-wish-you-were-there/I-Wish-You-Were-There/I-Wish-You-Were-There/ParticleEmitters/HomeSmoke.sks"; sourceTree = "<group>"; };
 		D69830CB2A4060910000E55F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../i-wish-you-were-there/I-Wish-You-Were-There/I-Wish-You-Were-There/ParticleEmitters/Assets.xcassets"; sourceTree = "<group>"; };
-		D69830DD2A41A0330000E55F /* MovementComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
+		D69830E52A4274990000E55F /* PlayerComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerComponent.swift; sourceTree = "<group>"; };
+		D69830EC2A42873A0000E55F /* JoystickComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickComponent.swift; sourceTree = "<group>"; };
+		D69830EE2A428D070000E55F /* MovementComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,7 +131,6 @@
 		91F358062A3A20D50072FF71 /* Characters */ = {
 			isa = PBXGroup;
 			children = (
-				D69830DD2A41A0330000E55F /* MovementComponent.swift */,
 			);
 			path = Characters;
 			sourceTree = "<group>";
@@ -175,6 +176,9 @@
 			isa = PBXGroup;
 			children = (
 				D69830C32A405DE70000E55F /* Chapter1Scene.swift */,
+				D69830E52A4274990000E55F /* PlayerComponent.swift */,
+				D69830EC2A42873A0000E55F /* JoystickComponent.swift */,
+				D69830EE2A428D070000E55F /* MovementComponent.swift */,
 			);
 			path = Chapter1;
 			sourceTree = "<group>";
@@ -182,7 +186,6 @@
 		D69830C52A405E480000E55F /* Mechanics */ = {
 			isa = PBXGroup;
 			children = (
-				D69830C62A405E5C0000E55F /* AnalogJoystick.swift */,
 			);
 			path = Mechanics;
 			sourceTree = "<group>";
@@ -272,14 +275,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D69830ED2A42873B0000E55F /* JoystickComponent.swift in Sources */,
 				D69830C12A405D1C0000E55F /* Extensions.swift in Sources */,
+				D69830E62A4274990000E55F /* PlayerComponent.swift in Sources */,
 				91F3587D2A3B13AD0072FF71 /* AppDelegate.swift in Sources */,
 				91F358792A3B13A40072FF71 /* GameScene.swift in Sources */,
 				D69830C42A405DE70000E55F /* Chapter1Scene.swift in Sources */,
-				D69830C72A405E5C0000E55F /* AnalogJoystick.swift in Sources */,
 				D69830BE2A405CD20000E55F /* MainMenuScene.swift in Sources */,
+				D69830EF2A428D070000E55F /* MovementComponent.swift in Sources */,
 				91F358782A3B13A40072FF71 /* GameViewController.swift in Sources */,
-				D69830DE2A41A0330000E55F /* MovementComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
