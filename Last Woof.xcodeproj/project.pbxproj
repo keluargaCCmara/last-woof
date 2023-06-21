@@ -13,6 +13,7 @@
 		0B7ECDE92A41AE9F00B0709B /* RemoveInventoryComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7ECDE82A41AE9F00B0709B /* RemoveInventoryComponent.swift */; };
 		15434F2F2A406B550086583E /* VisualComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F2E2A406B550086583E /* VisualComponent.swift */; };
 		15434F332A40A1780086583E /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F322A40A1780086583E /* MovementComponent.swift */; };
+		15434F352A42A1020086583E /* PhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F342A42A1020086583E /* PhysicsComponent.swift */; };
 		91F357F82A3A1F000072FF71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91F357F72A3A1F000072FF71 /* Assets.xcassets */; };
 		91F357FB2A3A1F000072FF71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91F357F92A3A1F000072FF71 /* LaunchScreen.storyboard */; };
 		91F358782A3B13A40072FF71 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F358752A3B13A40072FF71 /* GameViewController.swift */; };
@@ -30,6 +31,7 @@
 		0B7ECDE82A41AE9F00B0709B /* RemoveInventoryComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveInventoryComponent.swift; sourceTree = "<group>"; };
 		15434F2E2A406B550086583E /* VisualComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualComponent.swift; sourceTree = "<group>"; };
 		15434F322A40A1780086583E /* MovementComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
+		15434F342A42A1020086583E /* PhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsComponent.swift; sourceTree = "<group>"; };
 		91F357EB2A3A1EFF0072FF71 /* Last Woof.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Last Woof.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F357F72A3A1F000072FF71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91F357FA2A3A1F000072FF71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				0B7ECDE42A41AE5100B0709B /* StateChangeComponent.swift */,
 				0B7ECDE62A41AE8A00B0709B /* StoreInventoryComponent.swift */,
 				0B7ECDE82A41AE9F00B0709B /* RemoveInventoryComponent.swift */,
+				15434F342A42A1020086583E /* PhysicsComponent.swift */,
 			);
 			path = Characters;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 			files = (
 				0B7ECDE32A41AD6800B0709B /* StoryScene.swift in Sources */,
 				91F3587D2A3B13AD0072FF71 /* AppDelegate.swift in Sources */,
+				15434F352A42A1020086583E /* PhysicsComponent.swift in Sources */,
 				91F358792A3B13A40072FF71 /* GameScene.swift in Sources */,
 				91F358782A3B13A40072FF71 /* GameViewController.swift in Sources */,
 				0B7ECDE92A41AE9F00B0709B /* RemoveInventoryComponent.swift in Sources */,

@@ -10,22 +10,14 @@ import GameplayKit
 
 class VisualComponent: GKComponent {
     
-    let node: SKSpriteNode
+    let visualNode: SKSpriteNode
     
-    init(imageName: String, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat, isDynamic: Bool, categoryBitMask: UInt32, collisionBitMask: UInt32, contactTestBitMask: UInt32) {
-        let texture = SKTexture(imageNamed: imageName)
-        node = SKSpriteNode(imageNamed: imageName)
-        node.size = size
-        node.position = position
-        node.zPosition = zPosition
-        node.zRotation = zRotation * CGFloat.pi / 180
-        node.physicsBody = SKPhysicsBody(texture: texture, size: size)
-        node.physicsBody!.isDynamic = isDynamic
-        node.physicsBody!.categoryBitMask = categoryBitMask
-        node.physicsBody!.collisionBitMask = collisionBitMask
-        node.physicsBody!.contactTestBitMask = contactTestBitMask
-        node.physicsBody!.affectedByGravity = false
-        node.physicsBody!.allowsRotation = false
+    init(imageName: String, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat) {
+        visualNode = SKSpriteNode(imageNamed: imageName)
+        visualNode.size = size
+        visualNode.position = position
+        visualNode.zPosition = zPosition
+        visualNode.zRotation = zRotation * CGFloat.pi / 180
         
         super.init()
     }
