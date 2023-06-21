@@ -17,7 +17,7 @@ struct PhysicsCategory {
 
 protocol PhysicsContactDelegate: AnyObject {
     func didBegin(_ contact: SKPhysicsContact)
-//    func didEnd(_ contact: SKPhysicsContact)
+    //    func didEnd(_ contact: SKPhysicsContact)
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
@@ -39,6 +39,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     
     let physicsComponentSystem = GKComponentSystem(componentClass: PhysicsComponent.self)
     
+    let velocityMultiplier: CGFloat = 0.0375
+    lazy var analogJoystick: AnalogJoystick = {
+        let js = AnalogJoystick(diameter: 300, colors: nil, images: (substrate: #imageLiteral(resourceName: "jSubstrate"), stick: #imageLiteral(resourceName: "jStick")))
+        js.position = CGPoint(x: -450, y: -400)
+        js.zPosition = 2
+        return js
+    }()
+    
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
         guard let backgroundNode = childNode(withName: "background") as? SKSpriteNode else {
@@ -51,6 +59,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         addChild(character!)
         
         cameraNode.position = character!.position
+        
+        setupJoystick()
         
         let pond = generateEntity(components: [
             VisualComponent(imageName: "Pond", size: CGSize(width: 1604, height: 844), position: CGPoint(x: 1647, y: -1217), zPosition: 2, zRotation: 0),
@@ -79,6 +89,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
                 physicsComponentSystem.addComponent(foundIn: entity)
             }
         }
+        
+        
     }
     
     private func generateEntity(components: [GKComponent]) -> GKEntity {
@@ -148,24 +160,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         }
     }
     
-    func moveCharacterToward(location: CGPoint) {
-        let offset = CGPoint(x: location.x - character!.position.x, y: location.y - character!.position.y)
-        let xSquared = offset.x * offset.x
-        let ySquared = offset.y * offset.y
-        let sumOfSquares = xSquared + ySquared
-        let length = sqrt(Double(sumOfSquares))
-        
-        let direction = CGPoint(x: offset.x / CGFloat(length), y: offset.y / CGFloat(length))
-        
-        characterVelocity = CGPoint(x: direction.x * characterMovePointsPerSec, y: direction.y * characterMovePointsPerSec)
-    }
-    
-    func moveCharacter(sprite: SKSpriteNode, velocity: CGPoint) {
-        let amountToMove = CGPoint(x: velocity.x * CGFloat(dt), y: velocity.y * CGFloat(dt))
-        
-        sprite.position = CGPoint(x: sprite.position.x + amountToMove.x, y: sprite.position.y + amountToMove.y)
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {
             return
@@ -173,7 +167,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         
         let touchLocation = touch.location(in: self)
         lastTouchLocation = touchLocation
-        moveCharacterToward(location: touchLocation)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -183,7 +176,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         
         let touchLocation = touch.location(in: self)
         lastTouchLocation = touchLocation
-        moveCharacterToward(location: touchLocation)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -195,44 +187,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         }
         lastUpdateTime = currentTime
         
-        if let lastTouchLocation = lastTouchLocation {
-            let diff = CGPoint(x: lastTouchLocation.x - character!.position.x, y: lastTouchLocation.y - character!.position.y )
-            let diffLength = hypot(diff.x, diff.y)
-            if (diffLength <= characterMovePointsPerSec * CGFloat(dt)) {
-                character!.position = lastTouchLocation
-                characterVelocity = CGPointZero
-            } else {
-                moveCharacter(sprite: character!, velocity: characterVelocity)
-            }
-        }
         cameraNode.position = character!.position
         scene?.camera = cameraNode
         boundsCheckCamera()
         let elapsedDidBeginTime = currentTime - lastDidBeginTime
         if elapsedDidBeginTime > 0.5 {
             isColliding = false
-//            print("Character separated with obstacle")
+                        print("Character separated with obstacle")
         }
     }
-        
+    
     // MARK: PhysicsContactDelegate Protocol
     func didBegin(_ contact: SKPhysicsContact) {
         let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         self.lastDidBeginTime = CACurrentMediaTime()
-
+        
         if collision == PhysicsCategory.character | PhysicsCategory.obstacle {
             isColliding = true
             handleCharacterObstacleCollision(contact: contact)
         }
     }
     
-//    func didEnd(_ contact: SKPhysicsContact) {
-//        let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-//
-//        if collision == PhysicsCategory.character | PhysicsCategory.obstacle {
-////            handleCharacterObstacleSeparation(contact: contact)
-//        }
-//    }
+    //    func didEnd(_ contact: SKPhysicsContact) {
+    //        let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+    //
+    //        if collision == PhysicsCategory.character | PhysicsCategory.obstacle {
+    ////            handleCharacterObstacleSeparation(contact: contact)
+    //        }
+    //    }
     
     private func handleCharacterObstacleCollision(contact: SKPhysicsContact) {
         let characterNode = contact.bodyA.categoryBitMask == PhysicsCategory.character ? contact.bodyA.node : contact.bodyB.node
@@ -245,6 +227,41 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     
     private func handleCharacterObstacleSeparation(contact: SKPhysicsContact) {
         print("Character separated with obstacle")
+    }
+    
+    func setupJoystick() {
+        addChild(analogJoystick)
+        analogJoystick.trackingHandler = { [unowned self] data in
+            self.character!.position = CGPoint(x: self.character!.position.x + (data.velocity.x * self.velocityMultiplier),
+                                           y: self.character!.position.y + (data.velocity.y * self.velocityMultiplier))
+            self.character!.zRotation = data.angular
+            
+            let minX = background!.position.x - background!.size.width / 2 + size.width / 2
+            let minY = background!.position.y - background!.size.height / 2 + size.height / 2
+            let maxX = background!.position.x + background!.size.width / 2 - size.width / 2
+            let maxY = background!.position.y + background!.size.height / 2 - size.height / 2
+
+            let cameraX = cameraNode.position.x
+            let cameraY = cameraNode.position.y
+
+            if cameraX < minX {
+                cameraNode.position.x = minX
+            } else if cameraX > maxX {
+                cameraNode.position.x = maxX
+            }
+
+            if cameraY < minY {
+                cameraNode.position.y = minY
+            } else if cameraY > maxY {
+                cameraNode.position.y = maxY
+            }
+            
+       
+            self.analogJoystick.position = CGPoint(x: cameraX - 600 + (data.velocity.x * self.velocityMultiplier),
+                                                  y: cameraY - 220 + (data.velocity.y * self.velocityMultiplier))
+            print(analogJoystick.position)
+            
+        }
     }
 }
 
