@@ -47,11 +47,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         self.background = backgroundNode
         self.background?.zPosition = -1
         
-//        let character = generateEntity(components: [
-//            VisualComponent(imageName: "DummyCharacter", size: CGSize(width: 200, height: 200), position: CGPoint(x: 140, y: -183), zPosition: 1, zRotation: 0, isDynamic: true, categoryBitMask: PhysicsCategory.character),
-//            MovementComponent(node: SKShapeNode(fileNamed: "DummyCharacter")!)
-//        ])
-        
         character = generateCharacter(imagedName: "DummyCharacter", width: 200, height: 200, xPosition: 140, yPosition: -183, zPosition: 1, zRotation: 0, isDynamic: true)
         addChild(character!)
         
