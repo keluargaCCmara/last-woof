@@ -33,12 +33,12 @@ class StateChangeComponent: GKComponent {
     /// Tells this entity's visual  component to fade.
     func fade() {
         let fadeAction = SKAction.fadeOut(withDuration: 1.5)
-        visualComponent?.node.run(fadeAction)
+        visualComponent?.visualNode.run(fadeAction)
     }
     
     /// Tells this entity's visual component to change texture/state
     func changeTexture(texture: SKTexture?) {
-        guard let node = visualComponent?.node else {return}
+        guard let node = visualComponent?.visualNode else {return}
         
 //        if node.state == 1 {
 //            if let texture = texture {
