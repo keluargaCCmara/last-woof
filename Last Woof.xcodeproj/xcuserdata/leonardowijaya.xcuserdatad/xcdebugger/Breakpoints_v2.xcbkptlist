@@ -14,8 +14,8 @@
             filePath = "LastWoof/Scenes/Scene1/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "226"
-            endingLineNumber = "226"
+            startingLineNumber = "148"
+            endingLineNumber = "148"
             landmarkName = "handleCharacterObstacleCollision(contact:)"
             landmarkType = "7">
             <Locations>
@@ -110,8 +110,8 @@
             filePath = "LastWoof/Scenes/Scene1/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
             landmarkName = "update(_:)"
             landmarkType = "7">
          </BreakpointContent>

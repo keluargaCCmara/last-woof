@@ -55,7 +55,6 @@
 			children = (
 				91F358772A3B13A40072FF71 /* GameScene.sks */,
 				91F358762A3B13A40072FF71 /* GameScene.swift */,
-				D60812002A42DF58004E842E /* JoystickComponent.swift */,
 			);
 			path = Scene1;
 			sourceTree = "<group>";
@@ -133,6 +132,7 @@
 				15434F2E2A406B550086583E /* VisualComponent.swift */,
 				15434F322A40A1780086583E /* MovementComponent.swift */,
 				15434F342A42A1020086583E /* PhysicsComponent.swift */,
+				D60812002A42DF58004E842E /* JoystickComponent.swift */,
 			);
 			path = Characters;
 			sourceTree = "<group>";

@@ -32,4 +32,32 @@ class VisualComponent: GKComponent {
         visualNode.zRotation = data.angular
     }
     
+    override func update(deltaTime seconds: TimeInterval) {
+        let background = SKSpriteNode(imageNamed: "Background")
+        background.size = CGSize(width: 4242, height: 2167)
+        background.position = CGPoint(x: 520, y: -480)
+        boundsCheckCharacter(background: background)
+    }
+    
+    private func boundsCheckCharacter(background: SKSpriteNode) {
+        if ((entity?.component(ofType: MovementComponent.self)) != nil) {
+            let minX = background.position.x - background.size.width / 2 + visualNode.size.width / 2
+            let minY = background.position.y - background.size.height / 2 + visualNode.size.height / 2
+            let maxX = background.position.x + background.size.width / 2 - visualNode.size.width / 2
+            let maxY = background.position.y + background.size.height / 2 - visualNode.size.height / 2
+
+            if visualNode.position.x < minX {
+                visualNode.position.x = minX
+            } else if visualNode.position.x > maxX {
+                visualNode.position.x = maxX
+            }
+
+            if visualNode.position.y < minY {
+                visualNode.position.y = minY
+            } else if visualNode.position.y > maxY {
+                visualNode.position.y = maxY
+            }
+        }
+    }
+    
 }

@@ -22,32 +22,16 @@ protocol PhysicsContactDelegate: AnyObject {
 
 class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private var cameraNode: SKCameraNode = SKCameraNode()
-    
     private var background: SKSpriteNode?
     private var entities: [GKEntity] = []
-    private var character: SKSpriteNode?
-    
-    private let characterMovePointsPerSec: CGFloat = 480.0
-    private var characterVelocity = CGPoint.zero
-    
-    private var lastUpdateTime: TimeInterval = 0
-    private var dt: TimeInterval = 0
-    
     private var lastTouchLocation: CGPoint?
-    
     private var isColliding: Bool = false
     private var lastDidBeginTime: TimeInterval = 0
     
+    let visualComponentSystem = GKComponentSystem(componentClass: VisualComponent.self)
     let physicsComponentSystem = GKComponentSystem(componentClass: PhysicsComponent.self)
     let movementComponentSystem = GKComponentSystem(componentClass: MovementComponent.self)
-    
-    let velocityMultiplier: CGFloat = 0.0375
-    lazy var analogJoystick: AnalogJoystick = {
-        let js = AnalogJoystick(diameter: 300, colors: nil, images: (substrate: #imageLiteral(resourceName: "jSubstrate"), stick: #imageLiteral(resourceName: "jStick")))
-        js.position = CGPoint(x: -450, y: -400)
-        js.zPosition = 2
-        return js
-    }()
+    private var analogJoystick: AnalogJoystick?
     
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
@@ -56,15 +40,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         }
         self.background = backgroundNode
         self.background?.zPosition = -1
+        setupJoystick()
         
         let character = generateEntity(components: [
             VisualComponent(imageName: "DummyCharacter", size: CGSize(width: 200, height: 200), position: CGPoint(x: 140, y: -183), zPosition: 1, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 200, height: 200), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle, contactTestBitMask: PhysicsCategory.obstacle),
-            MovementComponent(analogJoystick: analogJoystick)
+            PhysicsComponent(size: CGSize(width: 200, height: 200), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
+            MovementComponent(analogJoystick: analogJoystick!)
         ])
         cameraNode.position = (character.component(ofType: VisualComponent.self)?.visualNode.position)!
-        
-        setupJoystick()
         
         let pond = generateEntity(components: [
             VisualComponent(imageName: "Pond", size: CGSize(width: 1604, height: 844), position: CGPoint(x: 1647, y: -1217), zPosition: 2, zRotation: 0),
@@ -89,9 +72,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         entities = [character, pond, plant1, plant2, fence]
         entities.forEach { entity in
             if let visualComponent = entity.component(ofType: VisualComponent.self) {
+                visualComponentSystem.addComponent(foundIn: entity)
                 addChild(visualComponent.visualNode)
                 physicsComponentSystem.addComponent(foundIn: entity)
-                if let movementComponent = entity.component(ofType: MovementComponent.self) {
+                if entity.component(ofType: MovementComponent.self) != nil {
                     movementComponentSystem.addComponent(foundIn: entity)
                 }
             }
@@ -105,101 +89,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         }
         return entity
     }
-    
-    private func generateCharacter(imagedName: String, width: Double, height: Double, xPosition: Double, yPosition: Double, zPosition: CGFloat, zRotation: CGFloat, isDynamic: Bool, allowsRotation: Bool = false) -> SKSpriteNode {
-        let texture = SKTexture(imageNamed: imagedName)
-        let textureSize = CGSize(width: width, height: height)
-        let entity = SKSpriteNode(texture: texture, size: textureSize)
-        entity.physicsBody = SKPhysicsBody(texture: texture, size: textureSize)
-        entity.physicsBody?.isDynamic = isDynamic
-        entity.physicsBody?.allowsRotation = allowsRotation
-        entity.physicsBody?.affectedByGravity = false
-        entity.physicsBody?.categoryBitMask = PhysicsCategory.character
-        entity.physicsBody?.collisionBitMask = PhysicsCategory.obstacle | PhysicsCategory.object
-        entity.physicsBody?.contactTestBitMask = PhysicsCategory.obstacle
-        entity.position = CGPoint(x: xPosition, y: yPosition)
-        entity.zPosition = zPosition
-        entity.zRotation = zRotation * CGFloat.pi / 180
-        
-        return entity
-    }
-    
-//    private func boundsCheckCharacter() {
-//        let minX = background!.position.x - background!.size.width / 2 + character!.size.width / 2
-//        let minY = background!.position.y - background!.size.height / 2 + character!.size.height / 2
-//        let maxX = background!.position.x + background!.size.width / 2 - character!.size.width / 2
-//        let maxY = background!.position.y + background!.size.height / 2 - character!.size.height / 2
-//
-//        if character!.position.x < minX {
-//            character!.position.x = minX
-//        } else if character!.position.x > maxX {
-//            character!.position.x = maxX
-//        }
-//
-//        if character!.position.y < minY {
-//            character!.position.y = minY
-//        } else if character!.position.y > maxY {
-//            character!.position.y = maxY
-//        }
-//    }
-//
-//    private func boundsCheckCamera() {
-//        let minX = background!.position.x - background!.size.width / 2 + size.width / 2
-//        let minY = background!.position.y - background!.size.height / 2 + size.height / 2
-//        let maxX = background!.position.x + background!.size.width / 2 - size.width / 2
-//        let maxY = background!.position.y + background!.size.height / 2 - size.height / 2
-//
-//        let cameraX = cameraNode.position.x
-//        let cameraY = cameraNode.position.y
-//
-//        if cameraX < minX {
-//            cameraNode.position.x = minX
-//        } else if cameraX > maxX {
-//            cameraNode.position.x = maxX
-//        }
-//
-//        if cameraY < minY {
-//            cameraNode.position.y = minY
-//        } else if cameraY > maxY {
-//            cameraNode.position.y = maxY
-//        }
-//    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else {
-            return
+
+    private func boundsCheckCamera() {
+        let minX = background!.position.x - background!.size.width / 2 + size.width / 2
+        let minY = background!.position.y - background!.size.height / 2 + size.height / 2
+        let maxX = background!.position.x + background!.size.width / 2 - size.width / 2
+        let maxY = background!.position.y + background!.size.height / 2 - size.height / 2
+
+        let cameraX = cameraNode.position.x
+        let cameraY = cameraNode.position.y
+
+        if cameraX < minX {
+            cameraNode.position.x = minX
+        } else if cameraX > maxX {
+            cameraNode.position.x = maxX
+        }
+
+        if cameraY < minY {
+            cameraNode.position.y = minY
+        } else if cameraY > maxY {
+            cameraNode.position.y = maxY
         }
         
-        let touchLocation = touch.location(in: self)
-        lastTouchLocation = touchLocation
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else {
-            return
-        }
-        
-        let touchLocation = touch.location(in: self)
-        lastTouchLocation = touchLocation
+        analogJoystick?.position = CGPoint(x: cameraNode.position.x - 600, y: cameraNode.position.y - 220)
     }
     
     override func update(_ currentTime: TimeInterval) {
         physicsComponentSystem.update(deltaTime: currentTime)
         movementComponentSystem.update(deltaTime: currentTime)
-        if lastUpdateTime > 0 {
-            dt = currentTime - lastUpdateTime
-        } else {
-            dt = 0
-        }
-        lastUpdateTime = currentTime
+        visualComponentSystem.update(deltaTime: currentTime)
         
-//        for case let component as MovementComponent in movementComponentSystem.components {
-//            component.moveCharacter(analogJoystick)
-//        }
-//        cameraNode.position = character!.position
+        cameraNode.position = (entities[0].component(ofType: VisualComponent.self)?.visualNode.position)!
         scene?.camera = cameraNode
-//        boundsCheckCharacter()
-//        boundsCheckCamera()
+        boundsCheckCamera()
         let elapsedDidBeginTime = currentTime - lastDidBeginTime
         if elapsedDidBeginTime > 0.5 {
             isColliding = false
@@ -232,35 +154,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     }
     
     func setupJoystick() {
-        addChild(analogJoystick)
-//        analogJoystick.trackingHandler = { [unowned self] data in
-//            self.character!.position = CGPoint(x: self.character!.position.x + (data.velocity.x * self.velocityMultiplier),
-//                                               y: self.character!.position.y + (data.velocity.y * self.velocityMultiplier))
-//            self.character!.zRotation = data.angular
-//
-//            let minX = background!.position.x - background!.size.width / 2 + size.width / 2
-//            let minY = background!.position.y - background!.size.height / 2 + size.height / 2
-//            let maxX = background!.position.x + background!.size.width / 2 - size.width / 2
-//            let maxY = background!.position.y + background!.size.height / 2 - size.height / 2
-//
-//            let cameraX = cameraNode.position.x
-//            let cameraY = cameraNode.position.y
-//
-//            if cameraX < minX {
-//                cameraNode.position.x = minX
-//            } else if cameraX > maxX {
-//                cameraNode.position.x = maxX
-//            }
-//
-//            if cameraY < minY {
-//                cameraNode.position.y = minY
-//            } else if cameraY > maxY {
-//                cameraNode.position.y = maxY
-//            }
-//
-//
-//            self.analogJoystick.position = CGPoint(x: cameraX - 600 + (data.velocity.x * self.velocityMultiplier),
-//                                                   y: cameraY - 220 + (data.velocity.y * self.velocityMultiplier))
-//        }
+        analogJoystick = AnalogJoystick(diameter: 300, colors: nil, images: (substrate: #imageLiteral(resourceName: "jSubstrate"), stick: #imageLiteral(resourceName: "jStick")))
+        analogJoystick!.position = CGPoint(x: -450, y: -400)
+        analogJoystick!.zPosition = 2
+        addChild(analogJoystick!)
     }
 }
