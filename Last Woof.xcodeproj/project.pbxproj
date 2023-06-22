@@ -24,6 +24,10 @@
 		91F358AC2A3B27860072FF71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91F358AA2A3B27860072FF71 /* Main.storyboard */; };
 		D60812062A430736004E842E /* MainMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60812052A430736004E842E /* MainMenu.swift */; };
 		D608120C2A430CA6004E842E /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = D608120B2A430CA6004E842E /* MainMenu.sks */; };
+		D60812112A43F278004E842E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D608120F2A43F278004E842E /* Assets.xcassets */; };
+		D60812122A43F278004E842E /* HomeSmoke.sks in Resources */ = {isa = PBXBuildFile; fileRef = D60812102A43F278004E842E /* HomeSmoke.sks */; };
+		D631DFB52A43FEF600DF6251 /* CreditsScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = D631DFB42A43FEF600DF6251 /* CreditsScene.sks */; };
+		D631DFB72A43FF1500DF6251 /* CreditsScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D631DFB62A43FF1500DF6251 /* CreditsScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +49,10 @@
 		91F358AB2A3B27860072FF71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LastWoof/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D60812052A430736004E842E /* MainMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenu.swift; sourceTree = "<group>"; };
 		D608120B2A430CA6004E842E /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
+		D608120F2A43F278004E842E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../../../../i-wish-you-were-there/I-Wish-You-Were-There/I-Wish-You-Were-There/ParticleEmitters/Assets.xcassets"; sourceTree = "<group>"; };
+		D60812102A43F278004E842E /* HomeSmoke.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = HomeSmoke.sks; path = "../../../../../i-wish-you-were-there/I-Wish-You-Were-There/I-Wish-You-Were-There/ParticleEmitters/HomeSmoke.sks"; sourceTree = "<group>"; };
+		D631DFB42A43FEF600DF6251 /* CreditsScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CreditsScene.sks; sourceTree = "<group>"; };
+		D631DFB62A43FF1500DF6251 /* CreditsScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,10 +188,30 @@
 		D60812042A430693004E842E /* MainMenu */ = {
 			isa = PBXGroup;
 			children = (
+				D631DFB32A43FEDC00DF6251 /* CreditsScene */,
+				D608120E2A43F26A004E842E /* ParticleEmitters */,
 				D60812052A430736004E842E /* MainMenu.swift */,
 				D608120B2A430CA6004E842E /* MainMenu.sks */,
 			);
 			path = MainMenu;
+			sourceTree = "<group>";
+		};
+		D608120E2A43F26A004E842E /* ParticleEmitters */ = {
+			isa = PBXGroup;
+			children = (
+				D608120F2A43F278004E842E /* Assets.xcassets */,
+				D60812102A43F278004E842E /* HomeSmoke.sks */,
+			);
+			path = ParticleEmitters;
+			sourceTree = "<group>";
+		};
+		D631DFB32A43FEDC00DF6251 /* CreditsScene */ = {
+			isa = PBXGroup;
+			children = (
+				D631DFB42A43FEF600DF6251 /* CreditsScene.sks */,
+				D631DFB62A43FF1500DF6251 /* CreditsScene.swift */,
+			);
+			path = CreditsScene;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -249,6 +277,9 @@
 				D608120C2A430CA6004E842E /* MainMenu.sks in Resources */,
 				91F358AC2A3B27860072FF71 /* Main.storyboard in Resources */,
 				91F3587A2A3B13A40072FF71 /* GameScene.sks in Resources */,
+				D60812122A43F278004E842E /* HomeSmoke.sks in Resources */,
+				D60812112A43F278004E842E /* Assets.xcassets in Resources */,
+				D631DFB52A43FEF600DF6251 /* CreditsScene.sks in Resources */,
 				91F357F82A3A1F000072FF71 /* Assets.xcassets in Resources */,
 				91F3587E2A3B13AD0072FF71 /* Actions.sks in Resources */,
 			);
@@ -266,6 +297,7 @@
 				91F3587D2A3B13AD0072FF71 /* AppDelegate.swift in Sources */,
 				15434F352A42A1020086583E /* PhysicsComponent.swift in Sources */,
 				91F358792A3B13A40072FF71 /* GameScene.swift in Sources */,
+				D631DFB72A43FF1500DF6251 /* CreditsScene.swift in Sources */,
 				91F358782A3B13A40072FF71 /* GameViewController.swift in Sources */,
 				0B7ECDE92A41AE9F00B0709B /* RemoveInventoryComponent.swift in Sources */,
 				15434F332A40A1780086583E /* MovementComponent.swift in Sources */,
