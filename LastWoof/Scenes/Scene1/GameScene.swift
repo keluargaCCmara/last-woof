@@ -17,28 +17,21 @@ struct PhysicsCategory {
 
 protocol PhysicsContactDelegate: AnyObject {
     func didBegin(_ contact: SKPhysicsContact)
-//    func didEnd(_ contact: SKPhysicsContact)
+    //    func didEnd(_ contact: SKPhysicsContact)
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private var cameraNode: SKCameraNode = SKCameraNode()
     private var background: SKSpriteNode?
     private var entities: [GKEntity] = []
-    private var character: SKSpriteNode?
-    
-    private let characterMovePointsPerSec: CGFloat = 480.0
-    private var characterVelocity = CGPoint.zero
-    
-    private var lastUpdateTime: TimeInterval = 0
-    private var dt: TimeInterval = 0
-    
     private var lastTouchLocation: CGPoint?
-    
     private var isColliding: Bool = false
     private var lastDidBeginTime: TimeInterval = 0
     
-//    let physicsComponentSystem = GKComponentSystem(componentClass: PhysicsComponent.self)
-    let storeComponentSystem = GKComponentSystem(componentClass: StoreInventoryComponent.self)
+    let visualComponentSystem = GKComponentSystem(componentClass: VisualComponent.self)
+    let physicsComponentSystem = GKComponentSystem(componentClass: PhysicsComponent.self)
+    let movementComponentSystem = GKComponentSystem(componentClass: MovementComponent.self)
+    private var analogJoystick: AnalogJoystick?
     
     private var entityManager: EntityManager!
     
@@ -51,15 +44,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         }
         self.background = backgroundNode
         self.background?.zPosition = -1
+        setupJoystick()
         
-//        let character = generateEntity(components: [
-//            VisualComponent(imageName: "DummyCharacter", size: CGSize(width: 200, height: 200), position: CGPoint(x: 140, y: -183), zPosition: 1, zRotation: 0, isDynamic: true, categoryBitMask: PhysicsCategory.character),
-//            MovementComponent(node: SKShapeNode(fileNamed: "DummyCharacter")!)
-//        ])
-        
-//        character = generateCharacter(imagedName: "DummyCharacter", width: 200, height: 200, xPosition: 140, yPosition: -183, zPosition: 1, zRotation: 0, isDynamic: true)
-//        addChild(character!)
-        
+        let character = generateEntity(components: [
+            VisualComponent(imageName: "DummyCharacter", size: CGSize(width: 200, height: 200), position: CGPoint(x: 140, y: -183), zPosition: 1, zRotation: 0),
+            PhysicsComponent(size: CGSize(width: 200, height: 200), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
+            MovementComponent(analogJoystick: analogJoystick!)
+        ])
+        cameraNode.position = (character.component(ofType: VisualComponent.self)?.visualNode.position)!
         
         let pond = generateEntity(components: [
             VisualComponent(imageName: "Pond", size: CGSize(width: 1604, height: 844), position: CGPoint(x: 1647, y: -1217), zPosition: 2, zRotation: 0),
@@ -81,18 +73,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             VisualComponent(imageName: "Fence", size: CGSize(width: 1340, height: 2481), position: CGPoint(x: 2105, y: -519), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 1340, height: 2481), imageName: "Fence", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ])
-        
-        let charPos = CGPoint(x: 140, y: -183)
-        let charVC = VisualComponent(imageName: "DummyCharacter", size: CGSize(width: 200, height: 200), position: charPos, zPosition: 1, zRotation: 0)
-        character = charVC.visualNode
-        
-        let character = generateEntity(components: [
-            charVC,
-            PhysicsComponent(size: CGSize(width: 200, height: 200), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
-            PlayerControlComponent(entityManager: entityManager)
-        ])
-        
-        cameraNode.position = charPos
         
         entityManager.add(pond)
         entityManager.add(plant1)
@@ -116,151 +96,57 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         }
         return entity
     }
-    
-//    private func generateCharacter(imagedName: String, width: Double, height: Double, xPosition: Double, yPosition: Double, zPosition: CGFloat, zRotation: CGFloat, isDynamic: Bool, allowsRotation: Bool = false) -> SKSpriteNode {
-//        let texture = SKTexture(imageNamed: imagedName)
-//        let textureSize = CGSize(width: width, height: height)
-//        let entity = SKSpriteNode(texture: texture, size: textureSize)
-//        entity.physicsBody = SKPhysicsBody(texture: texture, size: textureSize)
-//        entity.physicsBody?.isDynamic = isDynamic
-//        entity.physicsBody?.allowsRotation = allowsRotation
-//        entity.physicsBody?.affectedByGravity = false
-//        entity.physicsBody?.categoryBitMask = PhysicsCategory.character
-//        entity.physicsBody?.collisionBitMask = PhysicsCategory.obstacle | PhysicsCategory.object
-//        entity.physicsBody?.contactTestBitMask = PhysicsCategory.obstacle
-//        entity.position = CGPoint(x: xPosition, y: yPosition)
-//        entity.zPosition = zPosition
-//        entity.zRotation = zRotation * CGFloat.pi / 180
-//
-//        return entity
-//    }
-    
-    private func boundsCheckCharacter() {
-        let minX = background!.position.x - background!.size.width / 2 + character!.size.width / 2
-        let minY = background!.position.y - background!.size.height / 2 + character!.size.height / 2
-        let maxX = background!.position.x + background!.size.width / 2 - character!.size.width / 2
-        let maxY = background!.position.y + background!.size.height / 2 - character!.size.height / 2
-        
-        if character!.position.x < minX {
-            character!.position.x = minX
-        } else if character!.position.x > maxX {
-            character!.position.x = maxX
-        }
-        
-        if character!.position.y < minY {
-            character!.position.y = minY
-        } else if character!.position.y > maxY {
-            character!.position.y = maxY
-        }
-    }
-    
+
     private func boundsCheckCamera() {
         let minX = background!.position.x - background!.size.width / 2 + size.width / 2
         let minY = background!.position.y - background!.size.height / 2 + size.height / 2
         let maxX = background!.position.x + background!.size.width / 2 - size.width / 2
         let maxY = background!.position.y + background!.size.height / 2 - size.height / 2
-        
+
         let cameraX = cameraNode.position.x
         let cameraY = cameraNode.position.y
-        
+
         if cameraX < minX {
             cameraNode.position.x = minX
         } else if cameraX > maxX {
             cameraNode.position.x = maxX
         }
-        
+
         if cameraY < minY {
             cameraNode.position.y = minY
         } else if cameraY > maxY {
             cameraNode.position.y = maxY
         }
-    }
-    
-    func moveCharacterToward(location: CGPoint) {
-        let offset = CGPoint(x: location.x - character!.position.x, y: location.y - character!.position.y)
-        let xSquared = offset.x * offset.x
-        let ySquared = offset.y * offset.y
-        let sumOfSquares = xSquared + ySquared
-        let length = sqrt(Double(sumOfSquares))
         
-        let direction = CGPoint(x: offset.x / CGFloat(length), y: offset.y / CGFloat(length))
-        
-        characterVelocity = CGPoint(x: direction.x * characterMovePointsPerSec, y: direction.y * characterMovePointsPerSec)
-    }
-    
-    func moveCharacter(sprite: SKSpriteNode, velocity: CGPoint) {
-        let amountToMove = CGPoint(x: velocity.x * CGFloat(dt), y: velocity.y * CGFloat(dt))
-        
-        sprite.position = CGPoint(x: sprite.position.x + amountToMove.x, y: sprite.position.y + amountToMove.y)
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else {
-            return
-        }
-        
-        let touchLocation = touch.location(in: self)
-        lastTouchLocation = touchLocation
-        moveCharacterToward(location: touchLocation)
-    }
-    
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else {
-            return
-        }
-        
-        let touchLocation = touch.location(in: self)
-        lastTouchLocation = touchLocation
-        moveCharacterToward(location: touchLocation)
+        analogJoystick?.position = CGPoint(x: cameraNode.position.x - 600, y: cameraNode.position.y - 220)
     }
     
     override func update(_ currentTime: TimeInterval) {
         entityManager.update(deltaTime: currentTime)
-        if lastUpdateTime > 0 {
-            dt = currentTime - lastUpdateTime
-        } else {
-            dt = 0
-        }
-        lastUpdateTime = currentTime
+        physicsComponentSystem.update(deltaTime: currentTime)
+        movementComponentSystem.update(deltaTime: currentTime)
+        visualComponentSystem.update(deltaTime: currentTime)
         
-        if let lastTouchLocation = lastTouchLocation {
-            let diff = CGPoint(x: lastTouchLocation.x - character!.position.x, y: lastTouchLocation.y - character!.position.y )
-            let diffLength = hypot(diff.x, diff.y)
-            if (diffLength <= characterMovePointsPerSec * CGFloat(dt)) {
-                character!.position = lastTouchLocation
-                characterVelocity = CGPointZero
-            } else {
-                moveCharacter(sprite: character!, velocity: characterVelocity)
-            }
-        }
-        cameraNode.position = character!.position
+        cameraNode.position = (entities[0].component(ofType: VisualComponent.self)?.visualNode.position)!
         scene?.camera = cameraNode
         boundsCheckCamera()
         let elapsedDidBeginTime = currentTime - lastDidBeginTime
         if elapsedDidBeginTime > 0.5 {
             isColliding = false
-//            print("Character separated with obstacle")
+//                        print("Character separated with obstacle")
         }
     }
-        
+    
     // MARK: PhysicsContactDelegate Protocol
     func didBegin(_ contact: SKPhysicsContact) {
         let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         self.lastDidBeginTime = CACurrentMediaTime()
-
+        
         if collision == PhysicsCategory.character | PhysicsCategory.obstacle {
             isColliding = true
             handleCharacterObstacleCollision(contact: contact)
         }
     }
-    
-//    func didEnd(_ contact: SKPhysicsContact) {
-//        let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-//
-//        if collision == PhysicsCategory.character | PhysicsCategory.obstacle {
-////            handleCharacterObstacleSeparation(contact: contact)
-//        }
-//    }
     
     private func handleCharacterObstacleCollision(contact: SKPhysicsContact) {
         let characterNode = contact.bodyA.categoryBitMask == PhysicsCategory.character ? contact.bodyA.node : contact.bodyB.node
@@ -272,12 +158,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private func handleCharacterObstacleSeparation(contact: SKPhysicsContact) {
         print("Character separated with obstacle")
     }
-}
-
-extension CGPoint {
-    func distance(to point: CGPoint) -> CGFloat {
-        let dx = point.x - self.x
-        let dy = point.y - self.y
-        return sqrt(dx*dx + dy*dy)
+    
+    func setupJoystick() {
+        analogJoystick = AnalogJoystick(diameter: 300, colors: nil, images: (substrate: #imageLiteral(resourceName: "jSubstrate"), stick: #imageLiteral(resourceName: "jStick")))
+        analogJoystick!.position = CGPoint(x: -450, y: -400)
+        analogJoystick!.zPosition = 2
+        addChild(analogJoystick!)
     }
 }
