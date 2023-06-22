@@ -74,19 +74,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             PhysicsComponent(size: CGSize(width: 1340, height: 2481), imageName: "Fence", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ])
         
-        entityManager.add(pond)
-        entityManager.add(plant1)
-        entityManager.add(plant2)
-        entityManager.add(fence)
-        entityManager.add(character)
+//        entityManager.add(pond)
+//        entityManager.add(plant1)
+//        entityManager.add(plant2)
+//        entityManager.add(fence)
+//        entityManager.add(character)
 
-//        entities = [pond, plant1, plant2, fence]
-//        entities.forEach { entity in
-//            if let visualComponent = entity.component(ofType: VisualComponent.self) {
-//                addChild(visualComponent.visualNode)
-////                physicsComponentSystem.addComponent(foundIn: entity)
-//            }
-//        }
+        entities = [character, pond, plant1, plant2, fence]
+        entities.forEach { entity in
+            if let visualComponent = entity.component(ofType: VisualComponent.self) {
+                addChild(visualComponent.visualNode)
+                physicsComponentSystem.addComponent(foundIn: entity)
+            }
+        }
     }
     
     private func generateEntity(components: [GKComponent]) -> GKEntity {
