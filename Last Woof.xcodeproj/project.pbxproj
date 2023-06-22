@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B7ECDE32A41AD6800B0709B /* StoryScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7ECDE22A41AD6800B0709B /* StoryScene.swift */; };
+		0B7ECDE52A41AE5100B0709B /* StateChangeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7ECDE42A41AE5100B0709B /* StateChangeComponent.swift */; };
+		0B7ECDE72A41AE8A00B0709B /* StoreInventoryComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7ECDE62A41AE8A00B0709B /* StoreInventoryComponent.swift */; };
+		0B7ECDE92A41AE9F00B0709B /* RemoveInventoryComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7ECDE82A41AE9F00B0709B /* RemoveInventoryComponent.swift */; };
 		15434F2F2A406B550086583E /* VisualComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F2E2A406B550086583E /* VisualComponent.swift */; };
 		15434F332A40A1780086583E /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F322A40A1780086583E /* MovementComponent.swift */; };
 		15434F352A42A1020086583E /* PhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F342A42A1020086583E /* PhysicsComponent.swift */; };
@@ -18,9 +22,15 @@
 		91F3587D2A3B13AD0072FF71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F3587B2A3B13AD0072FF71 /* AppDelegate.swift */; };
 		91F3587E2A3B13AD0072FF71 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 91F3587C2A3B13AD0072FF71 /* Actions.sks */; };
 		91F358AC2A3B27860072FF71 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91F358AA2A3B27860072FF71 /* Main.storyboard */; };
+		D60812012A42DF58004E842E /* JoystickComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60812002A42DF58004E842E /* JoystickComponent.swift */; };
+		D60812032A42E1D6004E842E /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60812022A42E1D6004E842E /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B7ECDE22A41AD6800B0709B /* StoryScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryScene.swift; sourceTree = "<group>"; };
+		0B7ECDE42A41AE5100B0709B /* StateChangeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateChangeComponent.swift; sourceTree = "<group>"; };
+		0B7ECDE62A41AE8A00B0709B /* StoreInventoryComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInventoryComponent.swift; sourceTree = "<group>"; };
+		0B7ECDE82A41AE9F00B0709B /* RemoveInventoryComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveInventoryComponent.swift; sourceTree = "<group>"; };
 		15434F2E2A406B550086583E /* VisualComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualComponent.swift; sourceTree = "<group>"; };
 		15434F322A40A1780086583E /* MovementComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		15434F342A42A1020086583E /* PhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsComponent.swift; sourceTree = "<group>"; };
@@ -33,6 +43,8 @@
 		91F3587B2A3B13AD0072FF71 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91F3587C2A3B13AD0072FF71 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		91F358AB2A3B27860072FF71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LastWoof/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D60812002A42DF58004E842E /* JoystickComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoystickComponent.swift; sourceTree = "<group>"; };
+		D60812022A42E1D6004E842E /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B7ECDDD2A41AD3700B0709B /* StoryScene */ = {
+			isa = PBXGroup;
+			children = (
+				0B7ECDE22A41AD6800B0709B /* StoryScene.swift */,
+			);
+			path = StoryScene;
+			sourceTree = "<group>";
+		};
 		15434F2D2A405FB60086583E /* Scene1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +105,7 @@
 				91F358752A3B13A40072FF71 /* GameViewController.swift */,
 				91F3587C2A3B13AD0072FF71 /* Actions.sks */,
 				91F3587B2A3B13AD0072FF71 /* AppDelegate.swift */,
+				D60812022A42E1D6004E842E /* Extensions.swift */,
 			);
 			path = LastWoof;
 			sourceTree = "<group>";
@@ -99,6 +120,7 @@
 		91F358032A3A207E0072FF71 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				0B7ECDDD2A41AD3700B0709B /* StoryScene */,
 				15434F2D2A405FB60086583E /* Scene1 */,
 			);
 			path = Scenes;
@@ -126,7 +148,11 @@
 			children = (
 				15434F2E2A406B550086583E /* VisualComponent.swift */,
 				15434F322A40A1780086583E /* MovementComponent.swift */,
+				0B7ECDE42A41AE5100B0709B /* StateChangeComponent.swift */,
+				0B7ECDE62A41AE8A00B0709B /* StoreInventoryComponent.swift */,
+				0B7ECDE82A41AE9F00B0709B /* RemoveInventoryComponent.swift */,
 				15434F342A42A1020086583E /* PhysicsComponent.swift */,
+				D60812002A42DF58004E842E /* JoystickComponent.swift */,
 			);
 			path = Characters;
 			sourceTree = "<group>";
@@ -226,11 +252,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B7ECDE32A41AD6800B0709B /* StoryScene.swift in Sources */,
 				91F3587D2A3B13AD0072FF71 /* AppDelegate.swift in Sources */,
+				D60812012A42DF58004E842E /* JoystickComponent.swift in Sources */,
 				15434F352A42A1020086583E /* PhysicsComponent.swift in Sources */,
+				D60812032A42E1D6004E842E /* Extensions.swift in Sources */,
 				91F358792A3B13A40072FF71 /* GameScene.swift in Sources */,
 				91F358782A3B13A40072FF71 /* GameViewController.swift in Sources */,
+				0B7ECDE92A41AE9F00B0709B /* RemoveInventoryComponent.swift in Sources */,
 				15434F332A40A1780086583E /* MovementComponent.swift in Sources */,
+				0B7ECDE52A41AE5100B0709B /* StateChangeComponent.swift in Sources */,
+				0B7ECDE72A41AE8A00B0709B /* StoreInventoryComponent.swift in Sources */,
 				15434F2F2A406B550086583E /* VisualComponent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
