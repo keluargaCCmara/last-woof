@@ -1,0 +1,57 @@
+//
+//  EntityManager.swift
+//  Last Woof
+//
+//  Created by Angela Christabel on 22/06/23.
+//
+
+import Foundation
+import SpriteKit
+import GameplayKit
+
+class EntityManager {
+    var entities = Set<GKEntity>()
+    var toRemove = Set<GKEntity>()
+    let scene: SKScene
+    
+    lazy var componentSystems: [GKComponentSystem] = {
+        let playerControlSystem = GKComponentSystem(componentClass: PlayerControlComponent.self)
+        let physicsSystem = GKComponentSystem(componentClass: PhysicsComponent.self)
+        let stateChangeSystem = GKComponentSystem(componentClass: StateChangeComponent.self)
+        let storeInventorySystem = GKComponentSystem(componentClass: StoreInventoryComponent.self)
+        let removeInventorySystem = GKComponentSystem(componentClass: RemoveInventoryComponent.self)
+        return [playerControlSystem, physicsSystem, stateChangeSystem, storeInventorySystem, removeInventorySystem]
+    }()
+    
+    init(scene: SKScene) {
+        self.scene = scene
+    }
+    
+    func add(_ entity: GKEntity) {
+        entities.insert(entity)
+
+        for componentSystem in componentSystems {
+            componentSystem.addComponent(foundIn: entity)
+        }
+
+        if let visualNode = entity.component(ofType: VisualComponent.self)?.visualNode {
+            scene.addChild(visualNode)
+        }
+    }
+    
+    func inventoryAbleEntities() -> [GKEntity] {
+        var inventories: [GKEntity] = []
+        for entity in entities {
+            if let _ = entity.component(ofType: StoreInventoryComponent.self) {
+                inventories.append(entity)
+            }
+        }
+        return inventories
+    }
+    
+    func update(deltaTime: CFTimeInterval) {
+        for componentSystem in componentSystems {
+            componentSystem.update(deltaTime: deltaTime)
+        }
+    }
+}

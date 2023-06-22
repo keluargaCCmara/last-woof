@@ -37,9 +37,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private var isColliding: Bool = false
     private var lastDidBeginTime: TimeInterval = 0
     
-    let physicsComponentSystem = GKComponentSystem(componentClass: PhysicsComponent.self)
+//    let physicsComponentSystem = GKComponentSystem(componentClass: PhysicsComponent.self)
+    let storeComponentSystem = GKComponentSystem(componentClass: StoreInventoryComponent.self)
+    
+    private var entityManager: EntityManager!
     
     override func didMove(to view: SKView) {
+        entityManager = EntityManager(scene: self)
+        
         physicsWorld.contactDelegate = self
         guard let backgroundNode = childNode(withName: "background") as? SKSpriteNode else {
             fatalError("Background node not found in .sks file")
@@ -52,14 +57,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
 //            MovementComponent(node: SKShapeNode(fileNamed: "DummyCharacter")!)
 //        ])
         
-        character = generateCharacter(imagedName: "DummyCharacter", width: 200, height: 200, xPosition: 140, yPosition: -183, zPosition: 1, zRotation: 0, isDynamic: true)
-        addChild(character!)
+//        character = generateCharacter(imagedName: "DummyCharacter", width: 200, height: 200, xPosition: 140, yPosition: -183, zPosition: 1, zRotation: 0, isDynamic: true)
+//        addChild(character!)
         
-        cameraNode.position = character!.position
         
         let pond = generateEntity(components: [
             VisualComponent(imageName: "Pond", size: CGSize(width: 1604, height: 844), position: CGPoint(x: 1647, y: -1217), zPosition: 2, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 1604, height: 844), imageName: "Pond", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
+            PhysicsComponent(size: CGSize(width: 1604, height: 844), imageName: "Pond", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
+            StoreInventoryComponent()
         ])
         
         let plant1 = generateEntity(components: [
@@ -77,13 +82,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             PhysicsComponent(size: CGSize(width: 1340, height: 2481), imageName: "Fence", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ])
         
-        entities = [pond, plant1, plant2, fence]
-        entities.forEach { entity in
-            if let visualComponent = entity.component(ofType: VisualComponent.self) {
-                addChild(visualComponent.visualNode)
-                physicsComponentSystem.addComponent(foundIn: entity)
-            }
-        }
+        let charPos = CGPoint(x: 140, y: -183)
+        let charVC = VisualComponent(imageName: "DummyCharacter", size: CGSize(width: 200, height: 200), position: charPos, zPosition: 1, zRotation: 0)
+        character = charVC.visualNode
+        
+        let character = generateEntity(components: [
+            charVC,
+            PhysicsComponent(size: CGSize(width: 200, height: 200), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
+            PlayerControlComponent(entityManager: entityManager)
+        ])
+        
+        cameraNode.position = charPos
+        
+        entityManager.add(pond)
+        entityManager.add(plant1)
+        entityManager.add(plant2)
+        entityManager.add(fence)
+        entityManager.add(character)
+
+//        entities = [pond, plant1, plant2, fence]
+//        entities.forEach { entity in
+//            if let visualComponent = entity.component(ofType: VisualComponent.self) {
+//                addChild(visualComponent.visualNode)
+////                physicsComponentSystem.addComponent(foundIn: entity)
+//            }
+//        }
     }
     
     private func generateEntity(components: [GKComponent]) -> GKEntity {
@@ -94,23 +117,23 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         return entity
     }
     
-    private func generateCharacter(imagedName: String, width: Double, height: Double, xPosition: Double, yPosition: Double, zPosition: CGFloat, zRotation: CGFloat, isDynamic: Bool, allowsRotation: Bool = false) -> SKSpriteNode {
-        let texture = SKTexture(imageNamed: imagedName)
-        let textureSize = CGSize(width: width, height: height)
-        let entity = SKSpriteNode(texture: texture, size: textureSize)
-        entity.physicsBody = SKPhysicsBody(texture: texture, size: textureSize)
-        entity.physicsBody?.isDynamic = isDynamic
-        entity.physicsBody?.allowsRotation = allowsRotation
-        entity.physicsBody?.affectedByGravity = false
-        entity.physicsBody?.categoryBitMask = PhysicsCategory.character
-        entity.physicsBody?.collisionBitMask = PhysicsCategory.obstacle | PhysicsCategory.object
-        entity.physicsBody?.contactTestBitMask = PhysicsCategory.obstacle
-        entity.position = CGPoint(x: xPosition, y: yPosition)
-        entity.zPosition = zPosition
-        entity.zRotation = zRotation * CGFloat.pi / 180
-        
-        return entity
-    }
+//    private func generateCharacter(imagedName: String, width: Double, height: Double, xPosition: Double, yPosition: Double, zPosition: CGFloat, zRotation: CGFloat, isDynamic: Bool, allowsRotation: Bool = false) -> SKSpriteNode {
+//        let texture = SKTexture(imageNamed: imagedName)
+//        let textureSize = CGSize(width: width, height: height)
+//        let entity = SKSpriteNode(texture: texture, size: textureSize)
+//        entity.physicsBody = SKPhysicsBody(texture: texture, size: textureSize)
+//        entity.physicsBody?.isDynamic = isDynamic
+//        entity.physicsBody?.allowsRotation = allowsRotation
+//        entity.physicsBody?.affectedByGravity = false
+//        entity.physicsBody?.categoryBitMask = PhysicsCategory.character
+//        entity.physicsBody?.collisionBitMask = PhysicsCategory.obstacle | PhysicsCategory.object
+//        entity.physicsBody?.contactTestBitMask = PhysicsCategory.obstacle
+//        entity.position = CGPoint(x: xPosition, y: yPosition)
+//        entity.zPosition = zPosition
+//        entity.zRotation = zRotation * CGFloat.pi / 180
+//
+//        return entity
+//    }
     
     private func boundsCheckCharacter() {
         let minX = background!.position.x - background!.size.width / 2 + character!.size.width / 2
@@ -192,7 +215,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        physicsComponentSystem.update(deltaTime: currentTime)
+        entityManager.update(deltaTime: currentTime)
         if lastUpdateTime > 0 {
             dt = currentTime - lastUpdateTime
         } else {
@@ -244,8 +267,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let obstacleNode = contact.bodyA.categoryBitMask == PhysicsCategory.obstacle ? contact.bodyA.node : contact.bodyB.node
         
         // Perform actions or logic when character collides with an obstacle
-        print("Character collided with obstacle")
-        
     }
     
     private func handleCharacterObstacleSeparation(contact: SKPhysicsContact) {

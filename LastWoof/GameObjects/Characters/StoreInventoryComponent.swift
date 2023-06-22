@@ -9,6 +9,7 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
+
 class StoreInventoryComponent: GKComponent {
     // MARK: Properties
     var visualComponent: VisualComponent? {

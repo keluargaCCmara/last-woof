@@ -47,8 +47,4 @@ struct PersistenceController {
             }
         }
     }
-    
-//    func deleteAllRecords() {
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "")
-//    }
 }
