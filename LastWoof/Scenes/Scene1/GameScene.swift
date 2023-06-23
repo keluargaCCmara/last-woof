@@ -143,6 +143,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         analogJoystick?.position = CGPoint(x: cameraNode.position.x - 700, y: cameraNode.position.y - 220)
         
         actionButton?.position = CGPoint(x: cameraNode.position.x + 650, y: cameraNode.position.y - 220)
+        actionButton?.alpha = 0.5
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -170,13 +171,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         let interract = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         self.lastDidBeginTime = CACurrentMediaTime()
-        
         if collision == PhysicsCategory.character | PhysicsCategory.obstacle {
             isColliding = true
             handleCharacterObstacleCollision(contact: contact)
         }
         if interract == PhysicsCategory.character | PhysicsCategory.task {
             handleCharacterObstacleCollision(contact: contact)
+            actionButton?.alpha = 1
         }
     }
     
@@ -189,6 +190,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         // Perform actions or logic when character collides with an obstacle
         print("Character collided with obstacle")
         print(taskNode?.position)
+        
     }
     
     private func handleCharacterObstacleSeparation(contact: SKPhysicsContact) {
