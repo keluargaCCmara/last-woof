@@ -75,6 +75,8 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
             }
         }
         
+
+        
         self.cursor = SKSpriteNode(imageNamed: "home-cursor")
         if let cursor = self.cursor {
             cursor.size = CGSize(width: 40, height: 40)
@@ -139,10 +141,11 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                     if let creditsButtonNode = creditsButtonNode, creditsButtonNode.contains(t.location(in: self)) {
                         
                         // Add a transition to the CreditsScene
-                        let wait = SKAction.wait(forDuration: 2.5)
+                        let wait = SKAction.wait(forDuration: 1)
                         let transition = SKTransition.crossFade(withDuration: 0.001)
                         let creditsScene = CreditsScene(fileNamed: "CreditsScene")!
                         let sequence = SKAction.sequence([wait, SKAction.run {
+                            creditsScene.size = self.size
                             self.view?.presentScene(creditsScene, transition: transition)
                         }])
                                 self.run(sequence)
