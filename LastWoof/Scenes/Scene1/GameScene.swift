@@ -17,7 +17,6 @@ struct PhysicsCategory {
 
 protocol PhysicsContactDelegate: AnyObject {
     func didBegin(_ contact: SKPhysicsContact)
-    //    func didEnd(_ contact: SKPhysicsContact)
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
@@ -27,11 +26,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private var lastTouchLocation: CGPoint?
     private var isColliding: Bool = false
     private var lastDidBeginTime: TimeInterval = 0
+    private var detectedObject: SKNode?
+    private var actionButton: SKSpriteNode?
+    private var isActionButtonClicked: Bool = false
+
     
     let visualComponentSystem = GKComponentSystem(componentClass: VisualComponent.self)
     let physicsComponentSystem = GKComponentSystem(componentClass: PhysicsComponent.self)
     let movementComponentSystem = GKComponentSystem(componentClass: MovementComponent.self)
     private var analogJoystick: AnalogJoystick?
+    private var selectedEntityIndex: Int? = nil
+    
     
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
@@ -41,6 +46,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         self.background = backgroundNode
         self.background?.zPosition = -1
         setupJoystick()
+        setupActionButton()
         
         let character = generateEntity(components: [
             VisualComponent(imageName: "DummyCharacter", size: CGSize(width: 200, height: 200), position: CGPoint(x: 140, y: -183), zPosition: 1, zRotation: 0),
@@ -64,12 +70,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             PhysicsComponent(size: CGSize(width: 1097, height: 617), imageName: "Plant2-Decoration", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ])
         
+        let task1 = generateEntity(components: [
+            VisualComponent(imageName: "DogCollar", size: CGSize(width: 399, height: 200), position: CGPoint(x: 518, y: -444), zPosition: 0, zRotation: 0)
+        ])
+        
+        let task2 = generateEntity(components: [
+            VisualComponent(imageName: "Frisbee", size: CGSize(width: 399, height: 200), position: CGPoint(x: -200, y: -604), zPosition: 0, zRotation: 0)
+        ])
+        
         let fence = generateEntity(components: [
             VisualComponent(imageName: "Fence", size: CGSize(width: 1340, height: 2481), position: CGPoint(x: 2105, y: -519), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 1340, height: 2481), imageName: "Fence", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ])
         
-        entities = [character, pond, plant1, plant2, fence]
+        entities = [character, pond, plant1, plant2, fence, task1, task2]
         entities.forEach { entity in
             if let visualComponent = entity.component(ofType: VisualComponent.self) {
                 visualComponentSystem.addComponent(foundIn: entity)
@@ -80,6 +94,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
                 }
             }
         }
+        
     }
     
     private func generateEntity(components: [GKComponent]) -> GKEntity {
@@ -89,29 +104,31 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         }
         return entity
     }
-
+    
     private func boundsCheckCamera() {
         let minX = background!.position.x - background!.size.width / 2 + size.width / 2
         let minY = background!.position.y - background!.size.height / 2 + size.height / 2
         let maxX = background!.position.x + background!.size.width / 2 - size.width / 2
         let maxY = background!.position.y + background!.size.height / 2 - size.height / 2
-
+        
         let cameraX = cameraNode.position.x
         let cameraY = cameraNode.position.y
-
+        
         if cameraX < minX {
             cameraNode.position.x = minX
         } else if cameraX > maxX {
             cameraNode.position.x = maxX
         }
-
+        
         if cameraY < minY {
             cameraNode.position.y = minY
         } else if cameraY > maxY {
             cameraNode.position.y = maxY
         }
         
-        analogJoystick?.position = CGPoint(x: cameraNode.position.x - 600, y: cameraNode.position.y - 220)
+        analogJoystick?.position = CGPoint(x: cameraNode.position.x - 700, y: cameraNode.position.y - 220)
+        
+        actionButton?.position = CGPoint(x: cameraNode.position.x + 650, y: cameraNode.position.y - 220)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -122,10 +139,47 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         cameraNode.position = (entities[0].component(ofType: VisualComponent.self)?.visualNode.position)!
         scene?.camera = cameraNode
         boundsCheckCamera()
+        
         let elapsedDidBeginTime = currentTime - lastDidBeginTime
         if elapsedDidBeginTime > 0.5 {
             isColliding = false
-//                        print("Character separated with obstacle")
+        }
+        
+        if let characterPosition = entities[0].component(ofType: VisualComponent.self)?.visualNode.position {
+            var distances: [CGFloat] = []
+            
+            if entities.count<6 {
+                actionButton?.alpha = 0.5
+            }
+            
+            for i in 5..<entities.count {
+                if let taskPosition = entities[i].component(ofType: VisualComponent.self)?.visualNode.position {
+                    let distance = sqrt(pow(characterPosition.x - taskPosition.x, 2) + pow(characterPosition.y - taskPosition.y, 2))
+                    distances.append(distance)
+                    if let index = distances.firstIndex(where: { $0 < 200 }) {
+                        actionButton?.alpha = 1.0
+                        selectedEntityIndex = index + 5
+                    } else if distance >= 200 {
+                        actionButton?.alpha = 0.5
+                    }
+                }
+            }
+        }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        let touchLocation = touch.location(in: self)
+        
+        if actionButton?.contains(touchLocation) == true {
+            if let selectedEntityIndex = selectedEntityIndex {
+                isActionButtonClicked = true
+                animateActionButton()
+                entities[selectedEntityIndex].component(ofType: VisualComponent.self)?.visualNode.removeFromParent()
+                print("Object \(selectedEntityIndex) removed")
+                entities.remove(at: selectedEntityIndex)
+                self.selectedEntityIndex = nil
+            }
         }
     }
     
@@ -158,5 +212,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         analogJoystick!.position = CGPoint(x: -450, y: -400)
         analogJoystick!.zPosition = 2
         addChild(analogJoystick!)
+    }
+    
+    func setupActionButton() {
+        actionButton = SKSpriteNode(imageNamed: "BeforeGrab")
+        actionButton!.position = CGPoint(x: 700, y: -400)
+        actionButton!.zPosition = 3
+        addChild(actionButton!)
+    }
+    
+    private func animateActionButton() {
+        let beforeGrabTexture = SKTexture(imageNamed: "BeforeGrab")
+        let afterGrabTexture = SKTexture(imageNamed: "AfterGrab")
+        
+        let changeToAfterGrab = SKAction.setTexture(afterGrabTexture)
+        let wait = SKAction.wait(forDuration: 0.1)
+        let changeToBeforeGrab = SKAction.setTexture(beforeGrabTexture)
+        
+        let sequence = SKAction.sequence([changeToAfterGrab, wait, changeToBeforeGrab])
+        
+        actionButton?.run(sequence) { [weak self] in
+            self?.isActionButtonClicked = false
+        }
     }
 }
