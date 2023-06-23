@@ -22,12 +22,6 @@ class MissionSystem: GKComponentSystem<MissionComponent> {
         }
     }
     
-    func updateMissions() {
-        for component in components {
-            component.updateMissionState(gameState: gameState)
-        }
-    }
-    
     func checkMission(name: String) {
         for case let component in components {
             if component.missionID == name {
@@ -45,6 +39,7 @@ class MissionSystem: GKComponentSystem<MissionComponent> {
                         gameState.setSideMissionCompleted(component.missionID, completed: true)
                         deleteDependency(detectedComponent: component)
                         print(component.missionID, " is Completed")
+                        removeComponent(component)
                         break
                     }
                 }

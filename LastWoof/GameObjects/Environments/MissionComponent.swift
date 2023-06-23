@@ -24,10 +24,4 @@ class MissionComponent: GKComponent {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    func updateMissionState(gameState: GameState) {
-        if dependencies.allSatisfy({ gameState.isSideMissionCompleted($0) }) {
-            gameState.setSideMissionCompleted(missionID, completed: true)
-        }
-    }
 }
