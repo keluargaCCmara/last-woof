@@ -14,6 +14,10 @@
 		15434F2F2A406B550086583E /* VisualComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F2E2A406B550086583E /* VisualComponent.swift */; };
 		15434F332A40A1780086583E /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F322A40A1780086583E /* MovementComponent.swift */; };
 		15434F352A42A1020086583E /* PhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F342A42A1020086583E /* PhysicsComponent.swift */; };
+		159619792A4451D8002F3CA9 /* MissionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159619782A4451D8002F3CA9 /* MissionSystem.swift */; };
+		1596197B2A445202002F3CA9 /* MissionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1596197A2A445202002F3CA9 /* MissionComponent.swift */; };
+		1596197D2A445292002F3CA9 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1596197C2A445292002F3CA9 /* GameState.swift */; };
+		159619842A445AF5002F3CA9 /* Scene1Missions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159619832A445AF5002F3CA9 /* Scene1Missions.swift */; };
 		91F357F82A3A1F000072FF71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91F357F72A3A1F000072FF71 /* Assets.xcassets */; };
 		91F357FB2A3A1F000072FF71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91F357F92A3A1F000072FF71 /* LaunchScreen.storyboard */; };
 		91F358782A3B13A40072FF71 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F358752A3B13A40072FF71 /* GameViewController.swift */; };
@@ -34,6 +38,10 @@
 		15434F2E2A406B550086583E /* VisualComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualComponent.swift; sourceTree = "<group>"; };
 		15434F322A40A1780086583E /* MovementComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		15434F342A42A1020086583E /* PhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsComponent.swift; sourceTree = "<group>"; };
+		159619782A4451D8002F3CA9 /* MissionSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionSystem.swift; sourceTree = "<group>"; };
+		1596197A2A445202002F3CA9 /* MissionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionComponent.swift; sourceTree = "<group>"; };
+		1596197C2A445292002F3CA9 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		159619832A445AF5002F3CA9 /* Scene1Missions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene1Missions.swift; sourceTree = "<group>"; };
 		91F357EB2A3A1EFF0072FF71 /* Last Woof.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Last Woof.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F357F72A3A1F000072FF71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91F357FA2A3A1F000072FF71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -71,6 +79,14 @@
 			children = (
 				91F358772A3B13A40072FF71 /* GameScene.sks */,
 				91F358762A3B13A40072FF71 /* GameScene.swift */,
+			);
+			path = Scene1;
+			sourceTree = "<group>";
+		};
+		1596197E2A445A7C002F3CA9 /* Scene1 */ = {
+			isa = PBXGroup;
+			children = (
+				159619832A445AF5002F3CA9 /* Scene1Missions.swift */,
 			);
 			path = Scene1;
 			sourceTree = "<group>";
@@ -113,6 +129,8 @@
 		91F358022A3A20540072FF71 /* Systems */ = {
 			isa = PBXGroup;
 			children = (
+				159619782A4451D8002F3CA9 /* MissionSystem.swift */,
+				1596197C2A445292002F3CA9 /* GameState.swift */,
 			);
 			path = Systems;
 			sourceTree = "<group>";
@@ -160,6 +178,8 @@
 		91F358072A3A20DC0072FF71 /* Environments */ = {
 			isa = PBXGroup;
 			children = (
+				1596197E2A445A7C002F3CA9 /* Scene1 */,
+				1596197A2A445202002F3CA9 /* MissionComponent.swift */,
 			);
 			path = Environments;
 			sourceTree = "<group>";
@@ -252,16 +272,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1596197B2A445202002F3CA9 /* MissionComponent.swift in Sources */,
 				0B7ECDE32A41AD6800B0709B /* StoryScene.swift in Sources */,
 				91F3587D2A3B13AD0072FF71 /* AppDelegate.swift in Sources */,
+				159619842A445AF5002F3CA9 /* Scene1Missions.swift in Sources */,
 				D60812012A42DF58004E842E /* JoystickComponent.swift in Sources */,
 				15434F352A42A1020086583E /* PhysicsComponent.swift in Sources */,
 				D60812032A42E1D6004E842E /* Extensions.swift in Sources */,
 				91F358792A3B13A40072FF71 /* GameScene.swift in Sources */,
 				91F358782A3B13A40072FF71 /* GameViewController.swift in Sources */,
+				159619792A4451D8002F3CA9 /* MissionSystem.swift in Sources */,
 				0B7ECDE92A41AE9F00B0709B /* RemoveInventoryComponent.swift in Sources */,
 				15434F332A40A1780086583E /* MovementComponent.swift in Sources */,
 				0B7ECDE52A41AE5100B0709B /* StateChangeComponent.swift in Sources */,
+				1596197D2A445292002F3CA9 /* GameState.swift in Sources */,
 				0B7ECDE72A41AE8A00B0709B /* StoreInventoryComponent.swift in Sources */,
 				15434F2F2A406B550086583E /* VisualComponent.swift in Sources */,
 			);

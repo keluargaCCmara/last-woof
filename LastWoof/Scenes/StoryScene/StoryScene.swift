@@ -22,7 +22,7 @@ class StoryScene: SKScene {
         
         let epilogueEntity = GKEntity()
         
-        let vc = VisualComponent(imageName: "Epilogue1", size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), position: .zero, zPosition: .zero, zRotation: .zero)
+        let vc = VisualComponent(name:"Epilogue1", imageName: "Epilogue1", size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), position: .zero, zPosition: .zero, zRotation: .zero)
         
         epilogueEntity.addComponent(vc)
         
