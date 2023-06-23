@@ -13,6 +13,7 @@ struct PhysicsCategory {
     static let object: UInt32 = 0b1
     static let character: UInt32 = 0b10
     static let obstacle: UInt32 = 0b100
+    static let task: UInt32 = 0b1000
 }
 
 protocol PhysicsContactDelegate: AnyObject {
@@ -50,7 +51,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         
         let character = generateEntity(components: [
             VisualComponent(imageName: "DummyCharacter", size: CGSize(width: 200, height: 200), position: CGPoint(x: 140, y: -183), zPosition: 1, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 200, height: 200), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
+            PhysicsComponent(size: CGSize(width: 200, height: 200), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle | PhysicsCategory.task),
             MovementComponent(analogJoystick: analogJoystick!)
         ])
         cameraNode.position = (character.component(ofType: VisualComponent.self)?.visualNode.position)!
@@ -62,7 +63,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         
         let plant1 = generateEntity(components: [
             VisualComponent(imageName: "Plant1-Task", size: CGSize(width: 1288, height: 651), position: CGPoint(x: 1777, y: 325), zPosition: 2, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 1288, height: 651), imageName: "Plant1-Task", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
+            PhysicsComponent(size: CGSize(width: 1288, height: 651), imageName: "Plant1-Task", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ])
         
         let plant2 = generateEntity(components: [
@@ -71,7 +72,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         ])
         
         let task1 = generateEntity(components: [
-            VisualComponent(imageName: "DogCollar", size: CGSize(width: 399, height: 200), position: CGPoint(x: 518, y: -444), zPosition: 0, zRotation: 0)
+            VisualComponent(imageName: "DogCollar", size: CGSize(width: 399, height: 200), position: CGPoint(x: 518, y: -444), zPosition: 0, zRotation: 0),
+            PhysicsComponent(size: CGSize(width: 399, height: 200), imageName: "DogCollar", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character)
         ])
         
         let task2 = generateEntity(components: [
@@ -144,52 +146,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         if elapsedDidBeginTime > 0.5 {
             isColliding = false
         }
-        
-        if let characterPosition = entities[0].component(ofType: VisualComponent.self)?.visualNode.position {
-            var distances: [CGFloat] = []
-            
-            if entities.count<6 {
-                actionButton?.alpha = 0.5
-            }
-            
-            for i in 5..<entities.count {
-                if let taskPosition = entities[i].component(ofType: VisualComponent.self)?.visualNode.position {
-                    let distance = sqrt(pow(characterPosition.x - taskPosition.x, 2) + pow(characterPosition.y - taskPosition.y, 2))
-                    distances.append(distance)
-                    if let index = distances.firstIndex(where: { $0 < 200 }) {
-                        actionButton?.alpha = 1.0
-                        selectedEntityIndex = index + 5
-                    } else if distance >= 200 {
-                        actionButton?.alpha = 0.5
-                    }
-                }
-            }
-        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let touchLocation = touch.location(in: self)
-        
-        if actionButton?.contains(touchLocation) == true {
-            if let selectedEntityIndex = selectedEntityIndex {
-                isActionButtonClicked = true
-                animateActionButton()
-                entities[selectedEntityIndex].component(ofType: VisualComponent.self)?.visualNode.removeFromParent()
-                print("Object \(selectedEntityIndex) removed")
-                entities.remove(at: selectedEntityIndex)
-                self.selectedEntityIndex = nil
-            }
-        }
     }
     
     // MARK: PhysicsContactDelegate Protocol
     func didBegin(_ contact: SKPhysicsContact) {
         let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
+        let interract = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         self.lastDidBeginTime = CACurrentMediaTime()
         
         if collision == PhysicsCategory.character | PhysicsCategory.obstacle {
             isColliding = true
+            handleCharacterObstacleCollision(contact: contact)
+        }
+        if interract == PhysicsCategory.character | PhysicsCategory.task {
             handleCharacterObstacleCollision(contact: contact)
         }
     }
@@ -197,10 +171,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private func handleCharacterObstacleCollision(contact: SKPhysicsContact) {
         let characterNode = contact.bodyA.categoryBitMask == PhysicsCategory.character ? contact.bodyA.node : contact.bodyB.node
         let obstacleNode = contact.bodyA.categoryBitMask == PhysicsCategory.obstacle ? contact.bodyA.node : contact.bodyB.node
+        let taskNode = contact.bodyA.categoryBitMask == PhysicsCategory.task ? contact.bodyA.node : contact.bodyB.node
         
-        // Perform actions or logic when character collides with an obstacle
         print("Character collided with obstacle")
-        
+        print(taskNode?.position)
     }
     
     private func handleCharacterObstacleSeparation(contact: SKPhysicsContact) {
