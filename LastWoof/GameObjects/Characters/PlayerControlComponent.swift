@@ -22,20 +22,6 @@ class PlayerControlComponent: GKComponent {
     }
     
     // MARK: Methods
-    override func update(deltaTime seconds: TimeInterval) {
-        super.update(deltaTime: seconds)
-        
-        let inventoryAbleEntities = entityManager.inventoryAbleEntities()
-        
-        for invEntity in inventoryAbleEntities {
-            // Get required components
-            guard let inventoryComponent = invEntity.component(ofType: VisualComponent.self) else { continue }
-
-            if (visualComponent?.visualNode.calculateAccumulatedFrame().intersects(inventoryComponent.visualNode.calculateAccumulatedFrame())) == true {
-                print("bump into inventoryable")
-            }
-        }
-    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

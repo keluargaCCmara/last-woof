@@ -15,12 +15,13 @@ class EntityManager {
     let scene: SKScene
     
     lazy var componentSystems: [GKComponentSystem] = {
+        let visualSystem = GKComponentSystem(componentClass: VisualComponent.self)
         let playerControlSystem = GKComponentSystem(componentClass: PlayerControlComponent.self)
         let physicsSystem = GKComponentSystem(componentClass: PhysicsComponent.self)
         let stateChangeSystem = GKComponentSystem(componentClass: StateChangeComponent.self)
         let storeInventorySystem = GKComponentSystem(componentClass: StoreInventoryComponent.self)
         let removeInventorySystem = GKComponentSystem(componentClass: RemoveInventoryComponent.self)
-        return [playerControlSystem, physicsSystem, stateChangeSystem, storeInventorySystem, removeInventorySystem]
+        return [visualSystem, playerControlSystem, physicsSystem, stateChangeSystem, storeInventorySystem, removeInventorySystem]
     }()
     
     init(scene: SKScene) {
@@ -39,16 +40,29 @@ class EntityManager {
         }
     }
     
-    func inventoryAbleEntities() -> [GKEntity] {
-        var inventories: [GKEntity] = []
+    func isInventoryAble(node: SKNode) -> Bool {
         for entity in entities {
-            if let _ = entity.component(ofType: StoreInventoryComponent.self) {
-                inventories.append(entity)
+            if let vn = entity.component(ofType: VisualComponent.self)?.visualNode {
+                if vn == node {
+                    let inventoryComp = entity.component(ofType: StoreInventoryComponent.self)
+                    inventoryComp?.storeInventory()
+                    return true
+                }
             }
         }
-        return inventories
+        return false
     }
     
+//    func inventoryAbleEntities() -> [GKEntity] {
+//        var inventories: [GKEntity] = []
+//        for entity in entities {
+//            if let _ = entity.component(ofType: StoreInventoryComponent.self) {
+//                inventories.append(entity)
+//            }
+//        }
+//        return inventories
+//    }
+
     func update(deltaTime: CFTimeInterval) {
         for componentSystem in componentSystems {
             componentSystem.update(deltaTime: deltaTime)

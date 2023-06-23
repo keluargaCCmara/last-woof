@@ -17,7 +17,6 @@ struct PhysicsCategory {
 
 protocol PhysicsContactDelegate: AnyObject {
     func didBegin(_ contact: SKPhysicsContact)
-    //    func didEnd(_ contact: SKPhysicsContact)
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
@@ -28,12 +27,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private var isColliding: Bool = false
     private var lastDidBeginTime: TimeInterval = 0
     
-    let visualComponentSystem = GKComponentSystem(componentClass: VisualComponent.self)
-    let physicsComponentSystem = GKComponentSystem(componentClass: PhysicsComponent.self)
-    let movementComponentSystem = GKComponentSystem(componentClass: MovementComponent.self)
+//    let visualComponentSystem = GKComponentSystem(componentClass: VisualComponent.self)
+//    let physicsComponentSystem = GKComponentSystem(componentClass: PhysicsComponent.self)
+//    let movementComponentSystem = GKComponentSystem(componentClass: MovementComponent.self)
     private var analogJoystick: AnalogJoystick?
     
     private var entityManager: EntityManager!
+    private var inventoryManager = InventoryManager.shared
     
     override func didMove(to view: SKView) {
         entityManager = EntityManager(scene: self)
@@ -49,7 +49,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let character = generateEntity(components: [
             VisualComponent(imageName: "DummyCharacter", size: CGSize(width: 200, height: 200), position: CGPoint(x: 140, y: -183), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 200, height: 200), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
-            MovementComponent(analogJoystick: analogJoystick!)
+            MovementComponent(analogJoystick: analogJoystick!),
+            PlayerControlComponent(entityManager: entityManager)
         ])
         cameraNode.position = (character.component(ofType: VisualComponent.self)?.visualNode.position)!
         
@@ -61,7 +62,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         
         let plant1 = generateEntity(components: [
             VisualComponent(imageName: "Plant1-Task", size: CGSize(width: 1288, height: 651), position: CGPoint(x: 1777, y: 325), zPosition: 2, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 1288, height: 651), imageName: "Plant1-Task", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
+            PhysicsComponent(size: CGSize(width: 1288, height: 651), imageName: "Plant1-Task", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
+            StoreInventoryComponent()
         ])
         
         let plant2 = generateEntity(components: [
@@ -82,10 +84,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
 
         entities = [character, pond, plant1, plant2, fence]
         entities.forEach { entity in
-            if let visualComponent = entity.component(ofType: VisualComponent.self) {
-                addChild(visualComponent.visualNode)
-                physicsComponentSystem.addComponent(foundIn: entity)
-            }
+            entityManager.add(entity)
+//            if let visualComponent = entity.component(ofType: VisualComponent.self) {
+//                addChild(visualComponent.visualNode)
+//                physicsComponentSystem.addComponent(foundIn: entity)
+//            }
         }
     }
     
@@ -123,9 +126,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     
     override func update(_ currentTime: TimeInterval) {
         entityManager.update(deltaTime: currentTime)
-        physicsComponentSystem.update(deltaTime: currentTime)
-        movementComponentSystem.update(deltaTime: currentTime)
-        visualComponentSystem.update(deltaTime: currentTime)
+//        physicsComponentSystem.update(deltaTime: currentTime)
+//        movementComponentSystem.update(deltaTime: currentTime)
+//        visualComponentSystem.update(deltaTime: currentTime)
         
         cameraNode.position = (entities[0].component(ofType: VisualComponent.self)?.visualNode.position)!
         scene?.camera = cameraNode
@@ -153,6 +156,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let obstacleNode = contact.bodyA.categoryBitMask == PhysicsCategory.obstacle ? contact.bodyA.node : contact.bodyB.node
         
         // Perform actions or logic when character collides with an obstacle
+        guard entityManager.isInventoryAble(node: obstacleNode!) == true else {return}
     }
     
     private func handleCharacterObstacleSeparation(contact: SKPhysicsContact) {

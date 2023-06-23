@@ -14,6 +14,7 @@ class VisualComponent: GKComponent {
     
     init(imageName: String, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat) {
         visualNode = SKSpriteNode(imageNamed: imageName)
+        visualNode.name = imageName
         visualNode.size = size
         visualNode.position = position
         visualNode.zPosition = zPosition
