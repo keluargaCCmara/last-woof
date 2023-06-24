@@ -61,6 +61,8 @@ class EntityManager {
         let stateChangeComp = entity.component(ofType: StateChangeComponent.self)
         stateChangeComp?.changeState(mode: .fade)
         // remove from entity list
+        let physicsComponent = entity.component(ofType: PhysicsComponent.self)
+        physicsComponent?.visualComponent?.visualNode.physicsBody = nil
         entities.remove(entity)
     }
     

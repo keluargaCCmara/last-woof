@@ -193,6 +193,7 @@
 				15434F342A42A1020086583E /* PhysicsComponent.swift */,
 				0B65299B2A43FAF40057EAC6 /* PlayerControlComponent.swift */,
 				D60812002A42DF58004E842E /* JoystickComponent.swift */,
+				1596197A2A445202002F3CA9 /* MissionComponent.swift */,
 			);
 			path = Characters;
 			sourceTree = "<group>";
@@ -200,7 +201,6 @@
 		91F358072A3A20DC0072FF71 /* Environments */ = {
 			isa = PBXGroup;
 			children = (
-				1596197A2A445202002F3CA9 /* MissionComponent.swift */,
 			);
 			path = Environments;
 			sourceTree = "<group>";

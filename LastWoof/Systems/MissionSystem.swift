@@ -16,44 +16,36 @@ class MissionSystem: GKComponentSystem<MissionComponent> {
         super.init(componentClass: MissionComponent.self)
     }
     
-    func update(entity: GKEntity) {
+    func addComponent(entity: GKEntity) {
         if (entity.component(ofType: MissionComponent.self) != nil) {
             addComponent(foundIn: entity)
         }
     }
     
-    func checkMission(name: String) {
+    func checkMission(name: String) -> Bool {
         for case let component in components {
             if component.missionID == name {
                 if component.dependencies.count > 0 {
-                    printPrompt(detectedComponent: component)
-                    break
+                    print(component.failedPrompt)
+                    return false
                 }
                 else {
                     if component.type == "Main Mission" {
                         gameState.completeMainMission()
                         print("Main Mission Completed")
-                        break
+                        return true
                     }
                     else {
                         gameState.setSideMissionCompleted(component.missionID, completed: true)
                         deleteDependency(detectedComponent: component)
-                        print(component.missionID, " is Completed")
+                        print(component.successPrompt)
                         removeComponent(component)
-                        break
+                        return true
                     }
                 }
             }
         }
-    }
-    
-    private func printPrompt(detectedComponent: MissionComponent) {
-        for case let component in components {
-            if component.missionID == detectedComponent.dependencies.first {
-                print(component.prompt)
-                break
-            }
-        }
+        return false
     }
     
     private func deleteDependency(detectedComponent: MissionComponent) {
@@ -62,7 +54,6 @@ class MissionSystem: GKComponentSystem<MissionComponent> {
                 var i = 0
                 if dependency == detectedComponent.missionID {
                     component.dependencies.remove(at: i)
-                    break
                 }
                 i += 1
             }

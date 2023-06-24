@@ -22,7 +22,6 @@ class InventoryManager {
     
     func loadInventory() {
         let request = NSFetchRequest<NSFetchRequestResult>(entityName: "Inventory")
-        //request.predicate = NSPredicate(format: "age = %@", "12")
         request.returnsObjectsAsFaults = false
         do {
             let result = try persistenceController.viewContext.fetch(request)
@@ -30,8 +29,6 @@ class InventoryManager {
                 let d = data.value(forKey: "name") as! String
                 saveToInventory(name: d)
             }
-//            print("========================")
-//            print("inventory: \(inventory)")
         } catch {
             print("Failed to load Inventory")
         }
@@ -42,6 +39,7 @@ class InventoryManager {
             inventory.insert(name)
             hasChanges = true
         }
+        print(inventory)
     }
     
     func finalSave() {
