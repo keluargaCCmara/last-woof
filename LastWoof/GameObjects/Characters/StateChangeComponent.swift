@@ -22,7 +22,7 @@ class StateChangeComponent: GKComponent {
     }
 
     // MARK: Methods
-    func changeState(mode: State, _ texture: SKTexture?) {
+    func changeState(mode: State, _ texture: SKTexture? = nil) {
         if mode == .fade {
             fade()
         } else {
@@ -31,13 +31,15 @@ class StateChangeComponent: GKComponent {
     }
     
     /// Tells this entity's visual  component to fade.
-    func fade() {
-        let fadeAction = SKAction.fadeOut(withDuration: 1.5)
-        visualComponent?.visualNode.run(fadeAction)
+    private func fade() {
+        let fadeAction = SKAction.fadeOut(withDuration: 0.3)
+        if let vc = visualComponent {
+            vc.visualNode.run(fadeAction)
+        }
     }
     
     /// Tells this entity's visual component to change texture/state
-    func changeTexture(texture: SKTexture?) {
+    private func changeTexture(texture: SKTexture?) {
         guard let node = visualComponent?.visualNode else {return}
         
 //        if node.state == 1 {

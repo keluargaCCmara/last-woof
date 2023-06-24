@@ -40,17 +40,28 @@ class EntityManager {
         }
     }
     
-    func isInventoryAble(node: SKNode) -> Bool {
+    func isInventoryAble(node: SKNode) -> GKEntity? {
         for entity in entities {
             if let vn = entity.component(ofType: VisualComponent.self)?.visualNode {
                 if vn == node {
-                    let inventoryComp = entity.component(ofType: StoreInventoryComponent.self)
-                    inventoryComp?.storeInventory()
-                    return true
+                    return entity
                 }
             }
         }
-        return false
+        return nil
+    }
+    
+    func storeInventory(entity: GKEntity) {
+        let inventoryComp = entity.component(ofType: StoreInventoryComponent.self)
+        inventoryComp?.storeInventory()
+    }
+    
+    func removeEntity(entity: GKEntity) {
+        // fade out
+        let stateChangeComp = entity.component(ofType: StateChangeComponent.self)
+        stateChangeComp?.changeState(mode: .fade)
+        // remove from entity list
+        entities.remove(entity)
     }
     
 //    func inventoryAbleEntities() -> [GKEntity] {

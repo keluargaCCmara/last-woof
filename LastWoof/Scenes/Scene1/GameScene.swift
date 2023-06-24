@@ -55,9 +55,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         cameraNode.position = (character.component(ofType: VisualComponent.self)?.visualNode.position)!
         
         let pond = generateEntity(components: [
-            VisualComponent(imageName: "Pond", size: CGSize(width: 1604, height: 844), position: CGPoint(x: 1647, y: -1217), zPosition: 2, zRotation: 0),
+            VisualComponent(imageName: "Pond", size: CGSize(width: 1604, height: 844), position: CGPoint(x: 1647, y: -1100), zPosition: 2, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 1604, height: 844), imageName: "Pond", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
-            StoreInventoryComponent()
+            StoreInventoryComponent(),
+            StateChangeComponent()
         ])
         
         let plant1 = generateEntity(components: [
@@ -156,7 +157,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let obstacleNode = contact.bodyA.categoryBitMask == PhysicsCategory.obstacle ? contact.bodyA.node : contact.bodyB.node
         
         // Perform actions or logic when character collides with an obstacle
-        guard entityManager.isInventoryAble(node: obstacleNode!) == true else {return}
+        if let entity = entityManager.isInventoryAble(node: obstacleNode!) {
+            entityManager.storeInventory(entity: entity)
+            entityManager.removeEntity(entity: entity)
+        }
     }
     
     private func handleCharacterObstacleSeparation(contact: SKPhysicsContact) {
