@@ -137,8 +137,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         ])
         
         let leaf3 = generateEntity(components: [
-            VisualComponent(name: "Leaf3", imageName: "Leaf3", size: CGSize(width: 2086, height: 1090), position: CGPoint(x: 1043, y: -433), zPosition: 1, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 2086, height: 1090), imageName: "Leaf3", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
+            VisualComponent(name: "Leaf3", imageName: "Leaf2", size: CGSize(width: 2086, height: 1090), position: CGPoint(x: 1043, y: -433), zPosition: 1, zRotation: 0),
+            PhysicsComponent(size: CGSize(width: 2086, height: 1090), imageName: "Leaf2", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
             MissionComponent(missionID: "Leaf3", type: "Side Mission", dependencies: ["SapuGarpu"], failedPrompt: "This backyard looks so messy", successPrompt: "Leaf 3 is gone"),
             StateChangeComponent()
         ])
@@ -146,7 +146,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let frisbee = generateEntity(components: [
             VisualComponent(name: "Frisbee", imageName: "Frisbee", size: CGSize(width: 338, height: 236), position: CGPoint(x: 519, y: -1097), zPosition: 0, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 338, height: 236), imageName: "Frisbee", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            MissionComponent(missionID: "Frisbee", type: "Side Mission", dependencies: ["SapuGarpu", "Leaf1", "Leaf2"], failedPrompt: "This backyard looks so messy.", successPrompt: "You have acquired a Frisbee"),
+            MissionComponent(missionID: "Frisbee", type: "Side Mission", dependencies: ["SapuGarpu", "Leaf1", "Leaf2", "Leaf3"], failedPrompt: "This backyard looks so messy.", successPrompt: "You have acquired a Frisbee"),
             StoreInventoryComponent(),
             StateChangeComponent()
         ])
