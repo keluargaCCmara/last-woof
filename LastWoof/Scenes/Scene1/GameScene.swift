@@ -37,6 +37,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     let missionSystem = MissionSystem(gameState: GameState())
     private var analogJoystick: AnalogJoystick?
     private var selectedEntityIndex: Int? = nil
+    private var contactPoint: CGPoint?
+    private var objectContactedPosition: CGPoint?
 //    let missions: [MissionComponent] = Scene1Missions().missionSystem?.components ?? []
     
     
@@ -83,7 +85,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         ])
         
         let task2 = generateEntity(components: [
-            VisualComponent(name: "Frisbee", imageName: "Frisbee", size: CGSize(width: 399, height: 200), position: CGPoint(x: -200, y: -604), zPosition: 0, zRotation: 0)
+            VisualComponent(name: "Frisbee", imageName: "Frisbee", size: CGSize(width: 399, height: 200), position: CGPoint(x: -200, y: -604), zPosition: 0, zRotation: 0),
+            PhysicsComponent(size: CGSize(width: 399, height: 200), imageName: "Frisbee", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character)
         ])
         
         let fence = generateEntity(components: [
@@ -150,8 +153,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         scene?.camera = cameraNode
         boundsCheckCamera()
         
-        let elapsedDidBeginTime = currentTime - lastDidBeginTime
-        if elapsedDidBeginTime > 0.5 {
+        if checkIfCharacterStillContact(characterPosition: entities[0].component(ofType: VisualComponent.self)?.visualNode.position ?? CGPoint(x: 0, y: 0), contactPoint: contactPoint ?? CGPoint(x: 200, y: 200)) == true {
+            isColliding = true
+            actionButton?.alpha = 1
+        } else {
             isColliding = false
             actionButton?.alpha = 0.5
         }
@@ -160,6 +165,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let touchLocation = touch.location(in: self)
+        
+        if ((actionButton?.frame.contains(touchLocation)) != nil && isColliding) {
+            animateActionButton()
+        }
     }
     
     // MARK: PhysicsContactDelegate Protocol
@@ -168,6 +177,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let interract = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         self.lastDidBeginTime = CACurrentMediaTime()
         
+        contactPoint = contact.contactPoint
         if collision == PhysicsCategory.character | PhysicsCategory.obstacle {
             isColliding = true
             handleCharacterObstacleCollision(contact: contact)
@@ -184,7 +194,27 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let taskNode = contact.bodyA.categoryBitMask == PhysicsCategory.task ? contact.bodyA.node : contact.bodyB.node
         
         // Perform actions or logic when character collides with an obstacle
+        objectContactedPosition = taskNode?.position
+        print(objectContactedPosition)
         actionButton?.alpha = 1
+    }
+    
+    private func checkIfCharacterStillContact(characterPosition: CGPoint, contactPoint: CGPoint) -> Bool {
+        let dx = characterPosition.x - contactPoint.x
+        let dy = characterPosition.y - contactPoint.y
+        return sqrt(dx*dx + dy*dy) < 100
+    }
+    
+    private func getTask() {
+        for entity in entities {
+            var i = 0
+            if entity.component(ofType: VisualComponent.self)?.visualNode.position == objectContactedPosition && entity.component(ofType: VisualComponent.self)?.visualNode.name != "Character" {
+                entity.removeComponent(ofType: VisualComponent.self)
+                entity.removeComponent(ofType: PhysicsComponent.self)
+                break
+            }
+            i += 1
+        }
     }
     
     func setupJoystick() {
@@ -206,7 +236,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let afterGrabTexture = SKTexture(imageNamed: "AfterGrab")
         
         let changeToAfterGrab = SKAction.setTexture(afterGrabTexture)
-        let wait = SKAction.wait(forDuration: 0.1)
+        let wait = SKAction.wait(forDuration: 0.2)
         let changeToBeforeGrab = SKAction.setTexture(beforeGrabTexture)
         
         let sequence = SKAction.sequence([changeToAfterGrab, wait, changeToBeforeGrab])
@@ -214,5 +244,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         actionButton?.run(sequence) { [weak self] in
             self?.isActionButtonClicked = false
         }
+        getTask()
     }
 }
