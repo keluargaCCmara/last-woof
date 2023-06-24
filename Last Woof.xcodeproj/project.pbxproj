@@ -7,10 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0B2A7BC92A4306D0008310E6 /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A7BC82A4306D0008310E6 /* PersistenceController.swift */; };
+		0B2A7BCE2A4306D8008310E6 /* InventoryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A7BCA2A4306D8008310E6 /* InventoryList.swift */; };
+		0B2A7BCF2A4306D8008310E6 /* LastWoof.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0B2A7BCC2A4306D8008310E6 /* LastWoof.xcdatamodeld */; };
+		0B6529982A43E5A20057EAC6 /* EntityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B6529972A43E5A20057EAC6 /* EntityManager.swift */; };
+		0B65299C2A43FAF40057EAC6 /* PlayerControlComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B65299B2A43FAF40057EAC6 /* PlayerControlComponent.swift */; };
 		0B7ECDE32A41AD6800B0709B /* StoryScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7ECDE22A41AD6800B0709B /* StoryScene.swift */; };
 		0B7ECDE52A41AE5100B0709B /* StateChangeComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7ECDE42A41AE5100B0709B /* StateChangeComponent.swift */; };
 		0B7ECDE72A41AE8A00B0709B /* StoreInventoryComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7ECDE62A41AE8A00B0709B /* StoreInventoryComponent.swift */; };
 		0B7ECDE92A41AE9F00B0709B /* RemoveInventoryComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7ECDE82A41AE9F00B0709B /* RemoveInventoryComponent.swift */; };
+		0BE797852A45A5AC00B1F155 /* InventoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE797842A45A5AC00B1F155 /* InventoryManager.swift */; };
+		0BE797872A45B64800B1F155 /* iCloudAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE797862A45B64800B1F155 /* iCloudAuthController.swift */; };
+		0BE797892A46F22200B1F155 /* InventoryScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE797882A46F22200B1F155 /* InventoryScene.swift */; };
 		15434F2F2A406B550086583E /* VisualComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F2E2A406B550086583E /* VisualComponent.swift */; };
 		15434F332A40A1780086583E /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F322A40A1780086583E /* MovementComponent.swift */; };
 		15434F352A42A1020086583E /* PhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F342A42A1020086583E /* PhysicsComponent.swift */; };
@@ -30,10 +38,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0B2A7BC82A4306D0008310E6 /* PersistenceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
+		0B2A7BCA2A4306D8008310E6 /* InventoryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InventoryList.swift; sourceTree = "<group>"; };
+		0B2A7BCD2A4306D8008310E6 /* LastWoof.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LastWoof.xcdatamodel; sourceTree = "<group>"; };
+		0B2A7BD02A430704008310E6 /* Last Woof.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Last Woof.entitlements"; sourceTree = "<group>"; };
+		0B2A7BD12A430756008310E6 /* Last-Woof-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Last-Woof-Info.plist"; sourceTree = "<group>"; };
+		0B6529972A43E5A20057EAC6 /* EntityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntityManager.swift; sourceTree = "<group>"; };
+		0B65299B2A43FAF40057EAC6 /* PlayerControlComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerControlComponent.swift; sourceTree = "<group>"; };
 		0B7ECDE22A41AD6800B0709B /* StoryScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryScene.swift; sourceTree = "<group>"; };
 		0B7ECDE42A41AE5100B0709B /* StateChangeComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateChangeComponent.swift; sourceTree = "<group>"; };
 		0B7ECDE62A41AE8A00B0709B /* StoreInventoryComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreInventoryComponent.swift; sourceTree = "<group>"; };
 		0B7ECDE82A41AE9F00B0709B /* RemoveInventoryComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveInventoryComponent.swift; sourceTree = "<group>"; };
+		0BE797842A45A5AC00B1F155 /* InventoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryManager.swift; sourceTree = "<group>"; };
+		0BE797862A45B64800B1F155 /* iCloudAuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudAuthController.swift; sourceTree = "<group>"; };
+		0BE797882A46F22200B1F155 /* InventoryScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InventoryScene.swift; path = InventoryScene/InventoryScene.swift; sourceTree = "<group>"; };
 		15434F2E2A406B550086583E /* VisualComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualComponent.swift; sourceTree = "<group>"; };
 		15434F322A40A1780086583E /* MovementComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		15434F342A42A1020086583E /* PhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsComponent.swift; sourceTree = "<group>"; };
@@ -64,6 +82,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0B2A7BCB2A4306D8008310E6 /* Data Models */ = {
+			isa = PBXGroup;
+			children = (
+				0B2A7BCC2A4306D8008310E6 /* LastWoof.xcdatamodeld */,
+			);
+			path = "Data Models";
+			sourceTree = "<group>";
+		};
 		0B7ECDDD2A41AD3700B0709B /* StoryScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +110,8 @@
 		91F357E22A3A1EFF0072FF71 = {
 			isa = PBXGroup;
 			children = (
+				0B2A7BD12A430756008310E6 /* Last-Woof-Info.plist */,
+				0B2A7BD02A430704008310E6 /* Last Woof.entitlements */,
 				91F357ED2A3A1EFF0072FF71 /* LastWoof */,
 				91F357EC2A3A1EFF0072FF71 /* Products */,
 			);
@@ -130,6 +158,7 @@
 			children = (
 				0B7ECDDD2A41AD3700B0709B /* StoryScene */,
 				15434F2D2A405FB60086583E /* Scene1 */,
+				0BE797882A46F22200B1F155 /* InventoryScene.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -147,6 +176,8 @@
 		91F358052A3A20A60072FF71 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				0B6529972A43E5A20057EAC6 /* EntityManager.swift */,
+				0BE797842A45A5AC00B1F155 /* InventoryManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -160,6 +191,7 @@
 				0B7ECDE62A41AE8A00B0709B /* StoreInventoryComponent.swift */,
 				0B7ECDE82A41AE9F00B0709B /* RemoveInventoryComponent.swift */,
 				15434F342A42A1020086583E /* PhysicsComponent.swift */,
+				0B65299B2A43FAF40057EAC6 /* PlayerControlComponent.swift */,
 				D60812002A42DF58004E842E /* JoystickComponent.swift */,
 			);
 			path = Characters;
@@ -183,6 +215,10 @@
 		91F358092A3A20F90072FF71 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				0B2A7BCB2A4306D8008310E6 /* Data Models */,
+				0B2A7BC82A4306D0008310E6 /* PersistenceController.swift */,
+				0B2A7BCA2A4306D8008310E6 /* InventoryList.swift */,
+				0BE797862A45B64800B1F155 /* iCloudAuthController.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -265,17 +301,25 @@
 				0B7ECDE32A41AD6800B0709B /* StoryScene.swift in Sources */,
 				91F3587D2A3B13AD0072FF71 /* AppDelegate.swift in Sources */,
 				D60812012A42DF58004E842E /* JoystickComponent.swift in Sources */,
+				0BE797892A46F22200B1F155 /* InventoryScene.swift in Sources */,
 				15434F352A42A1020086583E /* PhysicsComponent.swift in Sources */,
 				D60812032A42E1D6004E842E /* Extensions.swift in Sources */,
 				91F358792A3B13A40072FF71 /* GameScene.swift in Sources */,
+				0B2A7BC92A4306D0008310E6 /* PersistenceController.swift in Sources */,
 				91F358782A3B13A40072FF71 /* GameViewController.swift in Sources */,
+				0B2A7BCE2A4306D8008310E6 /* InventoryList.swift in Sources */,
 				159619792A4451D8002F3CA9 /* MissionSystem.swift in Sources */,
 				0B7ECDE92A41AE9F00B0709B /* RemoveInventoryComponent.swift in Sources */,
+				0BE797852A45A5AC00B1F155 /* InventoryManager.swift in Sources */,
+				0B6529982A43E5A20057EAC6 /* EntityManager.swift in Sources */,
+				0B2A7BCF2A4306D8008310E6 /* LastWoof.xcdatamodeld in Sources */,
 				15434F332A40A1780086583E /* MovementComponent.swift in Sources */,
 				0B7ECDE52A41AE5100B0709B /* StateChangeComponent.swift in Sources */,
 				1596197D2A445292002F3CA9 /* GameState.swift in Sources */,
 				0B7ECDE72A41AE8A00B0709B /* StoreInventoryComponent.swift in Sources */,
 				15434F2F2A406B550086583E /* VisualComponent.swift in Sources */,
+				0B65299C2A43FAF40057EAC6 /* PlayerControlComponent.swift in Sources */,
+				0BE797872A45B64800B1F155 /* iCloudAuthController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -421,11 +465,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = "Last Woof.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XA29694495;
+				DEVELOPMENT_TEAM = WML2Q26MG6;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Last-Woof-Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -436,7 +481,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "dev.winxen.Last-Woof";
+				PRODUCT_BUNDLE_IDENTIFIER = "Angela.Last-Woof";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -451,11 +496,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_ENTITLEMENTS = "Last Woof.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = XA29694495;
+				DEVELOPMENT_TEAM = WML2Q26MG6;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Last-Woof-Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -466,7 +512,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "dev.winxen.Last-Woof";
+				PRODUCT_BUNDLE_IDENTIFIER = "Angela.Last-Woof";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -496,6 +542,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0B2A7BCC2A4306D8008310E6 /* LastWoof.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0B2A7BCD2A4306D8008310E6 /* LastWoof.xcdatamodel */,
+			);
+			currentVersion = 0B2A7BCD2A4306D8008310E6 /* LastWoof.xcdatamodel */;
+			path = LastWoof.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 91F357E32A3A1EFF0072FF71 /* Project object */;
 }
