@@ -38,9 +38,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private var analogJoystick: AnalogJoystick?
     private var selectedEntityIndex: Int? = nil
     private var contactPoint: CGPoint?
-    private var objectContactedPosition: CGPoint?
-//    let missions: [MissionComponent] = Scene1Missions().missionSystem?.components ?? []
-    
+    private var objectNode: SKNode?
     
     override func didMove(to view: SKView) {
         physicsWorld.contactDelegate = self
@@ -53,40 +51,69 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         setupActionButton()
         
         let character = generateEntity(components: [
-            VisualComponent(name: "Character", imageName: "DummyCharacter", size: CGSize(width: 200, height: 200), position: CGPoint(x: 140, y: -183), zPosition: 1, zRotation: 0),
+            VisualComponent(name: "Character", imageName: "DummyCharacter", size: CGSize(width: 200, height: 200), position: CGPoint(x: 140, y: -183), zPosition: 2, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 200, height: 200), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle | PhysicsCategory.task),
-            VisualComponent(name: "Character", imageName: "DummyCharacter", size: CGSize(width: 200, height: 200), position: CGPoint(x: 140, y: -183), zPosition: 1, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 200, height: 200), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
             MovementComponent(analogJoystick: analogJoystick!)
         ])
         cameraNode.position = (character.component(ofType: VisualComponent.self)?.visualNode.position)!
         
         let pond = generateEntity(components: [
-            VisualComponent(name: "Pond", imageName: "Pond", size: CGSize(width: 1604, height: 844), position: CGPoint(x: 1647, y: -1217), zPosition: 2, zRotation: 0),
+            VisualComponent(name: "Pond", imageName: "Pond", size: CGSize(width: 1604, height: 844), position: CGPoint(x: 1647, y: -1217), zPosition: 3, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 1604, height: 844), imageName: "Pond", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
             MissionComponent(missionID: "Pond", type: "Main Mission", dependencies: ["Plant1", "Plant2"], prompt: nil)
         ])
         
+        let leafPond1 = generateEntity(components: [
+            VisualComponent(name: "LeafPond1", imageName: "LeafPond1", size: CGSize(width: 932, height: 571), position: CGPoint(x: 1667, y: -1314), zPosition: 5, zRotation: 0)
+        ])
+        
+        let leafPond2 = generateEntity(components: [
+            VisualComponent(name: "LeafPond2", imageName: "LeafPond2", size: CGSize(width: 940, height: 499), position: CGPoint(x: 1612, y: -1344), zPosition: 5, zRotation: 0)
+        ])
+        
+        let nameTag = generateEntity(components: [
+            VisualComponent(name: "NameTag", imageName: "NameTag", size: CGSize(width: 223, height: 92), position: CGPoint(x: 1612, y: -1406), zPosition: 4, zRotation: 0)
+        ])
+        
+        let sapuGarpu = generateEntity(components: [
+            VisualComponent(name: "SapuGarpu", imageName: "SapuGarpu", size: CGSize(width: 241, height: 576), position: CGPoint(x: -1159, y: -448), zPosition: 2, zRotation: 0)
+        ])
+        
+        let netStick = generateEntity(components: [
+            VisualComponent(name: "NetStick", imageName: "NetStick", size: CGSize(width: 144, height: 162), position: CGPoint(x: 214, y: -428), zPosition: 1, zRotation: 0)
+        ])
+        
         let plant1 = generateEntity(components: [
-            VisualComponent(name: "Plant1", imageName: "Plant1-Task", size: CGSize(width: 1288, height: 651), position: CGPoint(x: 1777, y: 325), zPosition: 2, zRotation: 0),
+            VisualComponent(name: "Plant1", imageName: "Plant1-Task", size: CGSize(width: 1288, height: 651), position: CGPoint(x: 1777, y: 325), zPosition: 3, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 1288, height: 651), imageName: "Plant1-Task", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
-            MissionComponent(missionID: "Plant1", type: "Side Mission", dependencies: [], prompt: "Visit Plant 1")
+            MissionComponent(missionID: "Plant1", type: "Side Mission", dependencies: [], prompt: "Get 3 Frisbees")
+        ])
+        
+        let dogCollar = generateEntity(components: [
+            VisualComponent(name: "DogCollar", imageName: "DogCollar", size: CGSize(width: 240, height: 184), position: CGPoint(x: 1660, y: 228), zPosition: 1, zRotation: 0),
+            MissionComponent(missionID: "DogCollar", type: "Side Mission", dependencies: [], prompt: nil)
         ])
         
         let plant2 = generateEntity(components: [
-            VisualComponent(name: "Plant2", imageName: "Plant2-Decoration", size: CGSize(width: 1097, height: 617), position: CGPoint(x: 1932, y: -651), zPosition: 2, zRotation: -90),
+            VisualComponent(name: "Plant2", imageName: "Plant2-Decoration", size: CGSize(width: 1097, height: 617), position: CGPoint(x: 1932, y: -651), zPosition: 3, zRotation: -90),
             PhysicsComponent(size: CGSize(width: 1097, height: 617), imageName: "Plant2-Decoration", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
             MissionComponent(missionID: "Plant2", type: "Side Mission", dependencies: [], prompt: "Visit Plant 2")
         ])
         
-        let task1 = generateEntity(components: [
-            VisualComponent(name: "DogCollar", imageName: "DogCollar", size: CGSize(width: 399, height: 200), position: CGPoint(x: 518, y: -444), zPosition: 0, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 399, height: 200), imageName: "DogCollar", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character)
+        let leaf1 = generateEntity(components: [
+            VisualComponent(name: "Leaf1", imageName: "Leaf1", size: CGSize(width: 2302, height: 1176), position: CGPoint(x: -191, y: -975), zPosition: 1, zRotation: 0)
         ])
         
-        let task2 = generateEntity(components: [
-            VisualComponent(name: "Frisbee", imageName: "Frisbee", size: CGSize(width: 399, height: 200), position: CGPoint(x: -200, y: -604), zPosition: 0, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 399, height: 200), imageName: "Frisbee", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character)
+        let leaf2 = generateEntity(components: [
+            VisualComponent(name: "Leaf2", imageName: "Leaf2", size: CGSize(width: 2158, height: 1102), position: CGPoint(x: 520, y: -938), zPosition: 1, zRotation: 0)
+        ])
+        
+        let leaf3 = generateEntity(components: [
+            VisualComponent(name: "Leaf3", imageName: "Leaf3", size: CGSize(width: 2086, height: 1090), position: CGPoint(x: 1043, y: -433), zPosition: 1, zRotation: 0)
+        ])
+        
+        let frisbee = generateEntity(components: [
+            VisualComponent(name: "Frisbee", imageName: "Frisbee", size: CGSize(width: 338, height: 236), position: CGPoint(x: 519, y: -1097), zPosition: 0, zRotation: 0)
         ])
         
         let fence = generateEntity(components: [
@@ -94,7 +121,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             PhysicsComponent(size: CGSize(width: 1340, height: 2481), imageName: "Fence", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ])
         
-        entities = [character, pond, plant1, plant2, fence, task1, task2]
         entities.forEach { entity in
             if let visualComponent = entity.component(ofType: VisualComponent.self) {
                 visualComponentSystem.addComponent(foundIn: entity)
@@ -116,6 +142,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         components.forEach { component in
             entity.addComponent(component)
         }
+        entities.append(entity)
         return entity
     }
     
@@ -175,7 +202,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         let interract = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-        self.lastDidBeginTime = CACurrentMediaTime()
         
         contactPoint = contact.contactPoint
         if collision == PhysicsCategory.character | PhysicsCategory.obstacle {
@@ -194,8 +220,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let taskNode = contact.bodyA.categoryBitMask == PhysicsCategory.task ? contact.bodyA.node : contact.bodyB.node
         
         // Perform actions or logic when character collides with an obstacle
-        objectContactedPosition = taskNode?.position
-        print(objectContactedPosition)
+        print("Character is collided with the object")
+        objectNode = taskNode
         actionButton?.alpha = 1
     }
     
@@ -206,11 +232,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     }
     
     private func getTask() {
-        for entity in entities {
-            var i = 0
-            if entity.component(ofType: VisualComponent.self)?.visualNode.position == objectContactedPosition && entity.component(ofType: VisualComponent.self)?.visualNode.name != "Character" {
-                entity.removeComponent(ofType: VisualComponent.self)
-                entity.removeComponent(ofType: PhysicsComponent.self)
+        var i = 0
+        for _ in i..<entities.count {
+            if entities[i].component(ofType: VisualComponent.self)?.visualNode.name == objectNode?.name {
+                let deletedEntity = entities.remove(at: i)
+                deletedEntity.component(ofType: PhysicsComponent.self)?.categoryBitMask = PhysicsCategory.none
+                deletedEntity.component(ofType: PhysicsComponent.self)?.contactTestBitMask = PhysicsCategory.none
+                deletedEntity.component(ofType: PhysicsComponent.self)?.collisionBitMask = PhysicsCategory.none
+                deletedEntity.component(ofType: VisualComponent.self)?.visualNode.removeFromParent()
                 break
             }
             i += 1
@@ -220,14 +249,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     func setupJoystick() {
         analogJoystick = AnalogJoystick(diameter: 300, colors: nil, images: (substrate: #imageLiteral(resourceName: "jSubstrate"), stick: #imageLiteral(resourceName: "jStick")))
         analogJoystick!.position = CGPoint(x: -450, y: -400)
-        analogJoystick!.zPosition = 2
+        analogJoystick!.zPosition = 10
         addChild(analogJoystick!)
     }
     
     func setupActionButton() {
         actionButton = SKSpriteNode(imageNamed: "BeforeGrab")
         actionButton!.position = CGPoint(x: 700, y: -400)
-        actionButton!.zPosition = 3
+        actionButton!.zPosition = 10
         addChild(actionButton!)
     }
     
