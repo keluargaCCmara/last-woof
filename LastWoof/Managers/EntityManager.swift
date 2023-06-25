@@ -10,11 +10,11 @@ import SpriteKit
 import GameplayKit
 
 class EntityManager {
-    var entities = Set<GKEntity>()
+    var entities = Set<CustomEntity>()
     var toRemove = Set<GKEntity>()
-    let scene: SKScene
+//    let scene: SKScene
     
-    static let shared = EntityManager(scene: scene)
+    static let shared = EntityManager()
     
     lazy var componentSystems: [GKComponentSystem] = {
         let visualSystem = GKComponentSystem(componentClass: VisualComponent.self)
@@ -26,23 +26,23 @@ class EntityManager {
         return [visualSystem, playerControlSystem, physicsSystem, stateChangeSystem, storeInventorySystem, removeInventorySystem]
     }()
     
-    init(scene: SKScene) {
-        self.scene = scene
-    }
+//    init(scene: SKScene) {
+//        self.scene = scene
+//    }
     
-    func add(_ entity: GKEntity) {
+    func add(_ entity: CustomEntity) {
         entities.insert(entity)
 
         for componentSystem in componentSystems {
             componentSystem.addComponent(foundIn: entity)
         }
-
-        if let visualNode = entity.component(ofType: VisualComponent.self)?.visualNode {
-            scene.addChild(visualNode)
-        }
+//
+//        if let visualNode = entity.component(ofType: VisualComponent.self)?.visualNode {
+//            scene.addChild(visualNode)
+//        }
     }
     
-    func isInventoryAble(node: SKNode) -> GKEntity? {
+    func isInventoryAble(node: SKNode) -> CustomEntity? {
         for entity in entities {
             if let vn = entity.component(ofType: VisualComponent.self)?.visualNode {
                 if vn == node {
@@ -65,7 +65,7 @@ class EntityManager {
         // remove from entity list
         let physicsComponent = entity.component(ofType: PhysicsComponent.self)
         physicsComponent?.visualComponent?.visualNode.physicsBody = nil
-        entities.remove(entity)
+        entities.remove(entity as! CustomEntity)
     }
     
 //    func inventoryAbleEntities() -> [GKEntity] {

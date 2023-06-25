@@ -25,6 +25,7 @@
 		159619792A4451D8002F3CA9 /* MissionSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159619782A4451D8002F3CA9 /* MissionSystem.swift */; };
 		1596197B2A445202002F3CA9 /* MissionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1596197A2A445202002F3CA9 /* MissionComponent.swift */; };
 		1596197D2A445292002F3CA9 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1596197C2A445292002F3CA9 /* GameState.swift */; };
+		159619A62A488DFB002F3CA9 /* CustomEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159619A52A488DFB002F3CA9 /* CustomEntity.swift */; };
 		91F357F82A3A1F000072FF71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91F357F72A3A1F000072FF71 /* Assets.xcassets */; };
 		91F357FB2A3A1F000072FF71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91F357F92A3A1F000072FF71 /* LaunchScreen.storyboard */; };
 		91F358782A3B13A40072FF71 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F358752A3B13A40072FF71 /* GameViewController.swift */; };
@@ -58,6 +59,7 @@
 		159619782A4451D8002F3CA9 /* MissionSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionSystem.swift; sourceTree = "<group>"; };
 		1596197A2A445202002F3CA9 /* MissionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionComponent.swift; sourceTree = "<group>"; };
 		1596197C2A445292002F3CA9 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
+		159619A52A488DFB002F3CA9 /* CustomEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEntity.swift; sourceTree = "<group>"; };
 		91F357EB2A3A1EFF0072FF71 /* Last Woof.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Last Woof.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F357F72A3A1F000072FF71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91F357FA2A3A1F000072FF71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -201,6 +203,7 @@
 		91F358072A3A20DC0072FF71 /* Environments */ = {
 			isa = PBXGroup;
 			children = (
+				159619A52A488DFB002F3CA9 /* CustomEntity.swift */,
 			);
 			path = Environments;
 			sourceTree = "<group>";
@@ -310,6 +313,7 @@
 				0B2A7BCE2A4306D8008310E6 /* InventoryList.swift in Sources */,
 				159619792A4451D8002F3CA9 /* MissionSystem.swift in Sources */,
 				0B7ECDE92A41AE9F00B0709B /* RemoveInventoryComponent.swift in Sources */,
+				159619A62A488DFB002F3CA9 /* CustomEntity.swift in Sources */,
 				0BE797852A45A5AC00B1F155 /* InventoryManager.swift in Sources */,
 				0B6529982A43E5A20057EAC6 /* EntityManager.swift in Sources */,
 				0B2A7BCF2A4306D8008310E6 /* LastWoof.xcdatamodeld in Sources */,

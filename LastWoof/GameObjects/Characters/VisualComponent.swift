@@ -10,7 +10,7 @@ import GameplayKit
 
 class VisualComponent: GKComponent {
     
-    let visualNode: SKSpriteNode
+    var visualNode: SKSpriteNode
     
     init(name: String, imageName: String, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat) {
         visualNode = SKSpriteNode(imageNamed: imageName)

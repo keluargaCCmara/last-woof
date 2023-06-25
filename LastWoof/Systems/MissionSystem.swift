@@ -9,54 +9,77 @@ import GameplayKit
 
 class MissionSystem: GKComponentSystem<MissionComponent> {
     
+    var inventory: InventoryManager = InventoryManager.shared
+    
     private var gameState: GameState
+    var missions = Set<MissionComponent>()
     
     init(gameState: GameState) {
         self.gameState = gameState
         super.init(componentClass: MissionComponent.self)
     }
     
-    func addComponent(entity: GKEntity) {
-        if (entity.component(ofType: MissionComponent.self) != nil) {
-            addComponent(foundIn: entity)
-        }
+    func addComponent(mission: MissionComponent) {
+        missions.insert(mission)
     }
     
-    func checkMission(name: String) -> Bool {
-        for case let component in components {
-            if component.missionID == name {
-                if component.dependencies.count > 0 {
-                    print(component.failedPrompt)
-                    return false
-                }
-                else {
-                    if component.type == "Main Mission" {
-                        gameState.completeMainMission()
-                        print("Main Mission Completed")
-                        return true
-                    }
-                    else {
-                        gameState.setSideMissionCompleted(component.missionID, completed: true)
-                        deleteDependency(detectedComponent: component)
-                        print(component.successPrompt)
-                        removeComponent(component)
-                        return true
-                    }
+     func checkMission(entity: CustomEntity) -> Bool {
+         let name = entity.component(ofType: VisualComponent.self)?.visualNode.name
+         for case let mission in missions {
+             if mission.interractObject == name {
+                 if mission.neededObject?.count ?? 0 > 0 {
+                     if checkPlayerHasObject(mission: mission) == true {
+                         if mission.stateRequirement == entity.interracted {
+                             gameState.setSideMissionCompleted(mission.missionID, completed: true)
+                             mission.succes()
+                             print(mission.successPrompt)
+                             checkMainMission()
+                             missions.remove(mission)
+                             return true
+                         }
+                     }
+                     print(mission.failedPrompt)
+                     return false
+                 }
+                 else {
+                     if mission.stateRequirement == entity.interracted {
+                         gameState.setSideMissionCompleted(mission.missionID, completed: true)
+                         mission.succes()
+                         print(mission.successPrompt)
+                         checkMainMission()
+                         missions.remove(mission)
+                         return true
+                     }
+                 }
+             }
+         }
+         return false
+     }
+    
+    private func checkPlayerHasObject(mission: MissionComponent) -> Bool {
+        var flag = 0
+        for object in mission.neededObject! {
+            for inventory in inventory.inventory {
+                if object == inventory {
+                    flag += 1
                 }
             }
+        }
+        if flag == mission.neededObject?.count {
+            return true
         }
         return false
     }
     
-    private func deleteDependency(detectedComponent: MissionComponent) {
-        for case let component in components {
-            for dependency in component.dependencies {
-                var i = 0
-                if dependency == detectedComponent.missionID {
-                    component.dependencies.remove(at: i)
+    private func checkMainMission() {
+        for mission in missions {
+            if mission.type == "Main Mission" {
+                if checkPlayerHasObject(mission: mission) == true {
+                    gameState.completeMainMission()
+                    break
                 }
-                i += 1
             }
         }
     }
+    
 }
