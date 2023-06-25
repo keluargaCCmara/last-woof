@@ -20,17 +20,16 @@ protocol PhysicsContactDelegate: AnyObject {
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
-    private var cameraNode: SKCameraNode = SKCameraNode()
+//    private var cameraNode: SKCameraNode!
     private var background: SKSpriteNode?
     private var entities: [GKEntity] = []
     private var lastTouchLocation: CGPoint?
     private var isColliding: Bool = false
     private var lastDidBeginTime: TimeInterval = 0
     
-//    let visualComponentSystem = GKComponentSystem(componentClass: VisualComponent.self)
-//    let physicsComponentSystem = GKComponentSystem(componentClass: PhysicsComponent.self)
-//    let movementComponentSystem = GKComponentSystem(componentClass: MovementComponent.self)
     private var analogJoystick: AnalogJoystick?
+    private var inventoryNode: SKNode!
+    private var isInventoryOpen = false
     
     private var entityManager: EntityManager!
     private var inventoryManager = InventoryManager.shared
@@ -44,6 +43,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         }
         self.background = backgroundNode
         self.background?.zPosition = -1
+        setupCamera()
         setupJoystick()
         
         let character = generateEntity(components: [
@@ -52,7 +52,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             MovementComponent(analogJoystick: analogJoystick!),
             PlayerControlComponent(entityManager: entityManager)
         ])
-        cameraNode.position = (character.component(ofType: VisualComponent.self)?.visualNode.position)!
+        self.camera?.position = (character.component(ofType: VisualComponent.self)?.visualNode.position)!
         
         let pond = generateEntity(components: [
             VisualComponent(imageName: "Pond", size: CGSize(width: 1604, height: 844), position: CGPoint(x: 1647, y: -1100), zPosition: 2, zRotation: 0),
@@ -77,19 +77,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             PhysicsComponent(size: CGSize(width: 1340, height: 2481), imageName: "Fence", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ])
         
-//        entityManager.add(pond)
-//        entityManager.add(plant1)
-//        entityManager.add(plant2)
-//        entityManager.add(fence)
-//        entityManager.add(character)
-
+        // icon inventory
+        let backpackVC = VisualComponent(imageName: "Inventory", size: CGSize(width: 211, height: 244), position: CGPoint(x: 745.5, y: 270), zPosition: 50, zRotation: 0)
+        
+        let backpack = generateEntity(components: [
+            backpackVC
+        ])
+        self.camera?.addChild(backpackVC.visualNode)
+        self.inventoryNode = backpackVC.visualNode
+        
         entities = [character, pond, plant1, plant2, fence]
         entities.forEach { entity in
             entityManager.add(entity)
-//            if let visualComponent = entity.component(ofType: VisualComponent.self) {
-//                addChild(visualComponent.visualNode)
-//                physicsComponentSystem.addComponent(foundIn: entity)
-//            }
         }
     }
     
@@ -100,44 +99,79 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         }
         return entity
     }
+    
+    private func setupCamera() {
+        let cameraNode = SKCameraNode()
+        cameraNode.position = CGPoint.zero
+            
+        self.addChild(cameraNode)
+        self.camera = cameraNode
+    }
 
     private func boundsCheckCamera() {
+        guard let camera = self.camera else {return}
+        
         let minX = background!.position.x - background!.size.width / 2 + size.width / 2
         let minY = background!.position.y - background!.size.height / 2 + size.height / 2
         let maxX = background!.position.x + background!.size.width / 2 - size.width / 2
         let maxY = background!.position.y + background!.size.height / 2 - size.height / 2
 
-        let cameraX = cameraNode.position.x
-        let cameraY = cameraNode.position.y
+        let cameraX = camera.position.x
+        let cameraY = camera.position.y
 
         if cameraX < minX {
-            cameraNode.position.x = minX
+            camera.position.x = minX
         } else if cameraX > maxX {
-            cameraNode.position.x = maxX
+            camera.position.x = maxX
         }
 
         if cameraY < minY {
-            cameraNode.position.y = minY
+            camera.position.y = minY
         } else if cameraY > maxY {
-            cameraNode.position.y = maxY
+            camera.position.y = maxY
         }
-        
-        analogJoystick?.position = CGPoint(x: cameraNode.position.x - 600, y: cameraNode.position.y - 220)
     }
     
     override func update(_ currentTime: TimeInterval) {
         entityManager.update(deltaTime: currentTime)
-//        physicsComponentSystem.update(deltaTime: currentTime)
-//        movementComponentSystem.update(deltaTime: currentTime)
-//        visualComponentSystem.update(deltaTime: currentTime)
         
-        cameraNode.position = (entities[0].component(ofType: VisualComponent.self)?.visualNode.position)!
-        scene?.camera = cameraNode
+        self.camera?.position = (entities[0].component(ofType: VisualComponent.self)?.visualNode.position)!
+        
         boundsCheckCamera()
         let elapsedDidBeginTime = currentTime - lastDidBeginTime
         if elapsedDidBeginTime > 0.5 {
             isColliding = false
-//                        print("Character separated with obstacle")
+        }
+    }
+    
+    // MARK: Handle touch input
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        for touch in touches {
+            let location = touch.location(in: self)
+            let touchedNodes = nodes(at: location)
+        
+            for node in touchedNodes {
+                if node.name == "Inventory" {
+                    // mau open inventory
+                    if !isInventoryOpen {
+                        if let camera = self.camera {
+                            let inventoryEntities = inventoryManager.showInventory(sceneSize: self.frame.size, position: camera.position)
+                            for inv in inventoryEntities {
+                                entityManager.add(inv)
+                            }
+                            entityManager.inventoryEntities = inventoryEntities
+                            isInventoryOpen = true
+                        }
+                    }
+                }
+                
+                if node.name == "CloseButton" {
+                    if isInventoryOpen {
+                        entityManager.removeInventoryView()
+                        isInventoryOpen = false
+                    }
+                }
+            }
         }
     }
     
@@ -159,6 +193,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         // Perform actions or logic when character collides with an obstacle
         if let entity = entityManager.isInventoryAble(node: obstacleNode!) {
             entityManager.storeInventory(entity: entity)
+            let pc = entity.component(ofType: PhysicsComponent.self)
+            pc?.removePhysics()
             entityManager.removeEntity(entity: entity)
         }
     }
@@ -169,8 +205,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     
     func setupJoystick() {
         analogJoystick = AnalogJoystick(diameter: 300, colors: nil, images: (substrate: #imageLiteral(resourceName: "jSubstrate"), stick: #imageLiteral(resourceName: "jStick")))
-        analogJoystick!.position = CGPoint(x: -450, y: -400)
+        analogJoystick!.position = CGPoint(x: -600, y: -200)
         analogJoystick!.zPosition = 2
-        addChild(analogJoystick!)
+        self.camera?.addChild(analogJoystick!)
     }
 }

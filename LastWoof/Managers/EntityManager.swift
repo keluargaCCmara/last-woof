@@ -12,6 +12,7 @@ import GameplayKit
 class EntityManager {
     var entities = Set<GKEntity>()
     var toRemove = Set<GKEntity>()
+    var inventoryEntities: [GKEntity] = []
     let scene: SKScene
     
     lazy var componentSystems: [GKComponentSystem] = {
@@ -64,15 +65,11 @@ class EntityManager {
         entities.remove(entity)
     }
     
-//    func inventoryAbleEntities() -> [GKEntity] {
-//        var inventories: [GKEntity] = []
-//        for entity in entities {
-//            if let _ = entity.component(ofType: StoreInventoryComponent.self) {
-//                inventories.append(entity)
-//            }
-//        }
-//        return inventories
-//    }
+    func removeInventoryView() {
+        for i in inventoryEntities {
+            entities.remove(i)
+        }
+    }
 
     func update(deltaTime: CFTimeInterval) {
         for componentSystem in componentSystems {

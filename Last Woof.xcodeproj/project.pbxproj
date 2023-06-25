@@ -18,7 +18,6 @@
 		0B7ECDE92A41AE9F00B0709B /* RemoveInventoryComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7ECDE82A41AE9F00B0709B /* RemoveInventoryComponent.swift */; };
 		0BE797852A45A5AC00B1F155 /* InventoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE797842A45A5AC00B1F155 /* InventoryManager.swift */; };
 		0BE797872A45B64800B1F155 /* iCloudAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE797862A45B64800B1F155 /* iCloudAuthController.swift */; };
-		0BE797892A46F22200B1F155 /* InventoryScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE797882A46F22200B1F155 /* InventoryScene.swift */; };
 		15434F2F2A406B550086583E /* VisualComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F2E2A406B550086583E /* VisualComponent.swift */; };
 		15434F332A40A1780086583E /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F322A40A1780086583E /* MovementComponent.swift */; };
 		15434F352A42A1020086583E /* PhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F342A42A1020086583E /* PhysicsComponent.swift */; };
@@ -48,7 +47,6 @@
 		0B7ECDE82A41AE9F00B0709B /* RemoveInventoryComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveInventoryComponent.swift; sourceTree = "<group>"; };
 		0BE797842A45A5AC00B1F155 /* InventoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryManager.swift; sourceTree = "<group>"; };
 		0BE797862A45B64800B1F155 /* iCloudAuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudAuthController.swift; sourceTree = "<group>"; };
-		0BE797882A46F22200B1F155 /* InventoryScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InventoryScene.swift; path = InventoryScene/InventoryScene.swift; sourceTree = "<group>"; };
 		15434F2E2A406B550086583E /* VisualComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualComponent.swift; sourceTree = "<group>"; };
 		15434F322A40A1780086583E /* MovementComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		15434F342A42A1020086583E /* PhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsComponent.swift; sourceTree = "<group>"; };
@@ -150,7 +148,6 @@
 			children = (
 				0B7ECDDD2A41AD3700B0709B /* StoryScene */,
 				15434F2D2A405FB60086583E /* Scene1 */,
-				0BE797882A46F22200B1F155 /* InventoryScene.swift */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -291,7 +288,6 @@
 				0B7ECDE32A41AD6800B0709B /* StoryScene.swift in Sources */,
 				91F3587D2A3B13AD0072FF71 /* AppDelegate.swift in Sources */,
 				D60812012A42DF58004E842E /* JoystickComponent.swift in Sources */,
-				0BE797892A46F22200B1F155 /* InventoryScene.swift in Sources */,
 				15434F352A42A1020086583E /* PhysicsComponent.swift in Sources */,
 				D60812032A42E1D6004E842E /* Extensions.swift in Sources */,
 				91F358792A3B13A40072FF71 /* GameScene.swift in Sources */,
