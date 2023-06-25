@@ -71,13 +71,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             PhysicsComponent(size: CGSize(width: 1097, height: 617), imageName: "Plant2-Decoration", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ])
         
-        let task1 = generateEntity(components: [
-            VisualComponent(imageName: "DogCollar", size: CGSize(width: 399, height: 200), position: CGPoint(x: 518, y: -444), zPosition: 0, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 399, height: 200), imageName: "DogCollar", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character)
-        ])
-        
-        let task2 = generateEntity(components: [
-            VisualComponent(imageName: "Frisbee", size: CGSize(width: 399, height: 200), position: CGPoint(x: -200, y: -604), zPosition: 0, zRotation: 0)
+        let task = generateEntity(components: [
+            VisualComponent(imageName: "Frisbee", size: CGSize(width: 399, height: 200), position: CGPoint(x: -200, y: -604), zPosition: 0, zRotation: 0),
+            PhysicsComponent(size: CGSize(width: 399, height: 200), imageName: "Frisbee", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character)
         ])
         
         let fence = generateEntity(components: [
@@ -85,7 +81,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             PhysicsComponent(size: CGSize(width: 1340, height: 2481), imageName: "Fence", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ])
         
-        entities = [character, pond, plant1, plant2, fence, task1, task2]
+        entities = [character, pond, plant1, plant2, fence, task]
         entities.forEach { entity in
             if let visualComponent = entity.component(ofType: VisualComponent.self) {
                 visualComponentSystem.addComponent(foundIn: entity)
@@ -152,6 +148,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
         let touchLocation = touch.location(in: self)
+        
+        if let actionButton = actionButton, actionButton.contains(touchLocation) {
+                isActionButtonClicked = true
+                
+                // Remove the task from the scene
+                if let taskEntity = entities.first(where: { $0.component(ofType: PhysicsComponent.self)?.categoryBitMask == PhysicsCategory.task }) {
+                    if let taskNode = taskEntity.component(ofType: VisualComponent.self)?.visualNode {
+                        taskNode.removeFromParent()
+                        
+                        // Optionally, you can remove the task entity from the entities array
+                        if let taskIndex = entities.firstIndex(where: { $0 == taskEntity }) {
+                            entities.remove(at: taskIndex)
+                        }
+                    }
+                }
+                
+                // Animate the action button
+                animateActionButton()
+            }
     }
     
     // MARK: PhysicsContactDelegate Protocol
