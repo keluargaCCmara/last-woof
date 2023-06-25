@@ -69,21 +69,18 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let leafPond1 = generateEntity(components: [
             VisualComponent(name: "LeafPond1", imageName: "LeafPond1", size: CGSize(width: 932, height: 571), position: CGPoint(x: 1667, y: -1314), zPosition: 5, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 932, height: 571), imageName: "LeafPond1", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            MissionComponent(missionID: "LeafPond1", type: "Side Mission", dependencies: ["NetStick"], failedPrompt: nil, successPrompt: "LeafPond1 Gone"),
             StateChangeComponent()
         ])
         
         let leafPond2 = generateEntity(components: [
             VisualComponent(name: "LeafPond2", imageName: "LeafPond2", size: CGSize(width: 940, height: 499), position: CGPoint(x: 1612, y: -1344), zPosition: 5, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 940, height: 499), imageName: "LeafPond2", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            MissionComponent(missionID: "LeafPond2", type: "Side Mission", dependencies: ["NetStick"], failedPrompt: nil, successPrompt: "LeafPond2 Gone"),
             StateChangeComponent()
         ])
         
         let nameTag = generateEntity(components: [
             VisualComponent(name: "NameTag", imageName: "NameTag", size: CGSize(width: 223, height: 92), position: CGPoint(x: 1612, y: -1406), zPosition: 4, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 233, height: 92), imageName: "NameTag", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            MissionComponent(missionID: "Pond", type: "Side Mission", dependencies: ["leafPond1", "leafPond2"], failedPrompt: "There's something inside but I cant reach it. It's too dirty", successPrompt: "You have acquired a Name Tag"),
             StoreInventoryComponent(),
             StateChangeComponent()
         ])
@@ -91,7 +88,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let sapuGarpu = generateEntity(components: [
             VisualComponent(name: "SapuGarpu", imageName: "SapuGarpu", size: CGSize(width: 241, height: 576), position: CGPoint(x: -1159, y: -448), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 241, height: 576), imageName: "SapuGarpu", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            MissionComponent(missionID: "SapuGarpu", type: "Side Mission", dependencies: [], failedPrompt: nil, successPrompt: "You have acquired a Sapu Garpu"),
             StoreInventoryComponent(),
             StateChangeComponent(),
         ])
@@ -99,7 +95,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let netStick = generateEntity(components: [
             VisualComponent(name: "NetStick", imageName: "NetStick", size: CGSize(width: 144, height: 162), position: CGPoint(x: 214, y: -428), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 144, height: 162), imageName: "NetStick", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            MissionComponent(missionID: "NetStick", type: "Side Mission", dependencies: [], failedPrompt: nil, successPrompt: "You have acquired a Net"),
             StoreInventoryComponent(),
             StateChangeComponent()
         ])
@@ -112,7 +107,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let dogCollar = generateEntity(components: [
             VisualComponent(name: "DogCollar", imageName: "DogCollar", size: CGSize(width: 240, height: 184), position: CGPoint(x: 1660, y: 228), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 240, height: 184), imageName: "DogCollar", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            MissionComponent(missionID: "DogCollar", type: "Side Mission", dependencies: [], failedPrompt: "", successPrompt: "You have acquired the Dog Collar!"),
             StoreInventoryComponent(),
             StateChangeComponent()
         ])
@@ -125,28 +119,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let leaf1 = generateEntity(components: [
             VisualComponent(name: "Leaf1", imageName: "Leaf1", size: CGSize(width: 2302, height: 1176), position: CGPoint(x: -191, y: -975), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 2302, height: 1176), imageName: "Leaf1", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            MissionComponent(missionID: "Leaf1", type: "Side Mission", dependencies: ["SapuGarpu"], failedPrompt: "This backyard looks so messy", successPrompt: "Leaf 1 is gone"),
             StateChangeComponent()
         ])
         
         let leaf2 = generateEntity(components: [
             VisualComponent(name: "Leaf2", imageName: "Leaf2", size: CGSize(width: 2158, height: 1102), position: CGPoint(x: 520, y: -938), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 2158, height: 1102), imageName: "Leaf2", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            MissionComponent(missionID: "Leaf2", type: "Side Mission", dependencies: ["SapuGarpu"], failedPrompt: "This backyard looks so messy", successPrompt: "Leaf 2 is gone"),
             StateChangeComponent()
         ])
         
         let leaf3 = generateEntity(components: [
             VisualComponent(name: "Leaf3", imageName: "Leaf2", size: CGSize(width: 2086, height: 1090), position: CGPoint(x: 1043, y: -433), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 2086, height: 1090), imageName: "Leaf2", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            MissionComponent(missionID: "Leaf3", type: "Side Mission", dependencies: ["SapuGarpu"], failedPrompt: "This backyard looks so messy", successPrompt: "Leaf 3 is gone"),
             StateChangeComponent()
         ])
         
         let frisbee = generateEntity(components: [
             VisualComponent(name: "Frisbee", imageName: "Frisbee", size: CGSize(width: 338, height: 236), position: CGPoint(x: 519, y: -1097), zPosition: 0, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 338, height: 236), imageName: "Frisbee", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            MissionComponent(missionID: "Frisbee", type: "Side Mission", dependencies: ["SapuGarpu", "Leaf1", "Leaf2", "Leaf3"], failedPrompt: "This backyard looks so messy.", successPrompt: "You have acquired a Frisbee"),
             StoreInventoryComponent(),
             StateChangeComponent()
         ])
@@ -162,10 +152,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let entity = GKEntity()
         components.forEach { component in
             entity.addComponent(component)
-            missionSystem.addComponent(entity: entity)
         }
         entityManager.add(entity)
         return entity
+    }
+    
+    private func generateMissioins() {
+        
     }
     
     private func boundsCheckCamera() {

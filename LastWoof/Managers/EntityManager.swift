@@ -14,6 +14,8 @@ class EntityManager {
     var toRemove = Set<GKEntity>()
     let scene: SKScene
     
+    static let shared = EntityManager(scene: scene)
+    
     lazy var componentSystems: [GKComponentSystem] = {
         let visualSystem = GKComponentSystem(componentClass: VisualComponent.self)
         let playerControlSystem = GKComponentSystem(componentClass: PlayerControlComponent.self)
