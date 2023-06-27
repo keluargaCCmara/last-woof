@@ -25,7 +25,7 @@ struct PersistenceController {
             fatalError("Could not retrieve a persistent store description.")
         }
         
-        description.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.Angela.Last-Woof")
+        description.cloudKitContainerOptions = NSPersistentCloudKitContainerOptions(containerIdentifier: "iCloud.Leonardo.Last-Woof")
         description.cloudKitContainerOptions?.databaseScope = .private
         
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
@@ -48,7 +48,17 @@ struct PersistenceController {
         }
     }
     
-//    func deleteAllRecords() {
-//        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "")
-//    }
+    func deleteAllData(_ entity:String) {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: entity)
+        fetchRequest.returnsObjectsAsFaults = false
+        do {
+            let results = try viewContext.fetch(fetchRequest)
+            for object in results {
+                guard let objectData = object as? NSManagedObject else {continue}
+                viewContext.delete(objectData)
+            }
+        } catch let error {
+            print("Detele all data in \(entity) error :", error)
+        }
+    }
 }

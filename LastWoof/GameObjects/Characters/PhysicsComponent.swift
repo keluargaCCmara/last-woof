@@ -19,9 +19,9 @@ class PhysicsComponent: GKComponent {
     let size: CGSize
     let imageName: String
     let isDynamic: Bool
-    let categoryBitMask: UInt32
-    let collisionBitMask: UInt32
-    let contactTestBitMask: UInt32
+    var categoryBitMask: UInt32
+    var collisionBitMask: UInt32
+    var contactTestBitMask: UInt32
     
     init(size: CGSize, imageName: String, isDynamic: Bool, categoryBitMask: UInt32, collisionBitMask: UInt32, contactTestBitMask: UInt32) {
         self.texture = SKTexture(imageNamed: imageName)
@@ -50,6 +50,10 @@ class PhysicsComponent: GKComponent {
             visualComponent.visualNode.physicsBody?.allowsRotation = false
             nodeHasPhysics = true
         }
+    }
+    
+    func removePhysics() {
+        visualComponent?.visualNode.physicsBody = nil
     }
     
     required init?(coder: NSCoder) {

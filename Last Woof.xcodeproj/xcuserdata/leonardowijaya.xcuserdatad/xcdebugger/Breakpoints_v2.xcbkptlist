@@ -1,118 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Bucket
-   uuid = "9E3EA877-9B85-4D39-A16A-D2BA93247329"
+   uuid = "E1815F06-07AE-4600-8F3B-55DB84354857"
    type = "1"
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F7C12DAB-A6B5-4C9E-9BB0-E3908753579E"
-            shouldBeEnabled = "No"
+            uuid = "67559BA4-3A79-4920-B66C-A0CFAF7B7557"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "LastWoof/Scenes/Scene1/GameScene.swift"
+            filePath = "LastWoof/Systems/MissionSystem.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "148"
-            endingLineNumber = "148"
-            landmarkName = "handleCharacterObstacleCollision(contact:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "F7C12DAB-A6B5-4C9E-9BB0-E3908753579E - 81debf67e01083b"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Last_Woof.GameScene.didBegin(__C.SKPhysicsContact) -&gt; ()"
-                  moduleName = "Last Woof"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/leonardowijaya/Documents/XCode/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "208"
-                  endingLineNumber = "208"
-                  offsetFromSymbolStart = "304">
-               </Location>
-               <Location
-                  uuid = "F7C12DAB-A6B5-4C9E-9BB0-E3908753579E - 81debf67e01081a"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Last_Woof.GameScene.didBegin(__C.SKPhysicsContact) -&gt; ()"
-                  moduleName = "Last Woof"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/leonardowijaya/Documents/XCode/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "209"
-                  endingLineNumber = "209"
-                  offsetFromSymbolStart = "52">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "992D5CCA-C9BD-4EE7-803E-111B95DB9476"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LastWoof/GameObjects/Characters/PhysicsComponent.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "init(size:imageName:isDynamic:categoryBitMask:collisionBitMask:contactTestBitMask:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D7AD1119-CC46-4566-B33A-7458880A9BAB"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LastWoof/GameObjects/Characters/PhysicsComponent.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "addPhysics()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "51C766E9-A3F1-44A7-9571-A8408A55343C"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LastWoof/GameObjects/Characters/PhysicsComponent.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "update(deltaTime:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "CD963F35-2920-4893-B179-23143C00F4B4"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LastWoof/Scenes/Scene1/GameScene.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "127"
-            endingLineNumber = "127"
-            landmarkName = "update(_:)"
+            startingLineNumber = "35"
+            endingLineNumber = "35"
+            landmarkName = "checkMission(entity:characterHolding:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

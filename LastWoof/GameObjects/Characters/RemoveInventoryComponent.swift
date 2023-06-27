@@ -11,6 +11,8 @@ import GameplayKit
 
 class RemoveInventoryComponent: GKComponent {
     // MARK: Properties
+    var inventoryManager = InventoryManager.shared
+    
     var visualComponent: VisualComponent? {
         return entity?.component(ofType: VisualComponent.self)
     }
