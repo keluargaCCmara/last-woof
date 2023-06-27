@@ -35,7 +35,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private var analogJoystick: AnalogJoystick?
     private var isInventoryOpen = false
     private var currentlyHolding: String?
-//    private var inventoryEntityBtn: GKEntity!
     private var inventoryBtnNode: SKSpriteNode!
     private var inventoryEntities: [GKEntity] = []
     private var contactPoint: CGPoint?
@@ -140,7 +139,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     }
     
     private func generateMissions() {
-        
         let plant1Mission = MissionComponent(missionID: "DogCollar", type: .side, interractObject: ["DogCollar"], neededObject: nil, failedPrompt: nil, successState: ["DogCollar" : "Store"], successPrompt: "You acquired a Dog Collar", sideMissionNeedToBeDone: nil)
         missionSystem.addComponent(mission: plant1Mission)
         
@@ -253,6 +251,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
                     if let entity = entityManager.isInventoryItem(node: node) {
                         if let realName = node.name?.split(separator: "_").dropFirst().first.map({ String($0) }) {
                             currentlyHolding = realName
+                            entityManager.toRemove = Set(self.inventoryEntities)
+                            entityManager.removeEntities()
 //                            changeGrabButton(name: realName)
                         }
                     }
@@ -296,6 +296,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             if missionSystem.checkMission(entity: entity, characterHolding: currentlyHolding ?? nil) == true {
                 contactPoint = CGPoint(x: 0, y: 0)
             }
+            
         }
     }
     
