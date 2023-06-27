@@ -12,8 +12,8 @@ import GameplayKit
 class EntityManager {
     var entities = Set<GKEntity>()
     var toRemove = Set<GKEntity>()
-    var inventoryEntities: [GKEntity] = []
-    let scene: SKScene
+    
+    static let shared = EntityManager()
     
     lazy var componentSystems: [GKComponentSystem] = {
         let visualSystem = GKComponentSystem(componentClass: VisualComponent.self)
@@ -25,11 +25,7 @@ class EntityManager {
         return [visualSystem, playerControlSystem, physicsSystem, stateChangeSystem, storeInventorySystem, removeInventorySystem]
     }()
     
-    init(scene: SKScene) {
-        self.scene = scene
-    }
-    
-    func add(_ entity: GKEntity) {
+    func add(scene: SKScene, _ entity: GKEntity) {
         entities.insert(entity)
 
         for componentSystem in componentSystems {
@@ -45,7 +41,22 @@ class EntityManager {
         for entity in entities {
             if let vn = entity.component(ofType: VisualComponent.self)?.visualNode {
                 if vn == node {
-                    return entity
+                    if let _ = entity.component(ofType: StoreInventoryComponent.self) {
+                        return entity
+                    }
+                }
+            }
+        }
+        return nil
+    }
+    
+    func isInventoryItem(node: SKNode) -> GKEntity? {
+        for entity in entities {
+            if let vn = entity.component(ofType: VisualComponent.self)?.visualNode {
+                if vn == node {
+                    if let _ = entity.component(ofType: RemoveInventoryComponent.self) {
+                        return entity
+                    }
                 }
             }
         }
@@ -57,17 +68,21 @@ class EntityManager {
         inventoryComp?.storeInventory()
     }
     
-    func removeEntity(entity: GKEntity) {
+    func removeEntity(scene: SKScene, entity: GKEntity) {
         // fade out
         let stateChangeComp = entity.component(ofType: StateChangeComponent.self)
+        let visComp = entity.component(ofType: VisualComponent.self)
         stateChangeComp?.changeState(mode: .fade)
         // remove from entity list
+        scene.removeChildren(in: [visComp!.visualNode as SKNode])
         entities.remove(entity)
     }
     
-    func removeInventoryView() {
-        for i in inventoryEntities {
-            entities.remove(i)
+    func removeEntities(scene: SKScene) {
+        for entity in toRemove {
+            let vn = entity.component(ofType: VisualComponent.self)
+            scene.removeChildren(in: [vn!.visualNode as SKNode])
+            entities.remove(entity)
         }
     }
 

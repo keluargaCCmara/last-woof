@@ -17,7 +17,6 @@ class InventoryManager {
     static let shared = InventoryManager()
     
     var inventory = Set<String>()
-    var currentHolding: String?
     
     init() {
         loadInventory()
@@ -28,8 +27,10 @@ class InventoryManager {
         
         var idx = 0
         for inv in inventory {
-            let newInvIcon = generateInventoryEntity(name: inv, idx: idx)
+            let newInvIcon = generateInventoryEntity(name: inv, idx: idx, position: position)
+            let newInvArray = generateInventoryArrayEntity(idx: idx, position: position)
             inventoryNodes.append(newInvIcon)
+            inventoryNodes.append(newInvArray)
             idx += 1
         }
         
@@ -52,11 +53,11 @@ class InventoryManager {
     func generateCloseEntity(sceneSize: CGSize, position: CGPoint) -> GKEntity {
         let entity = GKEntity()
         
-        let size = CGSize(width: 100, height: 100)
+        let size = CGSize(width: 156, height: 125)
         let x = position.x + sceneSize.width/2 - 100
         let y = position.y + sceneSize.height/2 - 200
         
-        let vc = VisualComponent(imageName: "CloseButton", size: size, position: CGPoint(x: x, y: y), zPosition: 200, zRotation: 0)
+        let vc = VisualComponent(name: "CloseButton", imageName: "CloseButton", size: size, position: CGPoint(x: x, y: y), zPosition: 200, zRotation: 0)
         
         entity.addComponent(vc)
         
@@ -69,7 +70,7 @@ class InventoryManager {
         let width = sceneSize.width - 200
         let height = sceneSize.height - 200
         
-        let vc = VisualComponent(imageName: "InventoryBubble", size: CGSize(width: width, height: height), position: position, zPosition: 101, zRotation: 0)
+        let vc = VisualComponent(name: "InventoryBubble", imageName: "InventoryBubble", size: CGSize(width: width, height: height), position: position, zPosition: 101, zRotation: 0)
         
         entity.addComponent(vc)
         
@@ -79,24 +80,41 @@ class InventoryManager {
     func generateOverlayEntity(sceneSize: CGSize, position: CGPoint) -> GKEntity {
         let entity = GKEntity()
         
-        let vc = VisualComponent(imageName: "Overlays", size: sceneSize, position: position, zPosition: 100, zRotation: 0)
+        let vc = VisualComponent(name: "Overlays", imageName: "Overlays", size: sceneSize, position: position, zPosition: 100, zRotation: 0)
         
         entity.addComponent(vc)
         
         return entity
     }
     
-    func generateInventoryEntity(name: String, idx: Int) -> GKEntity {
+    func generateInventoryArrayEntity(idx: Int, position pos: CGPoint) -> GKEntity {
         let newEntity = GKEntity()
         
-        let padding = 20
-        let width = 100
-        let height = 100
-        let row = idx % 4
-        let x = 300 + (padding + width) * idx
-        let y = 100 - (padding + height) * row
+        let padding = 40
+        let width = 320
+        let height = 200
+        let row = idx / 4
+        let x = (pos.x - CGFloat(367)) + CGFloat((padding + width/2)) * CGFloat(idx)
+        let y = (pos.y + CGFloat(100)) - CGFloat((padding + height/2)) * CGFloat(row)
         
-        let vc = VisualComponent(imageName: name, size: CGSize(width: width, height: height), position: CGPoint(x: x, y: y), zPosition: 102, zRotation: 0)
+        let vc = VisualComponent(name: "InventoryArray", imageName: "InventoryArray", size: CGSize(width: width, height: height), position: CGPoint(x: x, y: y), zPosition: 102, zRotation: 0)
+        
+        newEntity.addComponent(vc)
+        
+        return newEntity
+    }
+    
+    func generateInventoryEntity(name: String, idx: Int, position pos: CGPoint) -> GKEntity {
+        let newEntity = GKEntity()
+        
+        let padding = 40
+        let width = 150
+        let height = 150
+        let row = idx / 4
+        let x = (pos.x - CGFloat(367)) + CGFloat((padding + width)) * CGFloat(idx)
+        let y = (pos.y + CGFloat(100)) - CGFloat((padding + height)) * CGFloat(row)
+        
+        let vc = VisualComponent(name: "InventoryItem_\(name)", imageName: name, size: CGSize(width: width, height: height), position: CGPoint(x: x, y: y), zPosition: 103, zRotation: 0)
         let ric = RemoveInventoryComponent()
         let scc = StateChangeComponent()
         

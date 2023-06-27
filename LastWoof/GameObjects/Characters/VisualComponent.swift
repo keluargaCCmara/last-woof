@@ -12,9 +12,9 @@ class VisualComponent: GKComponent {
     
     let visualNode: SKSpriteNode
     
-    init(imageName: String, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat) {
+    init(name: String, imageName: String, size: CGSize, position: CGPoint, zPosition: CGFloat, zRotation: CGFloat) {
         visualNode = SKSpriteNode(imageNamed: imageName)
-        visualNode.name = imageName
+        visualNode.name = name
         visualNode.size = size
         visualNode.position = position
         visualNode.zPosition = zPosition

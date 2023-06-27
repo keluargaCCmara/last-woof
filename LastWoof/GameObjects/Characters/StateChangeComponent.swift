@@ -22,11 +22,11 @@ class StateChangeComponent: GKComponent {
     }
 
     // MARK: Methods
-    func changeState(mode: State, _ texture: SKTexture? = nil) {
+    func changeState(mode: State, texture: SKTexture? = nil, size: CGSize? = nil) {
         if mode == .fade {
             fade()
         } else {
-            changeTexture(texture: texture)
+            changeTexture(texture: texture, size: size)
         }
     }
     
@@ -39,15 +39,12 @@ class StateChangeComponent: GKComponent {
     }
     
     /// Tells this entity's visual component to change texture/state
-    private func changeTexture(texture: SKTexture?) {
+    private func changeTexture(texture: SKTexture?, size: CGSize?) {
         guard let node = visualComponent?.visualNode else {return}
-        
-//        if node.state == 1 {
-//            if let texture = texture {
-//                node.state = 2
-//                node.texture = texture
-//            }
-//        }
+        node.texture = texture
+        if let s = size {
+            node.size = s
+        }
     }
 }
 
