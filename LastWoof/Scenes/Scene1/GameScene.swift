@@ -21,7 +21,6 @@ protocol PhysicsContactDelegate: AnyObject {
 }
 
 class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
-    private var cameraNode: SKCameraNode = SKCameraNode()
     private var background: SKSpriteNode?
     private var entities: [GKEntity] = []
     private var lastTouchLocation: CGPoint?
@@ -34,22 +33,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private var actionButton: SKSpriteNode?
     private var isActionButtonClicked: Bool = false
     private var analogJoystick: AnalogJoystick?
-    private var selectedEntityIndex: Int? = nil
+    private var isInventoryOpen = false
+    private var currentlyHolding: String?
+    private var inventoryEntityBtn: GKEntity!
+    private var inventoryNode: SKSpriteNode!
+    private var inventoryEntities: [GKEntity] = []
     private var contactPoint: CGPoint?
     private var objectNode: SKNode?
     
-    private var entityManager: EntityManager!
+    private var entityManager = EntityManager.shared
     private var inventoryManager = InventoryManager.shared
     
     override func didMove(to view: SKView) {
-        entityManager = EntityManager.shared
-        
         physicsWorld.contactDelegate = self
         guard let backgroundNode = childNode(withName: "background") as? SKSpriteNode else {
             fatalError("Background node not found in .sks file")
         }
         self.background = backgroundNode
         self.background?.zPosition = -1
+        setupCamera()
         setupJoystick()
         setupActionButton()
         
@@ -111,7 +113,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         ], state: 0, imageState: nil)
         
         let plant1 = generateEntity(components: [
-            VisualComponent(name: "Plant1", imageName: "Plant1-Task", size: CGSize(width: 1288, height: 651), position: CGPoint(x: 1777, y: 325), zPosition: 2, zRotation: 0),
+            VisualComponent(imageName: "Plant1-Task", size: CGSize(width: 1288, height: 651), position: CGPoint(x: 1777, y: 325), zPosition: 2, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 1288, height: 651), imageName: "Plant1-Task", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
         ], state: 0, imageState: nil)
 
@@ -123,9 +125,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         ], state: 0, imageState: nil)
 
         let plant2 = generateEntity(components: [
-            VisualComponent(name: "Plant2", imageName: "Plant2-Decoration", size: CGSize(width: 1097, height: 617), position: CGPoint(x: 1932, y: -651), zPosition: 3, zRotation: -90),
-            PhysicsComponent(size: CGSize(width: 1097, height: 617), imageName: "Plant2-Decoration", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
-        ], state: 0, imageState: nil)
+            VisualComponent(imageName: "Plant2-Decoration", size: CGSize(width: 1097, height: 617), position: CGPoint(x: 1932, y: -651), zPosition: 2, zRotation: -90),
+            PhysicsComponent(size: CGSize(width: 1097, height: 617), imageName: "Plant2-Decoration", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
+        ])
         
         let frisbee = generateEntity(components: [
             VisualComponent(name: "Frisbee", imageName: "Frisbee", size: CGSize(width: 338, height: 236), position: CGPoint(x: 519, y: -1097), zPosition: 0, zRotation: 0),
@@ -139,6 +141,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             PhysicsComponent(size: CGSize(width: 1340, height: 2481), imageName: "Fence", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ], state: 0, imageState: nil)
         
+        let backpackVC = VisualComponent(name: "Inventory", imageName: "Inventory", size: CGSize(width: 211, height: 244), position: CGPoint(x: 745.5, y: 270), zPosition: 50, zRotation: 0)
+        let backpack = generateEntity(components: [
+            backpackVC,
+            StateChangeComponent()
+        ])
+        self.camera?.addChild(backpackVC.visualNode)
+        self.inventoryNode = backpackVC.visualNode
+        self.inventoryEntityBtn = backpack
         generateMissions()
     }
     
@@ -183,36 +193,44 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         missionSystem.addComponent(mission: mainMission)
     }
     
+    
+    private func setupCamera() {
+        let cameraNode = SKCameraNode()
+        cameraNode.position = CGPoint.zero
+            
+        self.addChild(cameraNode)
+        self.camera = cameraNode
+    }
+
     private func boundsCheckCamera() {
+        guard let camera = self.camera else {return}
+        
         let minX = background!.position.x - background!.size.width / 2 + size.width / 2
         let minY = background!.position.y - background!.size.height / 2 + size.height / 2
         let maxX = background!.position.x + background!.size.width / 2 - size.width / 2
         let maxY = background!.position.y + background!.size.height / 2 - size.height / 2
-        
-        let cameraX = cameraNode.position.x
-        let cameraY = cameraNode.position.y
-        
+
+        let cameraX = camera.position.x
+        let cameraY = camera.position.y
+
         if cameraX < minX {
-            cameraNode.position.x = minX
+            camera.position.x = minX
         } else if cameraX > maxX {
-            cameraNode.position.x = maxX
+            camera.position.x = maxX
         }
         
         if cameraY < minY {
-            cameraNode.position.y = minY
+            camera.position.y = minY
         } else if cameraY > maxY {
-            cameraNode.position.y = maxY
+            camera.position.y = maxY
         }
-        
-        analogJoystick?.position = CGPoint(x: cameraNode.position.x - 700, y: cameraNode.position.y - 220)
-        actionButton?.position = CGPoint(x: cameraNode.position.x + 650, y: cameraNode.position.y - 220)
     }
     
     override func update(_ currentTime: TimeInterval) {
         entityManager.update(deltaTime: currentTime)
         
-        cameraNode.position = (character?.component(ofType: VisualComponent.self)?.visualNode.position)!
-        scene?.camera = cameraNode
+        self.camera?.position = (entities[0].component(ofType: VisualComponent.self)?.visualNode.position)!
+        
         boundsCheckCamera()
         
         if checkIfCharacterStillContact(characterPosition: character?.component(ofType: VisualComponent.self)?.visualNode.position ?? CGPoint(x: 0, y: 0), contactPoint: contactPoint ?? CGPoint(x: 200, y: 200)) == true {
@@ -224,15 +242,52 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         }
     }
     
+    // MARK: Handle touch input
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first else { return }
-        let touchLocation = touch.location(in: self)
+        for touch in touches {
+            let location = touch.location(in: self)
+            let touchedNodes = nodes(at: location)
         
-        if ((actionButton?.frame.contains(touchLocation)) != nil && isColliding) {
-            animateActionButton()
+            for node in touchedNodes {
+                if node.name == "Inventory" {
+                    // mau open inventory
+                    if !isInventoryOpen {
+                        if let camera = self.camera {
+                            let texture = SKTexture(imageNamed: "InventoryOpen")
+                            let changeState = inventoryEntityBtn.component(ofType: StateChangeComponent.self)
+                            changeState?.changeState(mode: .texture, texture: texture)
+                            
+                            self.inventoryEntities = inventoryManager.showInventory(sceneSize: self.frame.size, position: camera.position)
+                            for inv in self.inventoryEntities {
+                                entityManager.add(scene: self, inv)
+                            }
+                            isInventoryOpen = true
+                        }
+                    }
+                }
+                if node.name == "CloseButton" {
+                    if isInventoryOpen {
+                        let texture = SKTexture(imageNamed: "Inventory")
+                        let changeState = inventoryEntityBtn.component(ofType: StateChangeComponent.self)
+                        changeState?.changeState(mode: .texture, texture: texture)
+                        
+                        // entities to be removed in bulk
+                        entityManager.toRemove = Set(self.inventoryEntities)
+                        entityManager.removeEntities(scene: self)
+                        isInventoryOpen = false
+                    }
+                }
+                if node.name?.contains("InventoryItem") == true {
+                    if let entity = entityManager.isInventoryItem(node: node) {
+                        if let realName = node.name?.split(separator: "_").dropFirst().first.map({ String($0) }) {
+                            currentlyHolding = realName
+//                            changeGrabButton(name: realName)
+                        }
+                    }
+                }
+            }
         }
     }
-    
     // MARK: PhysicsContactDelegate Protocol
     func didBegin(_ contact: SKPhysicsContact) {
         let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
@@ -269,9 +324,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     
     func setupJoystick() {
         analogJoystick = AnalogJoystick(diameter: 300, colors: nil, images: (substrate: #imageLiteral(resourceName: "jSubstrate"), stick: #imageLiteral(resourceName: "jStick")))
-        analogJoystick!.position = CGPoint(x: -450, y: -400)
-        analogJoystick!.zPosition = 10
-        addChild(analogJoystick!)
+        analogJoystick!.position = CGPoint(x: -600, y: -200)
+        analogJoystick!.zPosition = 2
+        self.camera?.addChild(analogJoystick!)
     }
     
     func setupActionButton() {
