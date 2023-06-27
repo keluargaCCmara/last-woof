@@ -13,6 +13,7 @@ class StoryScene: SKScene {
     var sceneFrames: [SKTexture] = []
     var nFrames: Int = 0
     var sceneName: String = ""
+    private var timeRemaining = 12
     
     var epilogueFrame: SKNode!
     
@@ -21,25 +22,56 @@ class StoryScene: SKScene {
             self.sceneFrames.append(SKTexture(imageNamed: "\(sceneName)\(i)"))
         }
         
-        let epilogueEntity = GKEntity()
+        let entity = GKEntity()
         
         let vc = VisualComponent(imageName: "\(sceneName)1", size: CGSize(
             width: 1,
             height: 1),
                                  position: CGPoint(x: 0.5, y: 0.5), zPosition: .zero, zRotation: .zero)
-        epilogueEntity.addComponent(vc)
-            
+        entity.addComponent(vc)
+        
         setupAnimation(node: vc.visualNode)
+        startTimer()
         
         self.addChild(vc.visualNode)
+        
+    }
+    func startTimer() {
+        // Create a timer that fires every second
+
+        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTimer() {
+        if timeRemaining > 2 {
+            print(timeRemaining)
+            timeRemaining -= 1
+        } else if timeRemaining > 0 {
+            timeRemaining -= 1
+            let smokeParticleRight = SKEmitterNode(fileNamed: "SubHomeSmoke")!
+            smokeParticleRight.position = CGPoint(x: frame.minX, y: frame.midY)
+            smokeParticleRight.run(SKAction.moveTo(x: frame.midX, duration: 1.5))
+            smokeParticleRight.zPosition = 99
+            addChild(smokeParticleRight)
+            let smokeParticleLeft = SKEmitterNode(fileNamed: "SubHomeSmoke")!
+            smokeParticleLeft.position = CGPoint(x: frame.maxX, y: frame.midY)
+            smokeParticleLeft.run(SKAction.moveTo(x: frame.midX, duration: 1.5))
+            smokeParticleLeft.zPosition = 99
+            addChild(smokeParticleLeft)
+        } else if timeRemaining == 0 {
+            timeRemaining = -100
+            let transition = SKTransition.fade(with: .white, duration: 1)
+            let scene = GameScene(fileNamed: "GameScene")!
+            self.view?.presentScene(scene, transition: transition)
+        }
     }
     
     func setupAnimation(node: SKSpriteNode) {
-        let fadeIn = SKAction.fadeIn(withDuration: 1.0)
-        let fadeOut = SKAction.fadeOut(withDuration: 1.0)
-        let frames = SKAction.animate(with: sceneFrames, timePerFrame: 5.0)
+        let fadeIn = SKAction.fadeIn(withDuration: 0.5)
+        let fadeOut = SKAction.fadeOut(withDuration: 0.5)
+        let frames = SKAction.animate(with: sceneFrames, timePerFrame: 3.0)
         
-        let seq = SKAction.sequence([fadeIn, SKAction.wait(forDuration:3.0), fadeOut])
+        let seq = SKAction.sequence([fadeIn, SKAction.wait(forDuration:2.0), fadeOut])
         let group = SKAction.group([SKAction.repeat(seq, count: nFrames), frames])
         
         node.run(group)

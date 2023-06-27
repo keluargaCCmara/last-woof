@@ -75,7 +75,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-
+        
         
         self.cursor = SKSpriteNode(imageNamed: "home-cursor")
         if let cursor = self.cursor {
@@ -149,7 +149,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                             prologue.sceneName = "Prologue"
                             self.view?.presentScene(prologue, transition: transition)
                         }])
-                                self.run(sequence)
+                        self.run(sequence)
                         return
                     }
                     
@@ -163,7 +163,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                             memoriesScene.size = self.size
                             self.view?.presentScene(memoriesScene, transition: transition)
                         }])
-                                self.run(sequence)
+                        self.run(sequence)
                         return
                     }
                     
@@ -178,7 +178,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                             creditsScene.size = self.size
                             self.view?.presentScene(creditsScene, transition: transition)
                         }])
-                                self.run(sequence)
+                        self.run(sequence)
                         return
                     }
                     return
@@ -186,7 +186,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                 
             }
             
-
+            
             
         }
     }
@@ -199,8 +199,8 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-//        let wait1 = SKAction.wait(forDuration: 0.5)
-//        let wait2 = SKAction.wait(forDuration: 0.1)
+        //        let wait1 = SKAction.wait(forDuration: 0.5)
+        //        let wait2 = SKAction.wait(forDuration: 0.1)
         let moveDownAction = SKAction.move(by: CGVector(dx: 0.0, dy: -20.0), duration: 1)
         let moveUpAction = SKAction.move(by: CGVector(dx: 0.0, dy: 20.0), duration: 1)
         
