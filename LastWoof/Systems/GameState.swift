@@ -17,6 +17,7 @@ class GameState {
     }
     
     func completeMainMission() {
+        print("MAIN MISSION COMPLETE WOYYYYY")
         mainMissionCompleted = true
     }
     

@@ -46,13 +46,14 @@ class MissionComponent: Hashable {
 
     func succes() {
         for (object, action) in successState {
+            guard let entity = entitySearcher(name: object) as? CustomEntity else { return }
             if action == "Remove" {
-                guard let entity = entitySearcher(name: object) else { return }
                 entityManager.removeEntity(entity: entity)
             } else if action == "Store" {
-                guard let entity = entitySearcher(name: object) else { return }
                 entityManager.storeInventory(entity: entity)
                 entityManager.removeEntity(entity: entity)
+            } else if action == "Change" {
+                entity.changeState()
             }
         }
     }

@@ -22,11 +22,14 @@ class MissionSystem {
         missions.insert(mission)
     }
     
-    func checkMission(entity: CustomEntity, characterHolding: String) -> Bool {
+    func checkMission(entity: CustomEntity, characterHolding: String?) -> Bool {
          let objectName = entity.component(ofType: VisualComponent.self)?.visualNode.name
+        var missionGathered: MissionComponent?
+        print(characterHolding)
          for case let mission in missions {
              if checkPlayerInterractedWith(objectName: objectName!, interractedObject: mission.interractObject ?? []) {
-                 if checkSideMissionCompleted(mission) == true && (characterHolding == mission.neededObject) {
+                 missionGathered = mission
+                 if checkSideMissionCompleted(mission) == true && checkNeededObject(characterHolding: characterHolding, neededObject: mission.neededObject) == true {
                      gameState.setSideMissionComplete(mission)
                      mission.succes()
                      checkMainMission()
@@ -34,10 +37,9 @@ class MissionSystem {
                      missions.remove(mission)
                      return true
                  }
-                 print(mission.failedPrompt)
-                 return false
              }
          }
+        print(missionGathered?.failedPrompt)
          return false
      }
     
@@ -56,6 +58,11 @@ class MissionSystem {
             }
         }
         return false
+    }
+    
+    private func checkNeededObject(characterHolding: String?, neededObject: String?) -> Bool {
+        guard let neededObject = neededObject else { return true }
+        return characterHolding == neededObject
     }
     
     private func checkSideMissionCompleted(_ mission: MissionComponent) -> Bool {
