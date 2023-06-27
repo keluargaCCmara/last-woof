@@ -10,15 +10,10 @@ import GameplayKit
 class GameState {
     
     var mainMissionCompleted: Bool = false
-    var sideMissionsCompleted: [String: Bool] = [:]
+    var sideMissionsCompleted: [MissionComponent] = []
     
-    func isSideMissionCompleted(_ missionID: String) -> Bool {
-        return sideMissionsCompleted[missionID] ?? false
-    }
-    
-    func setSideMissionCompleted(_ missionID: String, completed: Bool) {
-        sideMissionsCompleted[missionID] = completed
-        print(missionID, " is completed")
+    func setSideMissionComplete(_ missionID: MissionComponent) {
+        sideMissionsCompleted.append(missionID)
     }
     
     func completeMainMission() {

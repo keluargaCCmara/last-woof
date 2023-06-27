@@ -63,12 +63,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         cameraNode.position = (character?.component(ofType: VisualComponent.self)?.visualNode.position)!
         
         let pond = generateEntity(components: [
-            VisualComponent(name: "Pond", imageName: "Pond3", size: CGSize(width: 1289, height: 700), position: CGPoint(x: 1596, y: -1232), zPosition: 2, zRotation: 0),
+            VisualComponent(name: "Pond", imageName: "Pond", size: CGSize(width: 1289, height: 700), position: CGPoint(x: 1596, y: -1232), zPosition: 2, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 1339, height: 735), imageName: "Pond", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ], state: 2, imageState: ["Pond2", "Pond"])
         
         let leafPond = generateEntity(components: [
-            VisualComponent(name: "LeafPond1", imageName: "LeafPond1", size: CGSize(width: 1071, height: 545), position: CGPoint(x: 1704, y: -1290), zPosition: 4, zRotation: 0)
+            VisualComponent(name: "LeafPond1", imageName: "LeafPond1", size: CGSize(width: 1071, height: 545), position: CGPoint(x: 1704, y: -1290), zPosition: 4, zRotation: 0),
+            StateChangeComponent()
         ], state: 0, imageState: nil)
         
         let nameTag = generateEntity(components: [
@@ -98,7 +99,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
 
         let leaf3 = generateEntity(components: [
             VisualComponent(name: "Leaf3", imageName: "Leaf2", size: CGSize(width: 2086, height: 1090), position: CGPoint(x: 1043, y: -433), zPosition: 1, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 2086, height: 1090), imageName: "Leaf2", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
+            PhysicsComponent(size: CGSize(width: 2086, height: 1090), imageName: "Leaf2", isDynamic: false, categoryBitMask: PhysicsCategory.none, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.none),
             StateChangeComponent()
         ], state: 0, imageState: nil)
 
@@ -152,29 +153,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     }
     
     private func generateMissions() {
-        let mainMission = MissionComponent(missionID: "Main", type: "Main Mission", interractObject: nil, neededObject: ["Frisbee", "NameTag", "DogCollar"], failedPrompt: nil, successState: ["":""], successPrompt: "You have completed the Main Mission", stateRequirement: 0)
-        missionSystem.addComponent(mission: mainMission)
         
-        let plant1Mission = MissionComponent(missionID: "DogCollar", type: "Side Mission", interractObject: "DogCollar", neededObject: nil, failedPrompt: nil, successState: ["DogCollar" : "Store"], successPrompt: "You acquired a Dog Collar", stateRequirement: 0)
+        let plant1Mission = MissionComponent(missionID: "DogCollar", type: .side, interractObject: ["DogCollar"], neededObject: nil, failedPrompt: nil, successState: ["DogCollar" : "Store"], successPrompt: "You acquired a Dog Collar", sideMissionNeedToBeDone: nil)
         missionSystem.addComponent(mission: plant1Mission)
         
-        let getRake = MissionComponent(missionID: "Rake", type: "Side Mission", interractObject: "SapuGarpu", neededObject: nil, failedPrompt: nil, successState: ["SapuGarpu" : "Store"], successPrompt: "You acquired a rake", stateRequirement: 0)
+        let getRake = MissionComponent(missionID: "Rake", type: .side, interractObject: ["SapuGarpu"], neededObject: nil, failedPrompt: nil, successState: ["SapuGarpu" : "Store"], successPrompt: "You acquired a rake", sideMissionNeedToBeDone: nil)
         missionSystem.addComponent(mission: getRake)
         
-        let swipeLeaves = MissionComponent(missionID: "Leaf1", type: "Side Mission", interractObject: "Leaf1", neededObject: ["SapuGarpu"], failedPrompt: "This backyard could have some cleaning", successState: ["Leaf1" : "Remove", "Leaf2" : "Remove", "Leaf3" : "Remove"], successPrompt: "Now this backyard looks better", stateRequirement: 0)
+        let swipeLeaves = MissionComponent(missionID: "Leaves", type: .side, interractObject: ["Leaves"], neededObject: "Rake", failedPrompt: "This backyard could have some cleaning", successState: ["Leaves" : "Remove"], successPrompt: "Now this backyard looks better", sideMissionNeedToBeDone: [getRake])
         missionSystem.addComponent(mission: swipeLeaves)
         
-        let frisbee = MissionComponent(missionID: "Frisbee", type: "Side Mission", interractObject: "Frisbee", neededObject: nil, failedPrompt: nil, successState: ["Frisbee" : "Store"], successPrompt: "You have acquired a Frisbee", stateRequirement: 0)
-        missionSystem.addComponent(mission: frisbee)
+        let getFrisbee = MissionComponent(missionID: "Frisbee", type: .side, interractObject: ["Frisbee"], neededObject: nil, failedPrompt: nil, successState: ["Frisbee" : "Store"], successPrompt: "You have acquired a Frisbee", sideMissionNeedToBeDone: [swipeLeaves])
+        missionSystem.addComponent(mission: getFrisbee)
         
-        let fishNet = MissionComponent(missionID: "NetStick", type: "Side Mission", interractObject: "NetStick", neededObject: nil, failedPrompt: nil, successState: ["NetStick" : "Store"], successPrompt: "You have acquired a Net Stick", stateRequirement: 0)
-        missionSystem.addComponent(mission: fishNet)
+        let getFishNet = MissionComponent(missionID: "NetStick", type: .side, interractObject: ["NetStick"], neededObject: nil, failedPrompt: nil, successState: ["NetStick" : "Store"], successPrompt: "You have acquired a Net Stick", sideMissionNeedToBeDone: nil)
+        missionSystem.addComponent(mission: getFishNet)
         
-        let pondMission = MissionComponent(missionID: "Pond", type: "Side Mission", interractObject: "Pond", neededObject: ["NetStick"], failedPrompt: "I couldn't see the bottom of the pond", successState: ["LeafPond1": "Remove"], successPrompt: "Now I can see the bottom of the pond", stateRequirement: 0)
+        let pondMission = MissionComponent(missionID: "Pond", type: .side, interractObject: ["Pond"], neededObject: "NetStick", failedPrompt: "I couldn't see the bottom of the pond", successState: ["LeafPond1" : "Remove"], successPrompt: "Now I can see the bottom of the pond", sideMissionNeedToBeDone: [getFishNet])
         missionSystem.addComponent(mission: pondMission)
         
-        let pondMission2 = MissionComponent(missionID: "Pond2", type: "Side Mission", interractObject: "Pond", neededObject: nil, failedPrompt: nil, successState: ["NameTag" : "Store"], successPrompt: "You have acquired a name tag", stateRequirement: 1)
+        let pondMission2 = MissionComponent(missionID: "Pond2", type: .side, interractObject: ["Pond"], neededObject: "NetStick", failedPrompt: "I couldn't see the bottom of the pond", successState: ["NameTag" : "Store"], successPrompt: "You have acquired a name tag", sideMissionNeedToBeDone: [pondMission])
         missionSystem.addComponent(mission: pondMission2)
+        
+        let mainMission = MissionComponent(missionID: "MainMissioin", type: .main, interractObject: nil, neededObject: nil, failedPrompt: nil, successState: ["":""], successPrompt: "Main Mission succeeded", sideMissionNeedToBeDone: [])
+        
+        for mission in missionSystem.missions {
+            mainMission.sideMissionNeedToBeDone?.append(mission)
+        }
+        missionSystem.addComponent(mission: mainMission)
     }
     
     private func boundsCheckCamera() {
@@ -254,7 +260,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     
     private func storeItem() {
         if let entity = entityManager.isInventoryAble(node: objectNode!) {
-            if missionSystem.checkMission(entity: entity) == true {
+            if missionSystem.checkMission(entity: entity, characterHolding: "Hand") == true {
                 entity.changeState()
                 contactPoint = CGPoint(x: 0, y: 0)
             }

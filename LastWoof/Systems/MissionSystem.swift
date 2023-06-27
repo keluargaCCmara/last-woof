@@ -7,7 +7,7 @@
 
 import GameplayKit
 
-class MissionSystem: GKComponentSystem<MissionComponent> {
+class MissionSystem {
     
     var inventory: InventoryManager = InventoryManager.shared
     
@@ -16,70 +16,59 @@ class MissionSystem: GKComponentSystem<MissionComponent> {
     
     init(gameState: GameState) {
         self.gameState = gameState
-        super.init(componentClass: MissionComponent.self)
     }
     
     func addComponent(mission: MissionComponent) {
         missions.insert(mission)
     }
     
-     func checkMission(entity: CustomEntity) -> Bool {
-         let name = entity.component(ofType: VisualComponent.self)?.visualNode.name
+    func checkMission(entity: CustomEntity, characterHolding: String) -> Bool {
+         let objectName = entity.component(ofType: VisualComponent.self)?.visualNode.name
          for case let mission in missions {
-             if mission.interractObject == name {
-                 if mission.neededObject?.count ?? 0 > 0 {
-                     if checkPlayerHasObject(mission: mission) == true {
-                         if mission.stateRequirement == entity.interracted {
-                             gameState.setSideMissionCompleted(mission.missionID, completed: true)
-                             mission.succes()
-                             print(mission.successPrompt)
-                             checkMainMission()
-                             missions.remove(mission)
-                             return true
-                         }
-                     }
-                     print(mission.failedPrompt)
-                     return false
+             if checkPlayerInterractedWith(objectName: objectName!, interractedObject: mission.interractObject ?? []) {
+                 if checkSideMissionCompleted(mission) == true && (characterHolding == mission.neededObject) {
+                     gameState.setSideMissionComplete(mission)
+                     mission.succes()
+                     checkMainMission()
+                     print(mission.successPrompt)
+                     missions.remove(mission)
+                     return true
                  }
-                 else {
-                     if mission.stateRequirement == entity.interracted {
-                         gameState.setSideMissionCompleted(mission.missionID, completed: true)
-                         mission.succes()
-                         print(mission.successPrompt)
-                         checkMainMission()
-                         missions.remove(mission)
-                         return true
-                     }
-                 }
+                 print(mission.failedPrompt)
+                 return false
              }
          }
          return false
      }
     
-    private func checkPlayerHasObject(mission: MissionComponent) -> Bool {
-        var flag = 0
-        for object in mission.neededObject! {
-            for inventory in inventory.inventory {
-                if object == inventory {
-                    flag += 1
-                }
+    private func checkMainMission() {
+        for mission in missions {
+            if mission.type == .main && checkSideMissionCompleted(mission) == true {
+                gameState.completeMainMission()
             }
         }
-        if flag == mission.neededObject?.count {
-            return true
+    }
+    
+    private func checkPlayerInterractedWith(objectName: String, interractedObject: [String]) -> Bool {
+        for object in interractedObject {
+            if objectName == object {
+                return true
+            }
         }
         return false
     }
     
-    private func checkMainMission() {
-        for mission in missions {
-            if mission.type == "Main Mission" {
-                if checkPlayerHasObject(mission: mission) == true {
-                    gameState.completeMainMission()
-                    break
+    private func checkSideMissionCompleted(_ mission: MissionComponent) -> Bool {
+        guard let sideMissionNeedToBeDone = mission.sideMissionNeedToBeDone else { return true }
+        var flag = 0
+        for requiredSideMission in sideMissionNeedToBeDone {
+            for completedMission in gameState.sideMissionsCompleted {
+                if requiredSideMission == completedMission {
+                    flag += 1
                 }
             }
         }
+        return flag == sideMissionNeedToBeDone.count
     }
     
 }

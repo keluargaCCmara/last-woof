@@ -472,7 +472,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Last Woof.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WML2Q26MG6;
+				DEVELOPMENT_TEAM = R4FBGZQ29P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Last-Woof-Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -485,7 +485,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Angela.Last-Woof";
+				PRODUCT_BUNDLE_IDENTIFIER = "Leonardo.Last-Woof";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -503,7 +503,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Last Woof.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WML2Q26MG6;
+				DEVELOPMENT_TEAM = R4FBGZQ29P;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Last-Woof-Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -516,7 +516,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Angela.Last-Woof";
+				PRODUCT_BUNDLE_IDENTIFIER = "Leonardo.Last-Woof";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

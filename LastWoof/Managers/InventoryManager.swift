@@ -54,5 +54,6 @@ class InventoryManager {
             persistenceController.save()
             hasChanges = false
         }
+        inventory = Set<String>()
     }
 }
