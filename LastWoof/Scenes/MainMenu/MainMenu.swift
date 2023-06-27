@@ -30,17 +30,17 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
         self.background?.zPosition = -1
         
         let playButton = generateEntity(components: [
-            VisualComponent(imageName: "home-play", size: CGSize(width: 592, height: 103), position: CGPoint(x: frame.midX, y: frame.midY), zPosition: 2, zRotation: 0)
+            VisualComponent(imageName: "home-play", size: CGSize(width: 217, height: 44), position: CGPoint(x: frame.midX, y: frame.midY), zPosition: 2, zRotation: 0)
         ])
         playButtonNode = playButton.component(ofType: VisualComponent.self)?.visualNode
         
         let memoriesButton = generateEntity(components: [
-            VisualComponent(imageName: "home-memories", size: CGSize(width: 592, height: 103), position: CGPoint(x: frame.midX, y: frame.midY-140), zPosition: 2, zRotation: 0)
+            VisualComponent(imageName: "home-memories", size: CGSize(width: 217, height: 44), position: CGPoint(x: frame.midX, y: frame.midY-60), zPosition: 2, zRotation: 0)
         ])
         memoriesButtonNode = memoriesButton.component(ofType: VisualComponent.self)?.visualNode
         
         let creditsButton = generateEntity(components: [
-            VisualComponent(imageName: "home-credit", size: CGSize(width: 592, height: 103), position: CGPoint(x: frame.midX, y: frame.midY-280), zPosition: 2, zRotation: 0)
+            VisualComponent(imageName: "home-credit", size: CGSize(width: 217, height: 44), position: CGPoint(x: frame.midX, y: frame.midY-120), zPosition: 2, zRotation: 0)
         ])
         creditsButtonNode = creditsButton.component(ofType: VisualComponent.self)?.visualNode
         
@@ -125,17 +125,46 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                     ])
                     )
                     
-                    let smokeParticleRight = SKEmitterNode(fileNamed: "HomeSmoke")!
-                    smokeParticleRight.position = CGPoint(x: frame.minX-500, y: frame.midY)
-                    smokeParticleRight.run(SKAction.moveTo(x: frame.midX, duration: 2.5))
+                    let smokeParticleRight = SKEmitterNode(fileNamed: "SubHomeSmoke")!
+                    smokeParticleRight.position = CGPoint(x: frame.minX, y: frame.midY)
+                    smokeParticleRight.run(SKAction.moveTo(x: frame.midX, duration: 2))
                     smokeParticleRight.zPosition = 99
                     addChild(smokeParticleRight)
                     
-                    let smokeParticleLeft = SKEmitterNode(fileNamed: "HomeSmoke")!
-                    smokeParticleLeft.position = CGPoint(x: frame.maxX+500, y: frame.midY)
-                    smokeParticleLeft.run(SKAction.moveTo(x: frame.midX, duration: 2.5))
+                    let smokeParticleLeft = SKEmitterNode(fileNamed: "SubHomeSmoke")!
+                    smokeParticleLeft.position = CGPoint(x: frame.maxX, y: frame.midY)
+                    smokeParticleLeft.run(SKAction.moveTo(x: frame.midX, duration: 2))
                     smokeParticleLeft.zPosition = 99
                     addChild(smokeParticleLeft)
+                    
+                    
+                    if let playButtonNode = playButtonNode, playButtonNode.contains(t.location(in: self)) {
+                        
+                        // Add a transition to the CreditsScene
+                        let wait = SKAction.wait(forDuration: 1)
+                        let transition = SKTransition.fade(with: .white, duration: 1)
+                        let gameScene = GameScene(fileNamed: "GameScene")!
+                        let sequence = SKAction.sequence([wait, SKAction.run {
+                            gameScene.size = self.size
+                            self.view?.presentScene(gameScene, transition: transition)
+                        }])
+                                self.run(sequence)
+                        return
+                    }
+                    
+                    if let memoriesButtonNode = memoriesButtonNode, memoriesButtonNode.contains(t.location(in: self)) {
+                        
+                        // Add a transition to the CreditsScene
+                        let wait = SKAction.wait(forDuration: 1)
+                        let transition = SKTransition.crossFade(withDuration: 0.001)
+                        let memoriesScene = MemoriesScene(fileNamed: "MemoriesScene")!
+                        let sequence = SKAction.sequence([wait, SKAction.run {
+                            memoriesScene.size = self.size
+                            self.view?.presentScene(memoriesScene, transition: transition)
+                        }])
+                                self.run(sequence)
+                        return
+                    }
                     
                     
                     if let creditsButtonNode = creditsButtonNode, creditsButtonNode.contains(t.location(in: self)) {

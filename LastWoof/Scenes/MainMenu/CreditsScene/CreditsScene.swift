@@ -11,12 +11,21 @@ import GameplayKit
 class CreditsScene: SKScene {
     private var background: SKSpriteNode?
     private var credit: SKSpriteNode?
+    private var timerLabel: SKLabelNode?
+    private var timeRemaining = 10.5 // Initial time in seconds
+    private var timer: Timer?
+
+
     
     override func didMove(to view: SKView) {
+    
         self.backgroundColor = SKColor.white
         guard let backgroundNode = childNode(withName: "background") as? SKSpriteNode else {
             fatalError("Background node not found in .sks file")
         }
+        
+        print(frame.size)
+        
         self.background = backgroundNode
         self.background?.zPosition = -1
         self.background?.alpha = 0
@@ -26,6 +35,7 @@ class CreditsScene: SKScene {
         guard let creditNode = childNode(withName: "credit") as? SKSpriteNode else {
             fatalError("Credit node not found in .sks file")
         }
+        
         self.credit = creditNode
         self.credit?.zPosition = 1
         let waitAction = SKAction.wait(forDuration: 0.5)
@@ -36,20 +46,41 @@ class CreditsScene: SKScene {
         let moveAction = SKAction.moveTo(y: 110, duration: 10)
         let creditSequence = SKAction.sequence([waitAction, moveAction])
         self.credit?.run(creditSequence)
-        
-//        let waitTillEnd = SKAction.wait(forDuration: 11)
-//        let smokeMove = SKAction.moveTo(x: frame.midX, duration: 2.5)
-//        let smokeParticleSequence = SKAction.sequence([waitTillEnd,smokeMove])
-//        let smokeParticleRight = SKEmitterNode(fileNamed: "HomeSmoke")!
-//        smokeParticleRight.position = CGPoint(x: frame.minX-1300, y: frame.midY)
-//        smokeParticleRight.zPosition = 99
-//        smokeParticleRight.run(smokeParticleSequence)
-//        addChild(smokeParticleRight)
-//
-//        let smokeParticleLeft = SKEmitterNode(fileNamed: "HomeSmoke")!
-//        smokeParticleLeft.position = CGPoint(x: frame.maxX+1300, y: frame.midY)
-//        smokeParticleLeft.zPosition = 99
-//        smokeParticleLeft.run(smokeParticleSequence)
-//        addChild(smokeParticleLeft)
+    
+        startTimer()
     }
+    
+    func startTimer() {
+        // Create a timer that fires every second
+        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTimer() {
+
+        if timeRemaining > 3 {
+            timeRemaining -= 1
+        } else if timeRemaining >= 2.5 {
+            // Time's up, stop the timer
+            timeRemaining -= 1
+            print(timeRemaining)
+            let smokeParticleRight = SKEmitterNode(fileNamed: "SubHomeSmoke")!
+            smokeParticleRight.position = CGPoint(x: frame.minX, y: frame.midY)
+            smokeParticleRight.run(SKAction.moveTo(x: frame.midX, duration: 1.5))
+            smokeParticleRight.zPosition = 99
+            addChild(smokeParticleRight)
+            
+            let smokeParticleLeft = SKEmitterNode(fileNamed: "SubHomeSmoke")!
+            smokeParticleLeft.position = CGPoint(x: frame.maxX, y: frame.midY)
+            smokeParticleLeft.run(SKAction.moveTo(x: frame.midX, duration: 1.5))
+            smokeParticleLeft.zPosition = 99
+            addChild(smokeParticleLeft)
+        } else if timeRemaining >= 0.5 {
+            timeRemaining = -100
+            
+            let transition = SKTransition.fade(with: .white, duration: 1)
+            let scene = MainMenu(fileNamed: "MainMenu")!
+            self.view?.presentScene(scene, transition: transition)
+        }
+    }
+
 }
