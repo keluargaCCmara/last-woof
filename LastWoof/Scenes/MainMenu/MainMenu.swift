@@ -45,24 +45,24 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
         creditsButtonNode = creditsButton.component(ofType: VisualComponent.self)?.visualNode
         
         let title = generateEntity(components: [
-            VisualComponent(imageName: "home-title", size: CGSize(width: 1300, height: 590), position: CGPoint(x: frame.midX, y: frame.midY+250), zPosition: 0, zRotation: 0)
+            VisualComponent(imageName: "home-title", size: CGSize(width: 500, height: 232), position: CGPoint(x: frame.midX, y: frame.midY+100), zPosition: 0, zRotation: 0)
         ])
         
         let colar = generateEntity(components: [
-            VisualComponent(imageName: "home-colar", size: CGSize(width: 370, height: 437), position: CGPoint(x: -658, y: -82), zPosition: 1, zRotation: 0),
+            VisualComponent(imageName: "home-colar", size: CGSize(width: 200, height: 230), position: CGPoint(x: -260, y: -20), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 1200, height: 513), imageName: "home-colar", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ])
         colarNode = colar.component(ofType: VisualComponent.self)?.visualNode
         moveElements()
         
         let bone = generateEntity(components: [
-            VisualComponent(imageName: "home-bone", size: CGSize(width: 272, height: 163), position: CGPoint(x: 650, y: -34), zPosition: 1, zRotation: 0)
+            VisualComponent(imageName: "home-bone", size: CGSize(width: 90, height: 55), position: CGPoint(x: 320, y: -4), zPosition: 1, zRotation: 0)
         ])
         boneNode = bone.component(ofType: VisualComponent.self)?.visualNode
         
         
         let dogfood = generateEntity(components: [
-            VisualComponent(imageName: "home-dogfood", size: CGSize(width: 231, height: 180), position: CGPoint(x: 489, y: -260), zPosition: 1, zRotation: 0)
+            VisualComponent(imageName: "home-dogfood", size: CGSize(width: 90, height: 70), position: CGPoint(x: 260, y: -112), zPosition: 1, zRotation: 0)
         ])
         dogfoodNode = dogfood.component(ofType: VisualComponent.self)?.visualNode
         moveElements()
@@ -142,11 +142,12 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                         
                         // Add a transition to the CreditsScene
                         let wait = SKAction.wait(forDuration: 1)
-                        let transition = SKTransition.fade(with: .white, duration: 1)
-                        let gameScene = GameScene(fileNamed: "GameScene")!
+                        let transition = SKTransition.fade(with: .white, duration: 0.5)
+                        let prologue = StoryScene()
                         let sequence = SKAction.sequence([wait, SKAction.run {
-                            gameScene.size = self.size
-                            self.view?.presentScene(gameScene, transition: transition)
+                            prologue.nFrames = 4
+                            prologue.sceneName = "Prologue"
+                            self.view?.presentScene(prologue, transition: transition)
                         }])
                                 self.run(sequence)
                         return
@@ -198,21 +199,24 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-        let wait1 = SKAction.wait(forDuration: 0.5)
-        let wait2 = SKAction.wait(forDuration: 0.1)
+//        let wait1 = SKAction.wait(forDuration: 0.5)
+//        let wait2 = SKAction.wait(forDuration: 0.1)
         let moveDownAction = SKAction.move(by: CGVector(dx: 0.0, dy: -20.0), duration: 1)
         let moveUpAction = SKAction.move(by: CGVector(dx: 0.0, dy: 20.0), duration: 1)
         
-        let sequence = SKAction.sequence([wait1, moveDownAction, moveUpAction])
+        let moveDownActionColar = SKAction.move(by: CGVector(dx: 0.0, dy: -50.0), duration: 2)
+        let moveUpActionColar = SKAction.move(by: CGVector(dx: 0.0, dy: 50.0), duration: 2)
+        
+        let sequence = SKAction.sequence([moveDownActionColar, moveUpActionColar])
         let repeatAction = SKAction.repeatForever(sequence)
         colarNode.run(repeatAction)
         
         
-        let dogfoodSequence = SKAction.sequence([moveDownAction,wait2,  moveUpAction])
+        let dogfoodSequence = SKAction.sequence([moveDownAction, moveUpAction])
         let dogfoodRepeatAction = SKAction.repeatForever(dogfoodSequence)
         dogfoodNode.run(dogfoodRepeatAction)
         
-        let boneSequence = SKAction.sequence([wait1, moveUpAction, moveDownAction])
+        let boneSequence = SKAction.sequence([moveUpAction, moveDownAction])
         let boneRepeatAction = SKAction.repeatForever(boneSequence)
         boneNode.run(boneRepeatAction)
     }
