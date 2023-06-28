@@ -30,13 +30,13 @@ class VisualComponent: GKComponent {
     func moveCharacter(_ data: AnalogJoystickData, velocityMultiplier: CGFloat) {
         visualNode.position = CGPoint(x: visualNode.position.x + (data.velocity.x * velocityMultiplier),
                                            y: visualNode.position.y + (data.velocity.y * velocityMultiplier))
-        visualNode.zRotation = data.angular
+//        visualNode.zRotation = data.angular
     }
     
     override func update(deltaTime seconds: TimeInterval) {
         let background = SKSpriteNode(imageNamed: "Background")
-        background.size = CGSize(width: 4242, height: 2167)
-        background.position = CGPoint(x: 520, y: -480)
+        background.size = CGSize(width: 1400, height: 715)
+        background.position = CGPoint(x: -7, y: -163)
         boundsCheckCharacter(background: background)
     }
     

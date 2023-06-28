@@ -5,11 +5,11 @@
       "scale" : "1x"
     },
     {
-      "filename" : "Hero.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
+      "filename" : "CharacterFront (3).png",
       "idiom" : "universal",
       "scale" : "3x"
     }

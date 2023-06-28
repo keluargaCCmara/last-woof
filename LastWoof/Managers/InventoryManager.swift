@@ -53,9 +53,9 @@ class InventoryManager {
     func generateCloseEntity(sceneSize: CGSize, position: CGPoint) -> GKEntity {
         let entity = GKEntity()
         
-        let size = CGSize(width: 156, height: 125)
-        let x = position.x + sceneSize.width/2 - 100
-        let y = position.y + sceneSize.height/2 - 200
+        let size = CGSize(width: 50, height: 50)
+        let x = position.x + sceneSize.width/2 - 75
+        let y = position.y + sceneSize.height/2 - 50
         
         let vc = VisualComponent(name: "CloseButton", imageName: "CloseButton", size: size, position: CGPoint(x: x, y: y), zPosition: 200, zRotation: 0)
         
@@ -67,8 +67,8 @@ class InventoryManager {
     func generateBubbleEntity(sceneSize: CGSize, position: CGPoint) -> GKEntity {
         let entity = GKEntity()
         
-        let width = sceneSize.width - 200
-        let height = sceneSize.height - 200
+        let width = sceneSize.width
+        let height = sceneSize.height
         
         let vc = VisualComponent(name: "InventoryBubble", imageName: "InventoryBubble", size: CGSize(width: width, height: height), position: position, zPosition: 101, zRotation: 0)
         
@@ -91,11 +91,11 @@ class InventoryManager {
         let newEntity = GKEntity()
         
         let padding = 40
-        let width = 320
-        let height = 200
+        let width = 162
+        let height = 84
         let row = idx / 4
-        let x = (pos.x - CGFloat(367)) + CGFloat((padding + width/2)) * CGFloat(idx)
-        let y = (pos.y + CGFloat(100)) - CGFloat((padding + height/2)) * CGFloat(row)
+        let x = (pos.x - CGFloat(170)) + CGFloat((padding + width/2)) * CGFloat(idx)
+        let y = (pos.y + CGFloat(54)) - CGFloat((padding + height/2)) * CGFloat(row)
         
         let vc = VisualComponent(name: "InventoryArray", imageName: "InventoryArray", size: CGSize(width: width, height: height), position: CGPoint(x: x, y: y), zPosition: 102, zRotation: 0)
         
@@ -108,11 +108,11 @@ class InventoryManager {
         let newEntity = GKEntity()
         
         let padding = 40
-        let width = 150
-        let height = 150
+        let width = 50
+        let height = 45
         let row = idx / 4
-        let x = (pos.x - CGFloat(367)) + CGFloat((padding + width)) * CGFloat(idx)
-        let y = (pos.y + CGFloat(100)) - CGFloat((padding + height)) * CGFloat(row)
+        let x = (pos.x - CGFloat(170)) + CGFloat((padding + width)) * CGFloat(idx)
+        let y = (pos.y + CGFloat(54)) - CGFloat((padding + height)) * CGFloat(row)
         
         let vc = VisualComponent(name: "InventoryItem_\(name)", imageName: name, size: CGSize(width: width, height: height), position: CGPoint(x: x, y: y), zPosition: 103, zRotation: 0)
         let ric = RemoveInventoryComponent()
