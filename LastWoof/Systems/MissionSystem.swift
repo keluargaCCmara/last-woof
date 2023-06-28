@@ -22,26 +22,24 @@ class MissionSystem {
         missions.insert(mission)
     }
     
-    func checkMission(entity: CustomEntity, characterHolding: String?) -> Bool {
-         let objectName = entity.component(ofType: VisualComponent.self)?.visualNode.name
+    func checkMission(entity: CustomEntity, characterHolding: String?) -> SKSpriteNode? {
+        let objectName = entity.component(ofType: VisualComponent.self)?.visualNode.name
         var missionGathered: MissionComponent?
-        print(characterHolding)
-         for case let mission in missions {
-             if checkPlayerInterractedWith(objectName: objectName!, interractedObject: mission.interractObject ?? []) {
-                 missionGathered = mission
-                 if checkSideMissionCompleted(mission) == true && checkNeededObject(characterHolding: characterHolding, neededObject: mission.neededObject) == true {
-                     gameState.setSideMissionComplete(mission)
-                     mission.succes()
-                     checkMainMission()
-                     print(mission.successPrompt)
-                     missions.remove(mission)
-                     return true
-                 }
-             }
-         }
-        print(missionGathered?.failedPrompt)
-         return false
-     }
+        for case let mission in missions {
+            if checkPlayerInterractedWith(objectName: objectName!, interractedObject: mission.interractObject ?? []) {
+                missionGathered = mission
+                if checkSideMissionCompleted(mission) == true && checkNeededObject(characterHolding: characterHolding, neededObject: mission.neededObject) == true {
+                    gameState.setSideMissionComplete(mission)
+                    mission.succes()
+                    checkMainMission()
+                    print(mission.successPrompt)
+                    missions.remove(mission)
+                    return nil
+                }
+            }
+        }
+        return generateFadingTextNode(text: missionGathered!.failedPrompt!, fontSize: 20)
+    }
     
     private func checkMainMission() {
         for mission in missions {
@@ -77,5 +75,48 @@ class MissionSystem {
         }
         return flag == sideMissionNeedToBeDone.count
     }
+    
+    func generateFadingTextNode(text: String, fontSize: CGFloat) -> SKSpriteNode {
+        let label = SKLabelNode(text: text)
+        label.fontSize = fontSize
+        label.fontColor = .black
+        label.fontName = "Arial-BoldMT"
+        
+        // Create a white background node with rounded corners
+        let backgroundNodeSize = CGSize(width: label.frame.width + 50, height: label.frame.height + 50)
+        let backgroundTexture = makeRoundedCornerTexture(size: backgroundNodeSize, cornerRadius: 10, color: UIColor.white.withAlphaComponent(0.75))
+        let backgroundNode = SKSpriteNode(texture: backgroundTexture)
+        backgroundNode.alpha = 0.0 // Initially invisible
+        backgroundNode.zPosition = 10
+        backgroundNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
+        // Center the label within the background node
+        label.position = CGPoint(x: 0, y: -label.frame.height / 2)
+        backgroundNode.addChild(label)
+        
+        // Create fade in and fade out actions
+        let fadeInAction = SKAction.fadeIn(withDuration: 1.0)
+        let fadeOutAction = SKAction.fadeOut(withDuration: 1.0)
+        
+        // Create a sequence of actions: fade in, wait, fade out
+        let sequenceAction = SKAction.sequence([fadeInAction, SKAction.wait(forDuration: 2.0), fadeOutAction])
+        
+        // Run the sequence action on the background node
+        backgroundNode.run(sequenceAction)
+        
+        return backgroundNode
+    }
+    
+    func makeRoundedCornerTexture(size: CGSize, cornerRadius: CGFloat, color: UIColor) -> SKTexture {
+        let renderer = UIGraphicsImageRenderer(size: size)
+        let image = renderer.image { context in
+            let roundedRect = CGRect(origin: .zero, size: size).insetBy(dx: cornerRadius, dy: cornerRadius)
+            let path = UIBezierPath(roundedRect: roundedRect, cornerRadius: cornerRadius)
+            color.setFill()
+            path.fill()
+        }
+        return SKTexture(image: image)
+    }
+    
     
 }

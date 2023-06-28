@@ -45,7 +45,7 @@ class VisualComponent: GKComponent {
             let minX = background.position.x - background.size.width / 2 + visualNode.size.width / 2
             let minY = background.position.y - background.size.height / 2 + visualNode.size.height / 2
             let maxX = background.position.x + background.size.width / 2 - visualNode.size.width / 2
-            let maxY = background.position.y + background.size.height / 2 - visualNode.size.height / 2
+            let maxY = background.position.y + background.size.height / 2 - visualNode.size.height / 2 + 75
 
             if visualNode.position.x < minX {
                 visualNode.position.x = minX

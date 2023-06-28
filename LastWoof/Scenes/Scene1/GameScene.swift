@@ -55,10 +55,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         setupJoystick()
         setupActionButton()
         setupInventoryButton()
-        
+        generateEntities()
+        generateMissions()
+    }
+    
+    private func generateEntities() {
         character = generateEntity(components: [
-            VisualComponent(name: "Character",imageName: "DummyCharacter", size: CGSize(width: 115, height: 292), position: CGPoint(x: 140, y: -183), zPosition: 10, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 115, height: 292), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
+            VisualComponent(name: "Character",imageName: "DummyCharacter", size: CGSize(width: 80, height: 173), position: CGPoint(x: 140, y: -183), zPosition: 10, zRotation: 0),
+            PhysicsComponent(size: CGSize(width: 50, height: 173), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
             MovementComponent(analogJoystick: analogJoystick!),
             PlayerControlComponent(entityManager: entityManager)
         ], state: 0, imageState: nil)
@@ -67,10 +71,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         
         let pond = generateEntity(components: [
             VisualComponent(name: "Pond", imageName: "Pond", size: CGSize(width: 376, height: 192), position: CGPoint(x: 345, y: -433), zPosition: 2, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 376, height: 192), imageName: "Pond", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
+            PhysicsComponent(size: CGSize(width: 376, height: 192), imageName: "Pond", isDynamic: false, categoryBitMask: PhysicsCategory.task , collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
             StateChangeComponent(),
             StoreInventoryComponent()
         ], state: 2, imageState: ["Pond2", "Pond3"])
+        
+        let pond2 = generateEntity(components: [
+            VisualComponent(name: "Pond2", imageName: "Pond", size: CGSize(width: 317, height: 172), position: CGPoint(x: 349, y: -446), zPosition: -1, zRotation: 0),
+            PhysicsComponent(size: CGSize(width: 317, height: 172), imageName: "Pond", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
+            StateChangeComponent(),
+            StoreInventoryComponent()
+        ], state: 0, imageState: nil)
         
         let nameTag = generateEntity(components: [
             VisualComponent(name: "NameTag", imageName: "NameTag", size: CGSize(width: 0, height: 0), position: CGPoint(x: 0, y: 0), zPosition: -2, zRotation: 0)
@@ -96,7 +107,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             StoreInventoryComponent(),
             StateChangeComponent()
         ], state: 0, imageState: nil)
-
         
         let plant1 = generateEntity(components: [
             VisualComponent(name: "Plant1", imageName: "Plant1-Task", size: CGSize(width: 273, height: 189), position: CGPoint(x: 391, y: 100), zPosition: 2, zRotation: 0),
@@ -131,8 +141,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             VisualComponent(name: "Fence", imageName: "Fence", size: CGSize(width: 328, height: 715), position: CGPoint(x: 529, y: -162), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 328, height: 715), imageName: "Fence", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ], state: 0, imageState: nil)
-        
-        generateMissions()
     }
     
     private func generateEntity(components: [GKComponent], state: Int, imageState: [String]?) -> GKEntity {
@@ -175,7 +183,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let mainMission = MissionComponent(missionID: "MainMissioin", type: .main, interractObject: nil, neededObject: nil, failedPrompt: nil, successState: ["":""], successPrompt: "Main Mission succeeded", sideMissionNeedToBeDone: [getFrisbee, pondMission2, plant1Mission])
         missionSystem.addComponent(mission: mainMission)
     }
-    
     
     private func setupCamera() {
         let cameraNode = SKCameraNode()
@@ -297,8 +304,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     }
     
     private func interractToMission() {
-        if let entity = entityManager.isInventoryAble(node: objectNode!) as? CustomEntity {
-            if missionSystem.checkMission(entity: entity, characterHolding: currentlyHolding ?? nil) == true {
+        guard let objectNode = objectNode else { return }
+        if let entity = entityManager.isInventoryAble(node: objectNode) as? CustomEntity {
+            if let result = missionSystem.checkMission(entity: entity, characterHolding: currentlyHolding ?? nil) {
+                result.position = CGPoint(x: -200, y: 150)
+                self.camera?.addChild(result)
+                contactPoint = CGPoint(x: 0, y: 0)
+            } else {
                 contactPoint = CGPoint(x: 0, y: 0)
             }
             
