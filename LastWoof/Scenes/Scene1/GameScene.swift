@@ -57,8 +57,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         setupInventoryButton()
         
         character = generateEntity(components: [
-            VisualComponent(name: "Character",imageName: "DummyCharacter", size: CGSize(width: 58, height: 146), position: CGPoint(x: 140, y: -183), zPosition: 10, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 58, height: 146), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
+            VisualComponent(name: "Character",imageName: "DummyCharacter", size: CGSize(width: 115, height: 292), position: CGPoint(x: 140, y: -183), zPosition: 10, zRotation: 0),
+            PhysicsComponent(size: CGSize(width: 115, height: 292), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
             MovementComponent(analogJoystick: analogJoystick!),
             PlayerControlComponent(entityManager: entityManager)
         ], state: 0, imageState: nil)
@@ -104,8 +104,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         ], state: 0, imageState: nil)
 
         let dogCollar = generateEntity(components: [
-            VisualComponent(name: "DogCollar", imageName: "DogCollar", size: CGSize(width: 240, height: 184), position: CGPoint(x: 1660, y: 228), zPosition: 1, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 240, height: 184), imageName: "DogCollar", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
+            VisualComponent(name: "DogCollar", imageName: "DogCollar", size: CGSize(width: 100, height: 50), position: CGPoint(x: 327, y: 41), zPosition: 1, zRotation: 56),
+            PhysicsComponent(size: CGSize(width: 100, height: 50), imageName: "DogCollar", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
             StoreInventoryComponent(),
             StateChangeComponent()
         ], state: 0, imageState: nil)
