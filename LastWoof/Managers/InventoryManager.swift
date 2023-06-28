@@ -144,7 +144,6 @@ class InventoryManager {
             inventory.insert(name)
             hasChanges = true
         }
-        print(inventory)
     }
     
     func removeFromInventory(name: String) {

@@ -62,8 +62,8 @@
             filePath = "LastWoof/Scenes/Scene1/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
             landmarkName = "interractToMission()"
             landmarkType = "7">
          </BreakpointContent>

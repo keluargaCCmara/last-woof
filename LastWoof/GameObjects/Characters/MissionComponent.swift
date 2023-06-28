@@ -52,6 +52,7 @@ class MissionComponent: Hashable {
             } else if action == "Store" {
                 entityManager.storeInventory(entity: entity)
                 entityManager.removeEntity(entity: entity)
+                AudioManager.shared.playAudio(fileName: "the-notification-email-143029")
             } else if action == "Change" {
                 entity.changeState()
             }

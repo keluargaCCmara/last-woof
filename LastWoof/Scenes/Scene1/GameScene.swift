@@ -240,6 +240,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
                 if node.name == "Inventory" {
                     // mau open inventory
                     if !isInventoryOpen {
+                        AudioManager.shared.playAudio(fileName: "click-menu-app-147357")
                         if let camera = self.camera {
                             self.inventoryEntities = inventoryManager.showInventory(sceneSize: self.frame.size, position: camera.position)
                             for inv in self.inventoryEntities {
@@ -265,7 +266,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
                             currentlyHolding = realName
                             entityManager.toRemove = Set(self.inventoryEntities)
                             entityManager.removeEntities()
-//                            changeGrabButton(name: realName)
                         }
                     }
                 }
@@ -280,7 +280,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     }
     // MARK: PhysicsContactDelegate Protocol
     func didBegin(_ contact: SKPhysicsContact) {
-        let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         let interract = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         
         if interract == PhysicsCategory.character | PhysicsCategory.task {
@@ -307,6 +306,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         guard let objectNode = objectNode else { return }
         if let entity = entityManager.isInventoryAble(node: objectNode) as? CustomEntity {
             if let result = missionSystem.checkMission(entity: entity, characterHolding: currentlyHolding ?? nil) {
+                AudioManager.shared.playAudio(fileName: "notification-sound-7062")
                 result.position = CGPoint(x: -200, y: 150)
                 self.camera?.addChild(result)
                 contactPoint = CGPoint(x: 0, y: 0)
