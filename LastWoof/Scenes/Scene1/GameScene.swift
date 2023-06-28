@@ -57,8 +57,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         setupInventoryButton()
         
         character = generateEntity(components: [
-            VisualComponent(name: "Character",imageName: "DummyCharacter", size: CGSize(width: 103, height: 257), position: CGPoint(x: 140, y: -183), zPosition: 10, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 103, height: 257), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
+            VisualComponent(name: "Character",imageName: "DummyCharacter", size: CGSize(width: 58, height: 146), position: CGPoint(x: 140, y: -183), zPosition: 10, zRotation: 0),
+            PhysicsComponent(size: CGSize(width: 58, height: 146), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
             MovementComponent(analogJoystick: analogJoystick!),
             PlayerControlComponent(entityManager: entityManager)
         ], state: 0, imageState: nil)
@@ -84,8 +84,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         ], state: 0, imageState: nil)
         
         let leaves = generateEntity(components: [
-            VisualComponent(name: "Leaves", imageName: "Leaves", size: CGSize(width: 703, height: 290), position: CGPoint(x: -198, y: -335), zPosition: 1, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 703, height: 290), imageName: "Leaves", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
+            VisualComponent(name: "Leaves", imageName: "Leaves", size: CGSize(width: 820, height: 332), position: CGPoint(x: -251, y: -362), zPosition: 1, zRotation: 0),
+            PhysicsComponent(size: CGSize(width: 820, height: 332), imageName: "Leaves", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
             StateChangeComponent(),
             StoreInventoryComponent()
         ], state: 2, imageState: ["Leaves2", "Leaves3"])
@@ -113,6 +113,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let plant2 = generateEntity(components: [
             VisualComponent(name: "Plant2", imageName: "Plant2-Decoration", size: CGSize(width: 233, height: 280), position: CGPoint(x: 486, y: -220), zPosition: 2, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 233, height: 280), imageName: "Plant2-Decoration", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
+        ], state: 0, imageState: nil)
+        
+        let plant2shadow = generateEntity(components: [
+            VisualComponent(name: "Plant2Shadow", imageName: "Plant2-Decoration-Shadow", size: CGSize(width: 228, height: 190), position: CGPoint(x: 463, y: -247), zPosition: 2, zRotation: -90),
+            PhysicsComponent(size: CGSize(width: 228, height: 190), imageName: "Plant2-Decoration-Shadow", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
         ], state: 0, imageState: nil)
         
         let frisbee = generateEntity(components: [
