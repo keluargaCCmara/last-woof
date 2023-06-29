@@ -22,13 +22,13 @@ class InventoryManager {
         loadInventory()
     }
     
-    func showInventory(sceneSize: CGSize, position: CGPoint) -> [GKEntity] {
+    func showInventory(sceneSize: CGSize, position: CGPoint, currentlyHolding: String?) -> [GKEntity] {
         var inventoryNodes: [GKEntity] = []
         
         var idx = 0
         for inv in inventory {
             let newInvIcon = generateInventoryEntity(name: inv, idx: idx, position: position)
-            let newInvArray = generateInventoryArrayEntity(idx: idx, position: position)
+            let newInvArray = generateInventoryArrayEntity(idx: idx, position: position, selected: (currentlyHolding == inv))
             inventoryNodes.append(newInvIcon)
             inventoryNodes.append(newInvArray)
             idx += 1
@@ -87,19 +87,22 @@ class InventoryManager {
         return entity
     }
     
-    func generateInventoryArrayEntity(idx: Int, position pos: CGPoint) -> GKEntity {
+    func generateInventoryArrayEntity(idx: Int, position pos: CGPoint, selected: Bool) -> GKEntity {
         let newEntity = GKEntity()
         
-        let padding = 40
-        let width = 320
-        let height = 200
+        let padding = 50
+        let width = 150
+        let height = 150
         let row = idx / 4
-        let x = (pos.x - CGFloat(367)) + CGFloat((padding + width/2)) * CGFloat(idx)
-        let y = (pos.y + CGFloat(100)) - CGFloat((padding + height/2)) * CGFloat(row)
+        let x = (pos.x - CGFloat(367)) + CGFloat((padding + width)) * CGFloat(idx)
+        let y = (pos.y + CGFloat(80)) - CGFloat((padding + height)) * CGFloat(row)
         
-        let vc = VisualComponent(name: "InventoryArray", imageName: "InventoryArray", size: CGSize(width: width, height: height), position: CGPoint(x: x, y: y), zPosition: 102, zRotation: 0)
+        let name = (selected) ? "InventorySelected" : "InventoryArray"
+        let vc = VisualComponent(name: "InventoryArray", imageName: name, size: CGSize(width: width, height: height), position: CGPoint(x: x, y: y), zPosition: 102, zRotation: 0)
+        let scc = StateChangeComponent()
         
         newEntity.addComponent(vc)
+        newEntity.addComponent(scc)
         
         return newEntity
     }
@@ -107,20 +110,18 @@ class InventoryManager {
     func generateInventoryEntity(name: String, idx: Int, position pos: CGPoint) -> GKEntity {
         let newEntity = GKEntity()
         
-        let padding = 40
-        let width = 150
-        let height = 150
+        let padding = 50
+        let width = 120
+        let height = 120
         let row = idx / 4
-        let x = (pos.x - CGFloat(367)) + CGFloat((padding + width)) * CGFloat(idx)
-        let y = (pos.y + CGFloat(100)) - CGFloat((padding + height)) * CGFloat(row)
+        let x = (pos.x - CGFloat(367)) + CGFloat((padding + 150)) * CGFloat(idx)
+        let y = (pos.y + CGFloat(80)) - CGFloat((padding + height)) * CGFloat(row)
         
         let vc = VisualComponent(name: "InventoryItem_\(name)", imageName: name, size: CGSize(width: width, height: height), position: CGPoint(x: x, y: y), zPosition: 103, zRotation: 0)
         let ric = RemoveInventoryComponent()
-        let scc = StateChangeComponent()
         
         newEntity.addComponent(vc)
         newEntity.addComponent(ric)
-        newEntity.addComponent(scc)
         
         return newEntity
     }

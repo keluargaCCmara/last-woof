@@ -66,8 +66,42 @@ class EntityManager {
     }
     
     func storeInventory(entity: GKEntity) {
-        let inventoryComp = entity.component(ofType: StoreInventoryComponent.self)
-        inventoryComp?.storeInventory()
+        guard let scene = scene else { return }
+        
+        let inventoryBtn = scene.camera?.childNode(withName: "Inventory") as! SKSpriteNode
+        inventoryBtn.texture = SKTexture(imageNamed: "InventoryOpen")
+        inventoryBtn.size.height = 300
+        
+        let inventorySi = entity.component(ofType: StoreInventoryComponent.self)
+        let inventoryVc = entity.component(ofType: VisualComponent.self)?.visualNode
+        
+        let posBtn = scene.convertPoint(fromView: CGPoint(x: 700, y: 50))
+    
+        inventoryVc?.zPosition = 100
+        let moveToCenter = SKAction.move(to: scene.convertPoint(fromView: scene.view!.center), duration: 0.5)
+        let zoomWidth = inventoryVc!.size.width * 1.5
+        let zoomHeight = inventoryVc!.size.height * 1.5
+        let zoom = SKAction.resize(toWidth: zoomWidth, height: zoomHeight, duration: 0.5)
+        let zoomCenter = SKAction.group([moveToCenter, zoom])
+        
+        let unzoomWidth = inventoryVc!.size.width * 0.4
+        let unzoomHeight = inventoryVc!.size.height * 0.4
+        let unzoom = SKAction.resize(toWidth: unzoomWidth, height: unzoomHeight, duration: 0.5)
+        let moveAction = SKAction.move(to: posBtn, duration: 0.5)
+        moveAction.timingMode = SKActionTimingMode.easeOut
+        let unzoomMove = SKAction.group([moveAction, unzoom])
+        
+        let wait = SKAction.wait(forDuration: 0.5)
+        
+        let removeAction = SKAction.run({
+            inventorySi?.storeInventory()
+            self.removeEntity(entity: entity)
+            inventoryBtn.texture = SKTexture(imageNamed: "Inventory")
+            inventoryBtn.size.height = 244
+        })
+        let sequence = SKAction.sequence([zoomCenter, wait, unzoomMove, removeAction])
+
+        inventoryVc?.run(sequence)
     }
     
     func removeEntity(entity: GKEntity) {
@@ -77,10 +111,10 @@ class EntityManager {
         let visComp = entity.component(ofType: VisualComponent.self)
         stateChangeComp?.changeState(mode: .fade)
         // remove from entity list
-        let physicsComponent = entity.component(ofType: PhysicsComponent.self)
-        physicsComponent?.visualComponent?.visualNode.physicsBody = nil
-        scene.removeChildren(in: [visComp!.visualNode as SKNode])
-        entities.remove(entity as! CustomEntity)
+//        let physicsComponent = entity.component(ofType: PhysicsComponent.self)
+//        physicsComponent?.visualComponent?.visualNode.physicsBody = nil
+//        scene.removeChildren(in: [visComp!.visualNode as SKNode])
+//        entities.remove(entity as! CustomEntity)
     }
     
     func removeEntities() {
@@ -89,6 +123,66 @@ class EntityManager {
             let vn = entity.component(ofType: VisualComponent.self)
             scene.removeChildren(in: [vn!.visualNode as SKNode])
             entities.remove(entity)
+        }
+    }
+    
+    func getEntity(name: String) -> GKEntity? {
+        for entity in entities {
+            if let vc = entity.component(ofType: VisualComponent.self) {
+                if vc.visualNode.name == name {
+                    return entity
+                }
+            }
+        }
+        return nil
+    }
+    
+    func getEntity(node: SKNode) -> GKEntity? {
+        for entity in entities {
+            if let vc = entity.component(ofType: VisualComponent.self) {
+                if vc.visualNode == node {
+                    return entity
+                }
+            }
+        }
+        return nil
+    }
+    
+    func showSelected(location: CGPoint) {
+        guard let scene = scene else { return }
+        let selectedNodes = scene.nodes(at: location)
+        
+        for node in selectedNodes {
+            if let sprite = node as? SKSpriteNode {
+                if sprite.name == "InventoryArray" {
+                    if let entity = getEntity(node: sprite) {
+                        if let changeComp = entity.component(ofType: StateChangeComponent.self) {
+                            let texture = SKTexture(imageNamed: "InventorySelected")
+                            changeComp.changeState(mode: .texture, texture: texture)
+                            return
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    func showUnselected(location: CGPoint) {
+        guard let scene = scene else { return }
+        let selectedNodes = scene.nodes(at: location)
+        
+        for node in selectedNodes {
+            if let sprite = node as? SKSpriteNode {
+                if sprite.name == "InventoryArray" {
+                    if let entity = getEntity(node: sprite) {
+                        if let changeComp = entity.component(ofType: StateChangeComponent.self) {
+                            let texture = SKTexture(imageNamed: "InventoryArray")
+                            changeComp.changeState(mode: .texture, texture: texture)
+                            return
+                        }
+                    }
+                }
+            }
         }
     }
 

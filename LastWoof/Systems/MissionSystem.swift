@@ -25,21 +25,21 @@ class MissionSystem {
     func checkMission(entity: CustomEntity, characterHolding: String?) -> Bool {
          let objectName = entity.component(ofType: VisualComponent.self)?.visualNode.name
         var missionGathered: MissionComponent?
-        print(characterHolding)
+//        print(characterHolding)
          for case let mission in missions {
              if checkPlayerInterractedWith(objectName: objectName!, interractedObject: mission.interractObject ?? []) {
                  missionGathered = mission
                  if checkSideMissionCompleted(mission) == true && checkNeededObject(characterHolding: characterHolding, neededObject: mission.neededObject) == true {
                      gameState.setSideMissionComplete(mission)
-                     mission.succes()
+                     mission.success()
                      checkMainMission()
-                     print(mission.successPrompt)
+//                     print(mission.successPrompt)
                      missions.remove(mission)
                      return true
                  }
              }
          }
-        print(missionGathered?.failedPrompt)
+//        print(missionGathered?.failedPrompt)
          return false
      }
     

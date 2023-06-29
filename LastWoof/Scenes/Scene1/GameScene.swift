@@ -36,6 +36,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private var isInventoryOpen = false
     private var currentlyHolding: String?
     private var inventoryBtnNode: SKSpriteNode!
+    private var selectedInventoryNode: SKSpriteNode!
+    private var selectedInventoryFrame: SKSpriteNode!
     private var inventoryEntities: [GKEntity] = []
     private var contactPoint: CGPoint?
     private var objectNode: SKNode?
@@ -91,11 +93,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         ], state: 2, imageState: ["Leaves2", "Leaves3"])
 
         let netStick = generateEntity(components: [
-            VisualComponent(name: "NetStick", imageName: "NetStick", size: CGSize(width: 144, height: 162), position: CGPoint(x: 214, y: -428), zPosition: 1, zRotation: 0),
+            VisualComponent(name: "Net", imageName: "NetStick", size: CGSize(width: 144, height: 162), position: CGPoint(x: 214, y: -428), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 144, height: 162), imageName: "NetStick", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
             StoreInventoryComponent(),
             StateChangeComponent()
-        ], state: 0, imageState: nil)
+        ], state: 1, imageState: ["Net"])
         
         let plant1 = generateEntity(components: [
             VisualComponent(name: "Plant1", imageName: "Plant1-Task", size: CGSize(width: 1288, height: 651), position: CGPoint(x: 1777, y: 325), zPosition: 2, zRotation: 0),
@@ -139,34 +141,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     }
     
     private func generateMissions() {
-        let plant1Mission = MissionComponent(missionID: "DogCollar", type: .side, interractObject: ["DogCollar"], neededObject: nil, failedPrompt: nil, successState: ["DogCollar" : "Store"], successPrompt: "You acquired a Dog Collar", sideMissionNeedToBeDone: nil)
+        let plant1Mission = MissionComponent(missionID: "DogCollar", type: .side, interractObject: ["DogCollar"], neededObject: nil, failedPrompt: nil, successState: ["DogCollar_Store"], successPrompt: "You acquired a Dog Collar", sideMissionNeedToBeDone: nil)
         missionSystem.addComponent(mission: plant1Mission)
         
-        let getRake = MissionComponent(missionID: "Rake", type: .side, interractObject: ["SapuGarpu"], neededObject: nil, failedPrompt: nil, successState: ["SapuGarpu" : "Store"], successPrompt: "You acquired a rake", sideMissionNeedToBeDone: nil)
+        let getRake = MissionComponent(missionID: "Rake", type: .side, interractObject: ["SapuGarpu"], neededObject: nil, failedPrompt: nil, successState: ["SapuGarpu_Store"], successPrompt: "You acquired a rake", sideMissionNeedToBeDone: nil)
         missionSystem.addComponent(mission: getRake)
         
-        let swipeLeaves = MissionComponent(missionID: "Leaves", type: .side, interractObject: ["Leaves"], neededObject: "SapuGarpu", failedPrompt: "This backyard could have some cleaning", successState: ["Leaves" : "Change"], successPrompt: "Now this backyard looks better", sideMissionNeedToBeDone: [getRake])
+        let swipeLeaves = MissionComponent(missionID: "Leaves", type: .side, interractObject: ["Leaves"], neededObject: "SapuGarpu", failedPrompt: "This backyard could have some cleaning", successState: ["Leaves_Change"], successPrompt: "Now this backyard looks better", sideMissionNeedToBeDone: [getRake])
         missionSystem.addComponent(mission: swipeLeaves)
         
-        let swipeLeaves2 = MissionComponent(missionID: "Leaves2", type: .side, interractObject: ["Leaves"], neededObject: "SapuGarpu", failedPrompt: "This backyard could have some cleaning", successState: ["Leaves" : "Change"], successPrompt: "Now this backyard looks better", sideMissionNeedToBeDone: [getRake, swipeLeaves])
+        let swipeLeaves2 = MissionComponent(missionID: "Leaves2", type: .side, interractObject: ["Leaves"], neededObject: "SapuGarpu", failedPrompt: "This backyard could have some cleaning", successState: ["Leaves_Change"], successPrompt: "Now this backyard looks better", sideMissionNeedToBeDone: [getRake, swipeLeaves])
         missionSystem.addComponent(mission: swipeLeaves2)
         
-        let swipeLeaves3 = MissionComponent(missionID: "Leaves3", type: .side, interractObject: ["Leaves"], neededObject: "SapuGarpu", failedPrompt: "This backyard could have some cleaning", successState: ["Leaves" : "Remove"], successPrompt: "Now this backyard looks better", sideMissionNeedToBeDone: [getRake, swipeLeaves, swipeLeaves2])
+        let swipeLeaves3 = MissionComponent(missionID: "Leaves3", type: .side, interractObject: ["Leaves"], neededObject: "SapuGarpu", failedPrompt: "This backyard could have some cleaning", successState: ["Leaves_Remove"], successPrompt: "Now this backyard looks better", sideMissionNeedToBeDone: [getRake, swipeLeaves, swipeLeaves2])
         missionSystem.addComponent(mission: swipeLeaves3)
         
-        let getFrisbee = MissionComponent(missionID: "Frisbee", type: .side, interractObject: ["Frisbee"], neededObject: nil, failedPrompt: "This backyard could have some cleaning", successState: ["Frisbee" : "Store"], successPrompt: "You have acquired a Frisbee", sideMissionNeedToBeDone: [swipeLeaves, swipeLeaves2, swipeLeaves3])
+        let getFrisbee = MissionComponent(missionID: "Frisbee", type: .side, interractObject: ["Frisbee"], neededObject: nil, failedPrompt: "This backyard could have some cleaning", successState: ["Frisbee_Store"], successPrompt: "You have acquired a Frisbee", sideMissionNeedToBeDone: [swipeLeaves, swipeLeaves2, swipeLeaves3])
         missionSystem.addComponent(mission: getFrisbee)
         
-        let getFishNet = MissionComponent(missionID: "NetStick", type: .side, interractObject: ["NetStick"], neededObject: nil, failedPrompt: nil, successState: ["NetStick" : "Store"], successPrompt: "You have acquired a Net Stick", sideMissionNeedToBeDone: nil)
+        let getFishNet = MissionComponent(missionID: "NetStick", type: .side, interractObject: ["Net"], neededObject: nil, failedPrompt: nil, successState: ["Net_Change", "Net_Store"], successPrompt: "You have acquired a Net", sideMissionNeedToBeDone: nil)
         missionSystem.addComponent(mission: getFishNet)
         
-        let pondMission = MissionComponent(missionID: "Pond", type: .side, interractObject: ["Pond"], neededObject: "NetStick", failedPrompt: "I couldn't see the bottom of the pond", successState: ["Pond" : "Change"], successPrompt: "Now I can see the bottom of the pond", sideMissionNeedToBeDone: [getFishNet])
+        let pondMission = MissionComponent(missionID: "Pond", type: .side, interractObject: ["Pond"], neededObject: "Net", failedPrompt: "I couldn't see the bottom of the pond", successState: ["Pond_Change"], successPrompt: "Now I can see the bottom of the pond", sideMissionNeedToBeDone: [getFishNet])
         missionSystem.addComponent(mission: pondMission)
         
-        let pondMission2 = MissionComponent(missionID: "Pond2", type: .side, interractObject: ["Pond"], neededObject: "NetStick", failedPrompt: "I couldn't see the bottom of the pond", successState: ["Pond" : "Change", "NameTag" : "Store"], successPrompt: "You have acquired a name tag", sideMissionNeedToBeDone: [pondMission])
+        let pondMission2 = MissionComponent(missionID: "Pond2", type: .side, interractObject: ["Pond"], neededObject: "Net", failedPrompt: "I couldn't see the bottom of the pond", successState: ["Pond_Change", "NameTag_Store"], successPrompt: "You have acquired a name tag", sideMissionNeedToBeDone: [pondMission])
         missionSystem.addComponent(mission: pondMission2)
         
-        let mainMission = MissionComponent(missionID: "MainMissioin", type: .main, interractObject: nil, neededObject: nil, failedPrompt: nil, successState: ["":""], successPrompt: "Main Mission succeeded", sideMissionNeedToBeDone: [getFrisbee, pondMission2, plant1Mission])
+        let mainMission = MissionComponent(missionID: "MainMissioin", type: .main, interractObject: nil, neededObject: nil, failedPrompt: nil, successState: ["_"], successPrompt: "Main Mission succeeded", sideMissionNeedToBeDone: [getFrisbee, pondMission2, plant1Mission])
         missionSystem.addComponent(mission: mainMission)
     }
     
@@ -222,6 +224,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let location = touch.location(in: self)
+            print(self.convertPoint(toView: location))
             let touchedNodes = nodes(at: location)
         
             for node in touchedNodes {
@@ -229,7 +232,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
                     // mau open inventory
                     if !isInventoryOpen {
                         if let camera = self.camera {
-                            self.inventoryEntities = inventoryManager.showInventory(sceneSize: self.frame.size, position: camera.position)
+                            self.inventoryEntities = inventoryManager.showInventory(sceneSize: self.frame.size, position: camera.position, currentlyHolding: currentlyHolding)
                             for inv in self.inventoryEntities {
                                 entityManager.add(inv)
                             }
@@ -250,10 +253,24 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
                 if node.name?.contains("InventoryItem") == true {
                     if let entity = entityManager.isInventoryItem(node: node) {
                         if let realName = node.name?.split(separator: "_").dropFirst().first.map({ String($0) }) {
-                            currentlyHolding = realName
-                            entityManager.toRemove = Set(self.inventoryEntities)
-                            entityManager.removeEntities()
-//                            changeGrabButton(name: realName)
+                            if realName == currentlyHolding {
+                                // unselect currently holding
+                                currentlyHolding = nil
+                                selectedInventoryNode.texture = nil
+                                entityManager.showUnselected(location: location)
+                            } else {
+                                // select item
+                                currentlyHolding = realName
+                                entityManager.showSelected(location: location)
+                                
+                                // close inventory view
+                                entityManager.toRemove = Set(self.inventoryEntities)
+                                entityManager.removeEntities()
+                                isInventoryOpen = false
+                                
+                                // show selected item
+                                showSelectedInventory(inventory: realName)
+                            }
                         }
                     }
                 }
@@ -296,7 +313,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             if missionSystem.checkMission(entity: entity, characterHolding: currentlyHolding ?? nil) == true {
                 contactPoint = CGPoint(x: 0, y: 0)
             }
-            
         }
     }
     
@@ -309,6 +325,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     
     func setupActionButton() {
         actionButton = SKSpriteNode(imageNamed: "BeforeGrab")
+        actionButton!.name = "ActionButton"
         actionButton!.position = CGPoint(x: 650, y: -200)
         actionButton!.zPosition = 10
         self.camera?.addChild(actionButton!)
@@ -318,10 +335,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let backpackNode = SKSpriteNode(imageNamed: "Inventory")
         backpackNode.name = "Inventory"
         backpackNode.size = CGSize(width: 211, height: 244)
-        backpackNode.position = CGPoint(x: 650, y: 270)
+        backpackNode.position = CGPoint(x: 700, y: 270)
         backpackNode.zPosition = 50
+        
+        let selectedNode = SKSpriteNode(imageNamed: "jSubstrate")
+        selectedNode.name = "SelectedInventory"
+        selectedNode.size = CGSize(width: 150, height: 150)
+        
+        let x = backpackNode.position.x - backpackNode.size.width/2
+        let y = backpackNode.position.y - backpackNode.size.height/2 + 30
+        selectedNode.position = CGPoint(x: x, y: y)
+        selectedNode.zPosition = 51
+        
+        let selectedInventory = SKSpriteNode()
+        selectedInventory.size = CGSize(width: 140, height: 140)
+        selectedInventory.position = selectedNode.position
+        selectedInventory.zPosition = 52
+        
         self.camera?.addChild(backpackNode)
+        self.camera?.addChild(selectedNode)
+        self.camera?.addChild(selectedInventory)
+        
         self.inventoryBtnNode = backpackNode
+        self.selectedInventoryFrame = selectedNode
+        self.selectedInventoryNode = selectedInventory
+    }
+    
+    private func showSelectedInventory(inventory: String) {
+        self.selectedInventoryNode.texture = SKTexture(imageNamed: inventory)
     }
     
     private func animateActionButton() {
