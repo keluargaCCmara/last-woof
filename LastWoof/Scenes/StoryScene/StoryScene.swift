@@ -14,9 +14,7 @@ class StoryScene: SKScene {
     var nFrames: Int = 0
     var sceneName: String = ""
     private var timeRemaining: Int = 0
-    
-    var epilogueFrame: SKNode!
-    
+        
     override func didMove(to view: SKView) {
         AudioManager.shared.playAudio(fileName: "Prologue BGM", isBGM: true)
         for i in 1...nFrames {

@@ -11,7 +11,7 @@ class MissionSystem {
     
     var inventory: InventoryManager = InventoryManager.shared
     
-    private var gameState: GameState
+    var gameState: GameState
     var missions = Set<MissionComponent>()
     
     init(gameState: GameState) {

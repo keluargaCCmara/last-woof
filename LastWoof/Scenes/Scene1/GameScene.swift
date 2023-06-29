@@ -62,6 +62,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         generateEntities()
         generateMissions()
         dogThought()
+    
+        
     }
     
     private func generateEntities() {
@@ -256,6 +258,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         } else {
             isColliding = false
             actionButton?.alpha = 0.5
+        }
+        
+        if missionSystem.gameState.mainMissionCompleted {
+            let transition = SKTransition.fade(with: .white, duration: 0.5)
+            let cutscene = StoryScene()
+            cutscene.nFrames = 4
+            cutscene.sceneName = "Chapter1-"
+            cutscene.size = CGSize(width: 844, height: 390)
+            self.scene?.view?.presentScene(cutscene, transition: transition)
         }
     }
     
