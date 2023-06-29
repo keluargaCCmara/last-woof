@@ -22,8 +22,8 @@ class CustomEntity: GKEntity {
     
     func changeState() {
         if interracted < state {
-            if let visualComponent = component(ofType: VisualComponent.self) {
-                visualComponent.visualNode.texture = SKTexture(imageNamed: imageState![interracted])
+            if let sc = component(ofType: StateChangeComponent.self) {
+                sc.changeState(mode: .texture, texture: SKTexture(imageNamed: imageState![interracted]))
                 interracted += 1
             }
         }

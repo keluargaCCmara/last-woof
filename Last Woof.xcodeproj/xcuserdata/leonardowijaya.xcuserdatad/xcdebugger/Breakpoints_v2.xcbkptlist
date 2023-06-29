@@ -7,54 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "67559BA4-3A79-4920-B66C-A0CFAF7B7557"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LastWoof/Systems/MissionSystem.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "34"
-            endingLineNumber = "34"
-            landmarkName = "checkMission(entity:characterHolding:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "67559BA4-3A79-4920-B66C-A0CFAF7B7557 - 8f220a0d540403c3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Last_Woof.MissionSystem.checkMission(entity: Last_Woof.CustomEntity, characterHolding: Swift.Optional&lt;Swift.String&gt;) -&gt; Swift.Bool"
-                  moduleName = "Last Woof"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/leonardowijaya/Documents/XCode/last-woof/LastWoof/Systems/MissionSystem.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "35"
-                  endingLineNumber = "35"
-                  offsetFromSymbolStart = "1476">
-               </Location>
-               <Location
-                  uuid = "67559BA4-3A79-4920-B66C-A0CFAF7B7557 - f5df1d9548020dde"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Last_Woof.MissionSystem.checkMission(entity: Last_Woof.CustomEntity, characterHolding: Swift.Optional&lt;Swift.String&gt;) -&gt; Swift.Optional&lt;__C.SKSpriteNode&gt;"
-                  moduleName = "Last Woof"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/leonardowijaya/Documents/XCode/last-woof/LastWoof/Systems/MissionSystem.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "34"
-                  endingLineNumber = "34"
-                  offsetFromSymbolStart = "1316">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "CDF1A564-C73B-4B89-86BC-5CCE08F12335"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -62,10 +14,58 @@
             filePath = "LastWoof/Scenes/Scene1/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
-            landmarkName = "interractToMission()"
+            startingLineNumber = "308"
+            endingLineNumber = "308"
+            landmarkName = "touchesBegan(_:with:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "86E32265-BE25-4C22-85D1-D3C7F0C38165"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LastWoof/Managers/EntityManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
+            landmarkName = "storeInventory(entity:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "86E32265-BE25-4C22-85D1-D3C7F0C38165 - 9f81003be54ad41f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in Last_Woof.EntityManager.storeInventory(entity: __C.GKEntity) -&gt; ()"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/leonardowijaya/Documents/XCode/last-woof/LastWoof/Managers/EntityManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "160">
+               </Location>
+               <Location
+                  uuid = "86E32265-BE25-4C22-85D1-D3C7F0C38165 - 9f81003be54ad41f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in Last_Woof.EntityManager.storeInventory(entity: __C.GKEntity) -&gt; ()"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/leonardowijaya/Documents/XCode/last-woof/LastWoof/Managers/EntityManager.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "98"
+                  endingLineNumber = "98"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -30,7 +30,7 @@ class MissionSystem {
                 missionGathered = mission
                 if checkSideMissionCompleted(mission) == true && checkNeededObject(characterHolding: characterHolding, neededObject: mission.neededObject) == true {
                     gameState.setSideMissionComplete(mission)
-                    mission.succes()
+                    mission.success()
                     checkMainMission()
                     print(mission.successPrompt)
                     missions.remove(mission)
