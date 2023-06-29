@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "5C7DCCE4-6403-4197-BB03-7B0EC94E16A7"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6A6B15D0-104A-449A-87BA-3D031913FC47"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LastWoof/GameObjects/Characters/MovementComponent.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "move(_:)"
+            landmarkType = "7">
+            <Actions>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent
+                     consoleCommand = "po data.velocity">
+                  </ActionContent>
+               </BreakpointActionProxy>
+               <BreakpointActionProxy
+                  ActionExtensionID = "Xcode.BreakpointAction.DebuggerCommand">
+                  <ActionContent
+                     consoleCommand = "">
+                  </ActionContent>
+               </BreakpointActionProxy>
+            </Actions>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "73C684BF-5677-4FB5-A5DE-94E4EC58E8BA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LastWoof/GameObjects/Characters/PlayerControlComponent.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "getCharacterEntity()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1438E5A0-0B8E-430B-A1C2-CC7DBFEDE242"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LastWoof/Scenes/Scene1/GameScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "30"
+            endingLineNumber = "30"
+            landmarkName = "GameScene"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "1438E5A0-0B8E-430B-A1C2-CC7DBFEDE242 - 5ce6ce8947ed0de"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Last_Woof.GameScene.characterVisualNode.getter : Swift.Optional&lt;__C.SKSpriteNode&gt;"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ikura/Development/epal/mini_challenge2/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "88">
+               </Location>
+               <Location
+                  uuid = "1438E5A0-0B8E-430B-A1C2-CC7DBFEDE242 - 56aa257b909530d2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Last_Woof.GameScene.characterVisualNode.setter : Swift.Optional&lt;__C.SKSpriteNode&gt;"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ikura/Development/epal/mini_challenge2/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "108">
+               </Location>
+               <Location
+                  uuid = "1438E5A0-0B8E-430B-A1C2-CC7DBFEDE242 - 89b8fa9f20de48a3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Last_Woof.GameScene.characterVisualNode.modify : Swift.Optional&lt;__C.SKSpriteNode&gt;"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ikura/Development/epal/mini_challenge2/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "1438E5A0-0B8E-430B-A1C2-CC7DBFEDE242 - ee859ce64f22b8d2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Last_Woof.GameScene.characterVisualNode.modify : Swift.Optional&lt;__C.SKSpriteNode&gt; with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ikura/Development/epal/mini_challenge2/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "1438E5A0-0B8E-430B-A1C2-CC7DBFEDE242 - 9b07c55a1338cdec"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Last_Woof.GameScene.init(size: __C.CGSize) -&gt; Last_Woof.GameScene"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ikura/Development/epal/mini_challenge2/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "440">
+               </Location>
+               <Location
+                  uuid = "1438E5A0-0B8E-430B-A1C2-CC7DBFEDE242 - d3ae2bec17e2cbcb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Last_Woof.GameScene.init() -&gt; Last_Woof.GameScene"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ikura/Development/epal/mini_challenge2/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "416">
+               </Location>
+               <Location
+                  uuid = "1438E5A0-0B8E-430B-A1C2-CC7DBFEDE242 - d098fdb8f7239204"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Last_Woof.GameScene.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Last_Woof.GameScene&gt;"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ikura/Development/epal/mini_challenge2/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "30"
+                  endingLineNumber = "30"
+                  offsetFromSymbolStart = "432">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A8E3D029-AE4E-490A-8E19-553530325E8B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "LastWoof/Scenes/Scene1/GameScene.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "28"
+            endingLineNumber = "28"
+            landmarkName = "GameScene"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "A8E3D029-AE4E-490A-8E19-553530325E8B - 7af6b32c41f2ac54"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Last_Woof.GameScene.lastDidBeginTime.getter : Swift.Double"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ikura/Development/epal/mini_challenge2/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "84">
+               </Location>
+               <Location
+                  uuid = "A8E3D029-AE4E-490A-8E19-553530325E8B - b19e7c0d98e9bc40"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Last_Woof.GameScene.lastDidBeginTime.setter : Swift.Double"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ikura/Development/epal/mini_challenge2/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "92">
+               </Location>
+               <Location
+                  uuid = "A8E3D029-AE4E-490A-8E19-553530325E8B - 1512b5e557819851"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Last_Woof.GameScene.lastDidBeginTime.modify : Swift.Double"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ikura/Development/epal/mini_challenge2/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "0">
+               </Location>
+               <Location
+                  uuid = "A8E3D029-AE4E-490A-8E19-553530325E8B - a68c1dc06f6e5a40"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Last_Woof.GameScene.lastDidBeginTime.modify : Swift.Double with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ikura/Development/epal/mini_challenge2/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  uuid = "A8E3D029-AE4E-490A-8E19-553530325E8B - 9b07c55a1338cdaa"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Last_Woof.GameScene.init(size: __C.CGSize) -&gt; Last_Woof.GameScene"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ikura/Development/epal/mini_challenge2/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "388">
+               </Location>
+               <Location
+                  uuid = "A8E3D029-AE4E-490A-8E19-553530325E8B - d3ae2bec17e2cb8d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Last_Woof.GameScene.init() -&gt; Last_Woof.GameScene"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ikura/Development/epal/mini_challenge2/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "364">
+               </Location>
+               <Location
+                  uuid = "A8E3D029-AE4E-490A-8E19-553530325E8B - d098fdb8f7239242"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Last_Woof.GameScene.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;Last_Woof.GameScene&gt;"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ikura/Development/epal/mini_challenge2/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "28"
+                  endingLineNumber = "28"
+                  offsetFromSymbolStart = "380">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
