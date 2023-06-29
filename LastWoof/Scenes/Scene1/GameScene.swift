@@ -141,6 +141,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             VisualComponent(name: "Fence", imageName: "Fence", size: CGSize(width: 328, height: 715), position: CGPoint(x: 529, y: -162), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 328, height: 715), imageName: "Fence", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ], state: 0, imageState: nil)
+        
+        let terrace = generateEntity(components: [
+                   VisualComponent(name: "Terrace", imageName: "terrace", size: CGSize(width: 873, height: 373), position: CGPoint(x: -270, y: 8), zPosition: 0, zRotation: 0)
+               ], state: 0, imageState: nil)
+        
+        let rectangle = generateEntity(components: [
+            VisualComponent(name: "rectangle", imageName: "rectangle", size: CGSize(width: 207, height: 648), position: CGPoint(x: -385, y: 96), zPosition: -1, zRotation: -90),
+            PhysicsComponent(size: CGSize(width: 207, height: 648), imageName: "rectangle", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
+        ], state: 0, imageState: nil)
+        
+        let triangle = generateEntity(components: [
+            VisualComponent(name: "triangle", imageName: "triangle", size: CGSize(width: 164, height: 206), position: CGPoint(x: 5, y: 96), zPosition: -1, zRotation: 0.267),
+            PhysicsComponent(size: CGSize(width: 164, height: 206), imageName: "triangle", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
+        ], state: 0, imageState: nil)
+        
+        
+        let bubble = generateEntity(components: [
+                  VisualComponent(name: "bubble", imageName: "DogBubbleOfThought", size: CGSize(width: 230, height: 191), position: CGPoint(x: -134, y: 31), zPosition: 1, zRotation: 0)
+              ], state: 0, imageState: nil)
+        
+        let dog = generateEntity(components: [
+            VisualComponent(name: "Dog", imageName: "ShibaInu", size: CGSize(width: 68, height: 107), position: CGPoint(x: -217, y: -41), zPosition: 3, zRotation: 0)
+        ], state: 0, imageState: nil)
     }
     
     private func generateEntity(components: [GKComponent], state: Int, imageState: [String]?) -> GKEntity {
