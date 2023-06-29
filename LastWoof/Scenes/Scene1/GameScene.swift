@@ -47,7 +47,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private var inventoryManager = InventoryManager.shared
     
     override func didMove(to view: SKView) {
-        AudioManager.shared.playAudio(fileName: "Chapter 1 BGM", isBGM: true)
         entityManager.scene = self
         physicsWorld.contactDelegate = self
         guard let backgroundNode = childNode(withName: "background") as? SKSpriteNode else {
@@ -62,8 +61,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         generateEntities()
         generateMissions()
         dogThought()
-    
-        
+        AudioManager.shared.stopAllAudio()
+        AudioManager.shared.playAudio(fileName: "Chapter 1 BGM", isBGM: true)
     }
     
     private func generateEntities() {
@@ -279,6 +278,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             
             for node in touchedNodes {
                 if node.name == "Inventory" {
+                    AudioManager.shared.playAudio(fileName: "Click Sound", isBGM: false)
                     // mau open inventory
                     if !isInventoryOpen {
                         if let camera = self.camera {
@@ -359,14 +359,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private func interractToMission() {
         guard let objectNode = objectNode else { return }
         if let entity = entityManager.isInventoryAble(node: objectNode) as? CustomEntity {
-            if let result = missionSystem.checkMission(entity: entity, characterHolding: currentlyHolding ?? nil) {
-                result.position = CGPoint(x: -200, y: 150)
-                self.camera?.addChild(result)
-                contactPoint = CGPoint(x: 0, y: 0)
-                isColliding = false
-            } else {
-                contactPoint = CGPoint(x: 0, y: 0)
-            }
+            let result = missionSystem.checkMission(entity: entity, characterHolding: currentlyHolding ?? nil)
+            result.position = CGPoint(x: -200, y: 150)
+            self.camera?.addChild(result)
+            contactPoint = CGPoint(x: 0, y: 0)
+            isColliding = false
         }
     }
     

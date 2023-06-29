@@ -22,19 +22,19 @@ class MissionSystem {
         missions.insert(mission)
     }
     
-    func checkMission(entity: CustomEntity, characterHolding: String?) -> SKSpriteNode? {
+    func checkMission(entity: CustomEntity, characterHolding: String?) -> SKSpriteNode {
         let objectName = entity.component(ofType: VisualComponent.self)?.visualNode.name
         var missionGathered: MissionComponent?
         for case let mission in missions {
+            missionGathered = mission
             if checkPlayerInterractedWith(objectName: objectName!, interractedObject: mission.interractObject ?? []) {
-                missionGathered = mission
                 if checkSideMissionCompleted(mission) == true && checkNeededObject(characterHolding: characterHolding, neededObject: mission.neededObject) == true {
                     gameState.setSideMissionComplete(mission)
                     mission.success()
                     checkMainMission()
                     print(mission.successPrompt)
                     missions.remove(mission)
-                    return nil
+                    return generateFadingTextNode(text: missionGathered!.successPrompt, fontSize: 20)
                 }
             }
         }

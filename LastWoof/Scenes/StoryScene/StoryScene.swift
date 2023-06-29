@@ -16,6 +16,7 @@ class StoryScene: SKScene {
     private var timeRemaining: Int = 0
         
     override func didMove(to view: SKView) {
+        AudioManager.shared.stopAllAudio()
         AudioManager.shared.playAudio(fileName: "Prologue BGM", isBGM: true)
         for i in 1...nFrames {
             self.sceneFrames.append(SKTexture(imageNamed: "\(sceneName)\(i)"))
@@ -34,21 +35,21 @@ class StoryScene: SKScene {
         setupAnimation(node: vc.visualNode)
         startTimer()
         
-
-         
+        
+        
         self.addChild(vc.visualNode)
         
     }
     func startTimer() {
         // Create a timer that fires every second
-
+        
         Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
         
         if sceneName == "Prologue" {
-                timeRemaining = 67
-            } else if sceneName.starts(with: "Chapter1-") {
-                timeRemaining = 20
-            }
+            timeRemaining = 67
+        } else if sceneName.starts(with: "Chapter1-") {
+            timeRemaining = 20
+        }
     }
     
     @objc func updateTimer() {
@@ -60,10 +61,10 @@ class StoryScene: SKScene {
             whiteRectangle.zPosition = -1
             addChild(whiteRectangle)
             timeRemaining -= 1
-        } else if timeRemaining == 42 {
-//            AudioManager.shared.playAudio(fileName: "Puppy Sound", isBGM: false)
-              timeRemaining -= 1
-        } else if timeRemaining == 11 {
+        } else if timeRemaining == 43 {
+            AudioManager.shared.playAudio(fileName: "Puppy Sound", isBGM: false)
+            timeRemaining -= 1
+        } else if timeRemaining == 12 {
             AudioManager.shared.playAudio(fileName: "Door Opening Sound", isBGM: false)
             timeRemaining -= 1
         } else if timeRemaining > 2 {
@@ -78,8 +79,6 @@ class StoryScene: SKScene {
             timeRemaining -= 1
         } else if timeRemaining == 2 {
             AudioManager.shared.playAudio(fileName: "Cloud Transition", isBGM: false)
-            // 42 41 itu pas dog nya muncul
-            // 11 pas buka pintu
             print(timeRemaining)
             print("smoke")
             print(frame.size)

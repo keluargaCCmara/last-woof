@@ -44,4 +44,10 @@ class AudioManager {
         bgmPlayer?.stop()
         bgmPlayer = nil
     }
+    
+    func stopAllAudio() {
+        stopBGM()
+        soundEffectPlayer?.stop()
+        soundEffectPlayer = nil
+    }
 }
