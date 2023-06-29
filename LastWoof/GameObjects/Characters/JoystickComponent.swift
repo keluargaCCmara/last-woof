@@ -169,7 +169,7 @@ open class AnalogJoystick: SKNode {
     init(substrate: AnalogJoystickSubstrate, stick: AnalogJoystickStick) {
         super.init()
         self.substrate = substrate
-        substrate.zPosition = 0
+        substrate.zPosition = 50
         addChild(substrate)
         self.stick = stick
         stick.zPosition = substrate.zPosition + 1

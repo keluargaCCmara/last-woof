@@ -36,7 +36,13 @@ class StateChangeComponent: GKComponent {
     private func fade() {
         let fadeAction = SKAction.fadeOut(withDuration: 0.3)
         if let vc = visualComponent {
-            vc.visualNode.run(fadeAction)
+            let scene = vc.visualNode.parent!
+            vc.visualNode.run(SKAction.sequence([
+                fadeAction,
+                SKAction.run {
+                    scene.removeChildren(in: [vc.visualNode])
+                }
+            ]))
         }
     }
     
