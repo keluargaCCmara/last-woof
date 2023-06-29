@@ -29,8 +29,7 @@ class VisualComponent: GKComponent {
     
     func moveCharacter(_ data: AnalogJoystickData, velocityMultiplier: CGFloat) {
         visualNode.position = CGPoint(x: visualNode.position.x + (data.velocity.x * velocityMultiplier),
-                                           y: visualNode.position.y + (data.velocity.y * velocityMultiplier))
-//        visualNode.zRotation = data.angular
+            y: visualNode.position.y + (data.velocity.y * velocityMultiplier))
     }
     
     override func update(deltaTime seconds: TimeInterval) {
