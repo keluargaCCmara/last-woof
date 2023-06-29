@@ -145,8 +145,9 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                         let transition = SKTransition.fade(with: .white, duration: 0.5)
                         let prologue = StoryScene()
                         let sequence = SKAction.sequence([wait, SKAction.run {
-                            prologue.nFrames = 4
+                            prologue.nFrames = 17
                             prologue.sceneName = "Prologue"
+                            prologue.size = CGSize(width: 844, height: 390)
                             self.view?.presentScene(prologue, transition: transition)
                         }])
                         self.run(sequence)
