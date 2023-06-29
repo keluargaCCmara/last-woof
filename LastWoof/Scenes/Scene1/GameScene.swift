@@ -32,6 +32,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private var detectedObject: SKNode?
     private var actionButton: SKSpriteNode?
     private var isActionButtonClicked: Bool = false
+    private var thoughtItem: SKSpriteNode?
     private var analogJoystick: AnalogJoystick?
     private var isInventoryOpen = false
     private var currentlyHolding: String?
@@ -59,6 +60,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         setupInventoryButton()
         generateEntities()
         generateMissions()
+        dogThought()
     }
     
     private func generateEntities() {
@@ -165,7 +167,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
               ], state: 0, imageState: nil)
         
         let dog = generateEntity(components: [
-            VisualComponent(name: "Dog", imageName: "ShibaInu", size: CGSize(width: 68, height: 107), position: CGPoint(x: -217, y: -41), zPosition: 3, zRotation: 0)
+            VisualComponent(name: "Dog", imageName: "ShibaInu", size: CGSize(width: 68, height: 107), position: CGPoint(x: -217, y: -41), zPosition: 1, zRotation: 0)
         ], state: 0, imageState: nil)
     }
     
@@ -406,6 +408,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private func showSelectedInventory(inventory: String) {
         self.selectedInventoryNode.texture = SKTexture(imageNamed: inventory)
     }
+    
+    func dogThought() {
+            thoughtItem = SKSpriteNode(imageNamed: "Frisbee")
+            thoughtItem!.size = CGSize(width: 52, height: 33)
+            thoughtItem!.position = CGPoint(x: -115, y: 52)
+            thoughtItem!.zPosition = 2
+            addChild(thoughtItem!)
+            
+            let frisbeeTexture = SKTexture(imageNamed: "Frisbee")
+            let dogCollarTexture = SKTexture(imageNamed: "DogCollar")
+            let nameTagTexture = SKTexture(imageNamed: "NameTag")
+            
+            let textureArray = [frisbeeTexture, dogCollarTexture, nameTagTexture]
+            let fadeDuration = 0.5
+            let waitDuration = 10.0
+            
+            var sequenceArray: [SKAction] = []
+            for texture in textureArray {
+                let fadeInAction = SKAction.fadeIn(withDuration: fadeDuration)
+                let textureAction = SKAction.setTexture(texture)
+                let waitAction = SKAction.wait(forDuration: waitDuration)
+                let fadeOutAction = SKAction.fadeOut(withDuration: fadeDuration)
+                let textureSequence = SKAction.sequence([textureAction, fadeInAction, textureAction, waitAction, fadeOutAction])
+                sequenceArray.append(textureSequence)
+            }
+            
+            let animateAction = SKAction.sequence(sequenceArray)
+            let repeatAction = SKAction.repeatForever(animateAction)
+            
+            thoughtItem!.run(repeatAction)
+        }
     
     private func animateActionButton() {
         let beforeGrabTexture = SKTexture(imageNamed: "BeforeGrab")
