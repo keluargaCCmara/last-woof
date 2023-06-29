@@ -39,6 +39,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     let physicsComponentSystem = GKComponentSystem(componentClass: PhysicsComponent.self)
     
     override func didMove(to view: SKView) {
+        
+        let whiteRectangle = SKSpriteNode(color: .white, size: CGSize(width: frame.size.width, height: frame.size.height))
+            whiteRectangle.position = CGPoint(x: 0, y: 0)
+            whiteRectangle.alpha = 1.0
+            whiteRectangle.zPosition = 1000
+            addChild(whiteRectangle)
+            
+            let fadeOutAction = SKAction.fadeOut(withDuration: 1.0)
+            whiteRectangle.run(fadeOutAction)
+        
         physicsWorld.contactDelegate = self
         guard let backgroundNode = childNode(withName: "background") as? SKSpriteNode else {
             fatalError("Background node not found in .sks file")
@@ -46,7 +56,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         self.background = backgroundNode
         self.background?.zPosition = -1
         
-        character = generateCharacter(imagedName: "DummyCharacter", width: 100, height: 100, xPosition: 140, yPosition: -183, zPosition: 1, zRotation: 0, isDynamic: true)
+        character = generateCharacter(imagedName: "DummyCharacter", width: 100, height: 100, xPosition: 0, yPosition: 0, zPosition: 1, zRotation: 0, isDynamic: true)
         addChild(character!)
         
         cameraNode.position = character!.position

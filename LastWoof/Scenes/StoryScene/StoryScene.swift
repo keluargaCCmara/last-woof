@@ -43,24 +43,26 @@ class StoryScene: SKScene {
     }
     
     @objc func updateTimer() {
-        if timeRemaining > 2 {
+        if timeRemaining > 1 {
             print(timeRemaining)
             timeRemaining -= 1
         } else if timeRemaining > 0 {
+            print(timeRemaining)
             timeRemaining -= 1
             let smokeParticleRight = SKEmitterNode(fileNamed: "SubHomeSmoke")!
             smokeParticleRight.position = CGPoint(x: frame.minX, y: frame.midY)
-            smokeParticleRight.run(SKAction.moveTo(x: frame.midX, duration: 1.5))
+            smokeParticleRight.run(SKAction.moveTo(x: frame.midX, duration: 0.5))
             smokeParticleRight.zPosition = 99
             addChild(smokeParticleRight)
             let smokeParticleLeft = SKEmitterNode(fileNamed: "SubHomeSmoke")!
             smokeParticleLeft.position = CGPoint(x: frame.maxX, y: frame.midY)
-            smokeParticleLeft.run(SKAction.moveTo(x: frame.midX, duration: 1.5))
+            smokeParticleLeft.run(SKAction.moveTo(x: frame.midX, duration: 0.5))
             smokeParticleLeft.zPosition = 99
             addChild(smokeParticleLeft)
         } else if timeRemaining == 0 {
+            print(timeRemaining)
             timeRemaining = -100
-            let transition = SKTransition.fade(with: .white, duration: 1)
+            let transition = SKTransition.fade(with: .white, duration: 0)
             let scene = GameScene(fileNamed: "GameScene")!
             self.view?.presentScene(scene, transition: transition)
         }
