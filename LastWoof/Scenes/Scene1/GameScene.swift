@@ -31,6 +31,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     let missionSystem = MissionSystem(gameState: GameState())
     private var detectedObject: SKNode?
     private var actionButton: SKSpriteNode?
+    private var thoughtItem: SKSpriteNode?
     private var isActionButtonClicked: Bool = false
     private var analogJoystick: AnalogJoystick?
     private var isInventoryOpen = false
@@ -57,9 +58,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         setupInventoryButton()
         generateEntities()
         generateMissions()
+        dogThought()
     }
     
     private func generateEntities() {
+        
+        
         character = generateEntity(components: [
             VisualComponent(name: "Character",imageName: "DummyCharacter", size: CGSize(width: 80, height: 173), position: CGPoint(x: 140, y: -183), zPosition: 10, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 50, height: 173), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
@@ -288,7 +292,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
                             currentlyHolding = realName
                             entityManager.toRemove = Set(self.inventoryEntities)
                             entityManager.removeEntities()
-//                            changeGrabButton(name: realName)
                         }
                     }
                 }
@@ -363,6 +366,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         backpackNode.zPosition = 50
         self.camera?.addChild(backpackNode)
         self.inventoryBtnNode = backpackNode
+    }
+    
+    func dogThought() {
+        thoughtItem = SKSpriteNode(imageNamed: "Frisbee")
+        thoughtItem!.size = CGSize(width: 52, height: 33)
+        thoughtItem!.position = CGPoint(x: -115, y: 52)
+        thoughtItem!.zPosition = 2
+        addChild(thoughtItem!)
+        
+        let frisbeeTexture = SKTexture(imageNamed: "Frisbee")
+        let dogCollarTexture = SKTexture(imageNamed: "DogCollar")
+        let nameTagTexture = SKTexture(imageNamed: "NameTag")
+        
+        let textureArray = [frisbeeTexture, dogCollarTexture, nameTagTexture]
+        let fadeDuration = 0.5
+        let waitDuration = 10.0
+        
+        var sequenceArray: [SKAction] = []
+        for texture in textureArray {
+            let fadeInAction = SKAction.fadeIn(withDuration: fadeDuration)
+            let textureAction = SKAction.setTexture(texture)
+            let waitAction = SKAction.wait(forDuration: waitDuration)
+            let fadeOutAction = SKAction.fadeOut(withDuration: fadeDuration)
+            let textureSequence = SKAction.sequence([textureAction, fadeInAction, textureAction, waitAction, fadeOutAction])
+            sequenceArray.append(textureSequence)
+        }
+        
+        let animateAction = SKAction.sequence(sequenceArray)
+        let repeatAction = SKAction.repeatForever(animateAction)
+        
+        thoughtItem!.run(repeatAction)
     }
     
     private func animateActionButton() {
