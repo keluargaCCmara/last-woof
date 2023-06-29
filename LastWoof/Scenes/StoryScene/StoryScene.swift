@@ -13,7 +13,7 @@ class StoryScene: SKScene {
     var sceneFrames: [SKTexture] = []
     var nFrames: Int = 0
     var sceneName: String = ""
-    private var timeRemaining = 67
+    private var timeRemaining: Int = 0
     
     var epilogueFrame: SKNode!
     
@@ -44,6 +44,12 @@ class StoryScene: SKScene {
         // Create a timer that fires every second
 
         Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        
+        if sceneName == "Prologue" {
+                timeRemaining = 67
+            } else if sceneName.starts(with: "Chapter1-") {
+                timeRemaining = 20
+            }
     }
     
     @objc func updateTimer() {
@@ -56,6 +62,13 @@ class StoryScene: SKScene {
             addChild(whiteRectangle)
             timeRemaining -= 1
         } else if timeRemaining > 2 {
+            if sceneName == "Chapter1-" {
+                let whiteRectangle = SKSpriteNode(color: .white, size: CGSize(width: frame.size.width, height: frame.size.height))
+                whiteRectangle.position = CGPoint(x: frame.midX, y: frame.midY)
+                whiteRectangle.alpha = 1.0
+                whiteRectangle.zPosition = -1
+                addChild(whiteRectangle)
+            }
             print(timeRemaining)
             timeRemaining -= 1
         } else if timeRemaining == 2 {
