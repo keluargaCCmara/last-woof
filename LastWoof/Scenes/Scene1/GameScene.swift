@@ -92,7 +92,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             StateChangeComponent(),
             StoreInventoryComponent()
         ], state: 0, imageState: nil)
-
+        
         let sapuGarpu = generateEntity(components: [
             VisualComponent(name: "SapuGarpu", imageName: "SapuGarpu", size: CGSize(width: 67, height: 170), position: CGPoint(x: -572, y: -148), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 67, height: 170), imageName: "SapuGarpu", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
@@ -106,7 +106,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             StateChangeComponent(),
             StoreInventoryComponent()
         ], state: 2, imageState: ["Leaves2", "Leaves3"])
-
+        
         let netStick = generateEntity(components: [
             VisualComponent(name: "Net", imageName: "NetStick", size: CGSize(width: 52, height: 55), position: CGPoint(x: -120, y: -140), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 52, height: 55), imageName: "NetStick", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
@@ -118,7 +118,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             VisualComponent(name: "Plant1", imageName: "Plant1-Task", size: CGSize(width: 273, height: 189), position: CGPoint(x: 391, y: 100), zPosition: 2, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 273, height: 189), imageName: "Plant1-Task", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
         ], state: 0, imageState: nil)
-
+        
         let dogCollar = generateEntity(components: [
             VisualComponent(name: "DogCollar", imageName: "DogCollar", size: CGSize(width: 100, height: 50), position: CGPoint(x: 327, y: 41), zPosition: 1, zRotation: 56),
             PhysicsComponent(size: CGSize(width: 100, height: 50), imageName: "DogCollar", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
@@ -142,15 +142,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             StoreInventoryComponent(),
             StateChangeComponent()
         ], state: 0, imageState: nil)
-
+        
         let fence = generateEntity(components: [
             VisualComponent(name: "Fence", imageName: "Fence", size: CGSize(width: 328, height: 715), position: CGPoint(x: 529, y: -162), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 328, height: 715), imageName: "Fence", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ], state: 0, imageState: nil)
         
         let terrace = generateEntity(components: [
-                   VisualComponent(name: "Terrace", imageName: "terrace", size: CGSize(width: 873, height: 373), position: CGPoint(x: -270, y: 8), zPosition: 0, zRotation: 0)
-               ], state: 0, imageState: nil)
+            VisualComponent(name: "Terrace", imageName: "terrace", size: CGSize(width: 873, height: 373), position: CGPoint(x: -270, y: 8), zPosition: 0, zRotation: 0)
+        ], state: 0, imageState: nil)
         
         let rectangle = generateEntity(components: [
             VisualComponent(name: "rectangle", imageName: "rectangle", size: CGSize(width: 207, height: 648), position: CGPoint(x: -385, y: 96), zPosition: -1, zRotation: -90),
@@ -163,8 +163,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         ], state: 0, imageState: nil)
         
         let bubble = generateEntity(components: [
-                  VisualComponent(name: "bubble", imageName: "DogBubbleOfThought", size: CGSize(width: 230, height: 191), position: CGPoint(x: -134, y: 31), zPosition: 1, zRotation: 0)
-              ], state: 0, imageState: nil)
+            VisualComponent(name: "bubble", imageName: "DogBubbleOfThought", size: CGSize(width: 230, height: 191), position: CGPoint(x: -134, y: 31), zPosition: 1, zRotation: 0)
+        ], state: 0, imageState: nil)
         
         let dog = generateEntity(components: [
             VisualComponent(name: "Dog", imageName: "ShibaInu", size: CGSize(width: 68, height: 107), position: CGPoint(x: -217, y: -41), zPosition: 1, zRotation: 0)
@@ -215,21 +215,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private func setupCamera() {
         let cameraNode = SKCameraNode()
         cameraNode.position = CGPoint.zero
-            
+        
         self.addChild(cameraNode)
         self.camera = cameraNode
     }
-
+    
     private func boundsCheckCamera() {
         guard let camera = self.camera else {return}
         let minX = background!.position.x - background!.size.width / 2 + size.width / 2
         let minY = background!.position.y - background!.size.height / 2 + size.height / 2
         let maxX = background!.position.x + background!.size.width / 2 - size.width / 2
         let maxY = background!.position.y + background!.size.height / 2 - size.height / 2
-
+        
         let cameraX = camera.position.x
         let cameraY = camera.position.y
-
+        
         if cameraX < minX {
             camera.position.x = minX
         } else if cameraX > maxX {
@@ -264,7 +264,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             let location = touch.location(in: self)
             print(self.convertPoint(toView: location))
             let touchedNodes = nodes(at: location)
-        
+            
             for node in touchedNodes {
                 if node.name == "Inventory" {
                     // mau open inventory
@@ -289,7 +289,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
                 }
                 
                 if node.name?.contains("InventoryItem") == true {
-                    if let entity = entityManager.isInventoryItem(node: node) {
+                    if let _ = entityManager.isInventoryItem(node: node) {
                         if let realName = node.name?.split(separator: "_").dropFirst().first.map({ String($0) }) {
                             if realName == currentlyHolding {
                                 // unselect currently holding
@@ -322,7 +322,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     }
     // MARK: PhysicsContactDelegate Protocol
     func didBegin(_ contact: SKPhysicsContact) {
-        let collision = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         let interract = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
         
         if interract == PhysicsCategory.character | PhysicsCategory.task {
@@ -410,35 +409,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     }
     
     func dogThought() {
-            thoughtItem = SKSpriteNode(imageNamed: "Frisbee")
-            thoughtItem!.size = CGSize(width: 52, height: 33)
-            thoughtItem!.position = CGPoint(x: -115, y: 52)
-            thoughtItem!.zPosition = 2
-            addChild(thoughtItem!)
-            
-            let frisbeeTexture = SKTexture(imageNamed: "Frisbee")
-            let dogCollarTexture = SKTexture(imageNamed: "DogCollar")
-            let nameTagTexture = SKTexture(imageNamed: "NameTag")
-            
-            let textureArray = [frisbeeTexture, dogCollarTexture, nameTagTexture]
-            let fadeDuration = 0.5
-            let waitDuration = 10.0
-            
-            var sequenceArray: [SKAction] = []
-            for texture in textureArray {
-                let fadeInAction = SKAction.fadeIn(withDuration: fadeDuration)
-                let textureAction = SKAction.setTexture(texture)
-                let waitAction = SKAction.wait(forDuration: waitDuration)
-                let fadeOutAction = SKAction.fadeOut(withDuration: fadeDuration)
-                let textureSequence = SKAction.sequence([textureAction, fadeInAction, textureAction, waitAction, fadeOutAction])
-                sequenceArray.append(textureSequence)
-            }
-            
-            let animateAction = SKAction.sequence(sequenceArray)
-            let repeatAction = SKAction.repeatForever(animateAction)
-            
-            thoughtItem!.run(repeatAction)
+        thoughtItem = SKSpriteNode(imageNamed: "Frisbee")
+        thoughtItem!.size = CGSize(width: 52, height: 33)
+        thoughtItem!.position = CGPoint(x: -115, y: 52)
+        thoughtItem!.zPosition = 2
+        addChild(thoughtItem!)
+        
+        let frisbeeTexture = SKTexture(imageNamed: "Frisbee")
+        let dogCollarTexture = SKTexture(imageNamed: "DogCollar")
+        let nameTagTexture = SKTexture(imageNamed: "NameTag")
+        
+        let textureArray = [frisbeeTexture, dogCollarTexture, nameTagTexture]
+        let fadeDuration = 0.5
+        let waitDuration = 5.0
+        
+        var sequenceArray: [SKAction] = []
+        for texture in textureArray {
+            let fadeInAction = SKAction.fadeIn(withDuration: fadeDuration)
+            let textureAction = SKAction.setTexture(texture)
+            let waitAction = SKAction.wait(forDuration: waitDuration)
+            let fadeOutAction = SKAction.fadeOut(withDuration: fadeDuration)
+            let textureSequence = SKAction.sequence([textureAction, fadeInAction, textureAction, waitAction, fadeOutAction])
+            sequenceArray.append(textureSequence)
         }
+        
+        let animateAction = SKAction.sequence(sequenceArray)
+        let repeatAction = SKAction.repeatForever(animateAction)
+        
+        thoughtItem!.run(repeatAction)
+    }
     
     private func animateActionButton() {
         let beforeGrabTexture = SKTexture(imageNamed: "BeforeGrab")
