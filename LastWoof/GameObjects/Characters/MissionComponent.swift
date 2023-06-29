@@ -44,7 +44,7 @@ class MissionComponent: Hashable {
         self.sideMissionNeedToBeDone = sideMissionNeedToBeDone
     }
 
-    func succes() {
+    func success() {
         for (object, action) in successState {
             guard let entity = entitySearcher(name: object) as? CustomEntity else { return }
             if action == "Remove" {
