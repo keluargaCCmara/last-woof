@@ -8,16 +8,48 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "CDF1A564-C73B-4B89-86BC-5CCE08F12335"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LastWoof/Scenes/Scene1/GameScene.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "308"
-            endingLineNumber = "308"
+            startingLineNumber = "309"
+            endingLineNumber = "309"
             landmarkName = "touchesBegan(_:with:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "CDF1A564-C73B-4B89-86BC-5CCE08F12335 - f00681a3a48dd77"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Last_Woof.GameScene.touchesBegan(_: Swift.Set&lt;__C.UITouch&gt;, with: Swift.Optional&lt;__C.UIEvent&gt;) -&gt; ()"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/leonardowijaya/Documents/XCode/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "309"
+                  endingLineNumber = "309"
+                  offsetFromSymbolStart = "5088">
+               </Location>
+               <Location
+                  uuid = "CDF1A564-C73B-4B89-86BC-5CCE08F12335 - f00681a3a48dd77"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Last_Woof.GameScene.touchesBegan(_: Swift.Set&lt;__C.UITouch&gt;, with: Swift.Optional&lt;__C.UIEvent&gt;) -&gt; ()"
+                  moduleName = "Last Woof"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/leonardowijaya/Documents/XCode/last-woof/LastWoof/Scenes/Scene1/GameScene.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "309"
+                  endingLineNumber = "309"
+                  offsetFromSymbolStart = "5032">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy

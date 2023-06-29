@@ -86,7 +86,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         ], state: 0, imageState: nil)
         
         let nameTag = generateEntity(components: [
-            VisualComponent(name: "NameTag", imageName: "NameTag", size: CGSize(width: 0, height: 0), position: CGPoint(x: 0, y: 0), zPosition: -2, zRotation: 0)
+            VisualComponent(name: "NameTag", imageName: "NameTag", size: CGSize(width: 67, height: 30), position: CGPoint(x: 349, y: -454), zPosition: -2, zRotation: 0),
+            StateChangeComponent(),
+            StoreInventoryComponent()
         ], state: 0, imageState: nil)
 
         let sapuGarpu = generateEntity(components: [
@@ -157,7 +159,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             VisualComponent(name: "triangle", imageName: "triangle", size: CGSize(width: 164, height: 206), position: CGPoint(x: 5, y: 96), zPosition: -1, zRotation: 0.267),
             PhysicsComponent(size: CGSize(width: 164, height: 206), imageName: "triangle", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ], state: 0, imageState: nil)
-        
         
         let bubble = generateEntity(components: [
                   VisualComponent(name: "bubble", imageName: "DogBubbleOfThought", size: CGSize(width: 230, height: 191), position: CGPoint(x: -134, y: 31), zPosition: 1, zRotation: 0)
