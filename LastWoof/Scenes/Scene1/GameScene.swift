@@ -27,8 +27,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private var isColliding: Bool = false
     private var lastDidBeginTime: TimeInterval = 0
     private var character: GKEntity?
-    private var characterVisualNode: SKSpriteNode?
-
+    
     let missionSystem = MissionSystem(gameState: GameState())
     private var detectedObject: SKNode?
     private var actionButton: SKSpriteNode?
@@ -43,6 +42,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     
     private var entityManager = EntityManager.shared
     private var inventoryManager = InventoryManager.shared
+    
     override func didMove(to view: SKView) {
         entityManager.scene = self
         physicsWorld.contactDelegate = self
@@ -51,8 +51,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         }
         self.background = backgroundNode
         self.background?.zPosition = -1
-        characterVisualNode = character?.component(ofType: VisualComponent.self)?.visualNode as? SKSpriteNode
-
         setupCamera()
         setupJoystick()
         setupActionButton()
@@ -63,8 +61,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     
     private func generateEntities() {
         character = generateEntity(components: [
-            VisualComponent(name: "Character",imageName: "right_0", size: CGSize(width: 80, height: 173), position: CGPoint(x: 140, y: -183), zPosition: 10, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 50, height: 173), imageName: "right_0", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
+            VisualComponent(name: "Character",imageName: "DummyCharacter", size: CGSize(width: 80, height: 173), position: CGPoint(x: 140, y: -183), zPosition: 10, zRotation: 0),
+            PhysicsComponent(size: CGSize(width: 50, height: 173), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
             MovementComponent(analogJoystick: analogJoystick!),
             PlayerControlComponent(entityManager: entityManager)
         ], state: 0, imageState: nil)
@@ -153,7 +151,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         entityManager.add(entity)
         return entity
     }
-
+    
     private func generateMissions() {
         let plant1Mission = MissionComponent(missionID: "DogCollar", type: .side, interractObject: ["DogCollar"], neededObject: nil, failedPrompt: nil, successState: ["DogCollar" : "Store"], successPrompt: "You acquired a Dog Collar", sideMissionNeedToBeDone: nil)
         missionSystem.addComponent(mission: plant1Mission)
