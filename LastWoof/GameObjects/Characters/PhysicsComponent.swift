@@ -41,13 +41,26 @@ class PhysicsComponent: GKComponent {
     
     private func addPhysics() {
         if let visualComponent = visualComponent, !nodeHasPhysics {
-            visualComponent.visualNode.physicsBody = SKPhysicsBody(texture: texture, size: size)
-            visualComponent.visualNode.physicsBody?.isDynamic = isDynamic
-            visualComponent.visualNode.physicsBody?.categoryBitMask = categoryBitMask
-            visualComponent.visualNode.physicsBody?.collisionBitMask = collisionBitMask
-            visualComponent.visualNode.physicsBody?.contactTestBitMask = contactTestBitMask
-            visualComponent.visualNode.physicsBody?.affectedByGravity = false
-            visualComponent.visualNode.physicsBody?.allowsRotation = false
+            let vn = visualComponent.visualNode
+            if imageName == "DummyCharacter" {
+                let x = 0.0
+                let y = -vn.size.height/2 + 40
+            
+//                vn.physicsBody? = SKPhysicsBody(texture: texture, size: size)
+//                vn.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: vn.size.width, height: vn.size.height/2), center: CGPoint(x: x, y: y))
+                vn.physicsBody = SKPhysicsBody(circleOfRadius: 20, center: CGPoint(x: x, y: y))
+            } else if imageName == "Terrace" {
+                vn.physicsBody = SKPhysicsBody(rectangleOf: vn.size)
+            } else {
+                vn.physicsBody = SKPhysicsBody(texture: texture, size: size)
+            }
+            vn.physicsBody?.isDynamic = isDynamic
+            vn.physicsBody?.categoryBitMask = categoryBitMask
+            vn.physicsBody?.collisionBitMask = collisionBitMask
+            vn.physicsBody?.contactTestBitMask = contactTestBitMask
+            vn.physicsBody?.affectedByGravity = false
+            vn.physicsBody?.allowsRotation = false
+            
             nodeHasPhysics = true
         }
     }
