@@ -313,7 +313,6 @@
 				15CFF42F2A4DCEB100FF949D /* Cloud Transition.mp3 */,
 			);
 			path = "MC 2 Sound";
->>>>>>> dev/merge/game-main-menu
 			sourceTree = "<group>";
 		};
 		91F357E22A3A1EFF0072FF71 = {
@@ -323,11 +322,8 @@
 				0B2A7BD02A430704008310E6 /* Last Woof.entitlements */,
 				91F357ED2A3A1EFF0072FF71 /* LastWoof */,
 				91F357EC2A3A1EFF0072FF71 /* Products */,
-<<<<<<< HEAD
 				1594EE2C2A4C8232003AA041 /* Frameworks */,
-=======
 				15CFF41F2A4DCBF700FF949D /* Recovered References */,
->>>>>>> dev/merge/game-main-menu
 			);
 			sourceTree = "<group>";
 		};
@@ -342,11 +338,8 @@
 		91F357ED2A3A1EFF0072FF71 /* LastWoof */ = {
 			isa = PBXGroup;
 			children = (
-<<<<<<< HEAD
 				150FD4A42A4C7EC10003C9F5 /* Last-Woof-Audio copy */,
-=======
 				15CFF4242A4DCEB100FF949D /* MC 2 Sound */,
->>>>>>> dev/merge/game-main-menu
 				91F358092A3A20F90072FF71 /* Database */,
 				91F358052A3A20A60072FF71 /* Managers */,
 				91F358042A3A209B0072FF71 /* GameObjects */,
@@ -397,11 +390,8 @@
 			children = (
 				0B6529972A43E5A20057EAC6 /* EntityManager.swift */,
 				0BE797842A45A5AC00B1F155 /* InventoryManager.swift */,
-<<<<<<< HEAD
 				150FD4A22A4C7D480003C9F5 /* AudioManager.swift */,
-=======
 				15CFF4202A4DCDBD00FF949D /* AudioManager.swift */,
->>>>>>> dev/merge/game-main-menu
 			);
 			path = Managers;
 			sourceTree = "<group>";
