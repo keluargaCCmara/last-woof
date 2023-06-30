@@ -48,7 +48,7 @@ class StoryScene: SKScene {
         if sceneName == "Prologue" {
             timeRemaining = 67
         } else if sceneName.starts(with: "Chapter1-") {
-            timeRemaining = 20
+            timeRemaining = 15
         }
     }
     
