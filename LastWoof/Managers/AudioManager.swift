@@ -8,25 +8,46 @@
 import AVFoundation
 
 class AudioManager {
-    
     static let shared = AudioManager()
     
-    var player: AVAudioPlayer?
+    private var bgmPlayer: AVAudioPlayer?
+    private var soundEffectPlayer: AVAudioPlayer?
     
-    func playAudio(fileName: String) {
+    func playAudio(fileName: String, isBGM: Bool) {
         guard let url = Bundle.main.url(forResource: fileName, withExtension: "mp3") else {
-            print("URL is wrong"); return
+            print("URL is wrong")
+            return
         }
+        
         do {
-            player = try AVAudioPlayer(contentsOf: url)
-            guard let player = player else { return }
-            
+            let player = try AVAudioPlayer(contentsOf: url)
             player.prepareToPlay()
-            player.play()
             
+            if isBGM {
+                bgmPlayer?.stop()
+                bgmPlayer = player
+                bgmPlayer?.numberOfLoops = -1 // Infinite looping
+                bgmPlayer?.volume = 0.8
+                bgmPlayer?.play()
+            } else {
+                soundEffectPlayer = player
+                soundEffectPlayer?.numberOfLoops = 0 // Non-looping
+                soundEffectPlayer?.volume = 1.0
+                soundEffectPlayer?.play()
+            }
         } catch {
             print(error.localizedDescription)
         }
     }
     
+    func stopBGM() {
+        bgmPlayer?.stop()
+        bgmPlayer = nil
+    }
+    
+    func stopAllAudio() {
+        stopBGM()
+        soundEffectPlayer?.stop()
+        soundEffectPlayer = nil
+    }
 }

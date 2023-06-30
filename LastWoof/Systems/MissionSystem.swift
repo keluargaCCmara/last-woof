@@ -11,7 +11,7 @@ class MissionSystem {
     
     var inventory: InventoryManager = InventoryManager.shared
     
-    private var gameState: GameState
+    var gameState: GameState
     var missions = Set<MissionComponent>()
     
     init(gameState: GameState) {
@@ -22,7 +22,7 @@ class MissionSystem {
         missions.insert(mission)
     }
     
-    func checkMission(entity: CustomEntity, characterHolding: String?) -> SKSpriteNode? {
+    func checkMission(entity: CustomEntity, characterHolding: String?) -> SKSpriteNode {
         let objectName = entity.component(ofType: VisualComponent.self)?.visualNode.name
         var missionGathered: MissionComponent?
         for case let mission in missions {
@@ -34,7 +34,7 @@ class MissionSystem {
                     checkMainMission()
                     print(mission.successPrompt)
                     missions.remove(mission)
-                    return nil
+                    return generateFadingTextNode(text: missionGathered!.successPrompt, fontSize: 20)
                 }
             }
         }
