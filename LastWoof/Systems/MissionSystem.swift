@@ -26,8 +26,8 @@ class MissionSystem {
         let objectName = entity.component(ofType: VisualComponent.self)?.visualNode.name
         var missionGathered: MissionComponent?
         for case let mission in missions {
+            missionGathered = mission
             if checkPlayerInterractedWith(objectName: objectName!, interractedObject: mission.interractObject ?? []) {
-                missionGathered = mission
                 if checkSideMissionCompleted(mission) == true && checkNeededObject(characterHolding: characterHolding, neededObject: mission.neededObject) == true {
                     gameState.setSideMissionComplete(mission)
                     mission.success()
