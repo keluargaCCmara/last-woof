@@ -105,6 +105,14 @@ class StoryScene: SKScene {
                 AudioManager.shared.stopBGM()
                 AudioManager.shared.playAudio(fileName: "Cloud Transition", isBGM: false)
             } else if sceneName == "Chapter1-" {
+                let wait = SKAction.wait(forDuration: 1)
+                let transition = SKTransition.fade(with: .white, duration: 0.5)
+                let mainMenu = MainMenu()
+                let sequence = SKAction.sequence([wait, SKAction.run {
+                    mainMenu.size = CGSize(width: 844, height: 390)
+                    self.view?.presentScene(mainMenu, transition: transition)
+                }])
+                self.run(sequence)
                 print("To be continue")
             }
         }

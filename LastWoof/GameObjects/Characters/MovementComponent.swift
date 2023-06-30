@@ -12,6 +12,9 @@ class MovementComponent: GKComponent {
     var visualComponent: VisualComponent? {
         return entity?.component(ofType: VisualComponent.self)
     }
+    var playerControlComponent: PlayerControlComponent? {
+        return entity?.component(ofType: PlayerControlComponent.self)
+    }
     
     private let velocityMultiplier: CGFloat = 0.0375
     private var analogJoystick: AnalogJoystick?
@@ -31,7 +34,7 @@ class MovementComponent: GKComponent {
     
     func move(_ data: AnalogJoystickData) {
         guard let visualComponent = visualComponent else { return }
-        
+        playerControlComponent!.animatePlayerDirection(direction: data.velocity)
         visualComponent.moveCharacter(data, velocityMultiplier: velocityMultiplier)
     }
     

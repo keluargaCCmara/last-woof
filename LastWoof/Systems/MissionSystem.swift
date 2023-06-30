@@ -86,7 +86,7 @@ class MissionSystem {
         let backgroundTexture = makeRoundedCornerTexture(size: backgroundNodeSize, cornerRadius: 10, color: UIColor.white.withAlphaComponent(0.75))
         let backgroundNode = SKSpriteNode(texture: backgroundTexture)
         backgroundNode.alpha = 0.0 // Initially invisible
-        backgroundNode.zPosition = 10
+        backgroundNode.zPosition = 100
         backgroundNode.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         
         // Center the label within the background node
