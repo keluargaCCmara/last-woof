@@ -65,7 +65,9 @@ class StoryScene: SKScene {
             AudioManager.shared.playAudio(fileName: "Puppy Sound", isBGM: false)
             timeRemaining -= 1
         } else if timeRemaining == 12 {
-            AudioManager.shared.playAudio(fileName: "Door Opening Sound", isBGM: false)
+            if sceneName == "Chapter1-" {
+                AudioManager.shared.playAudio(fileName: "Door Opening Sound", isBGM: false)
+            }
             timeRemaining -= 1
         } else if timeRemaining > 2 {
             if sceneName == "Chapter1-" {
