@@ -32,8 +32,9 @@ class MissionComponent: Hashable {
     let successState: [String]
     let successPrompt: String
     var sideMissionNeedToBeDone: [MissionComponent]?
+    let sound: String?
     
-    init(missionID: String, type: MissionType, interractObject: [String]?, neededObject: String?, failedPrompt: String?, successState: [String], successPrompt: String, sideMissionNeedToBeDone: [MissionComponent]?) {
+    init(missionID: String, type: MissionType, interractObject: [String]?, neededObject: String?, failedPrompt: String?, successState: [String], successPrompt: String, sideMissionNeedToBeDone: [MissionComponent]?, sound: String?) {
         self.missionID = missionID
         self.type = type
         self.interractObject = interractObject
@@ -42,10 +43,13 @@ class MissionComponent: Hashable {
         self.successState = successState
         self.successPrompt = successPrompt
         self.sideMissionNeedToBeDone = sideMissionNeedToBeDone
+        self.sound = sound
     }
 
     func success() {
-        for (object, action) in successState {
+        if sound != nil {
+            AudioManager.shared.playAudio(fileName: sound!, isBGM: false)
+        }
         for str in successState {
             let object = str.split(separator: "_").first.map({ String($0) })!
             let action = str.split(separator: "_").last.map({ String($0) })!
