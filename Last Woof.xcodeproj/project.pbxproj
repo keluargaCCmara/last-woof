@@ -17,29 +17,8 @@
 		0B7ECDE92A41AE9F00B0709B /* RemoveInventoryComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B7ECDE82A41AE9F00B0709B /* RemoveInventoryComponent.swift */; };
 		0BE797852A45A5AC00B1F155 /* InventoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE797842A45A5AC00B1F155 /* InventoryManager.swift */; };
 		0BE797872A45B64800B1F155 /* iCloudAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE797862A45B64800B1F155 /* iCloudAuthController.swift */; };
+		150642912A4F1C1A00EBDA35 /* BGM For Menu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150642902A4F1C1A00EBDA35 /* BGM For Menu.mp3 */; };
 		150FD4A32A4C7D480003C9F5 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150FD4A22A4C7D480003C9F5 /* AudioManager.swift */; };
-		150FD4C22A4C7EC10003C9F5 /* wind-blow-141288.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4A72A4C7EC10003C9F5 /* wind-blow-141288.mp3 */; };
-		150FD4C32A4C7EC10003C9F5 /* the-notification-email-143029.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4A92A4C7EC10003C9F5 /* the-notification-email-143029.mp3 */; };
-		150FD4C42A4C7EC10003C9F5 /* collected-item-104743.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4AA2A4C7EC10003C9F5 /* collected-item-104743.mp3 */; };
-		150FD4C52A4C7EC10003C9F5 /* notifications-sound-127856.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4AB2A4C7EC10003C9F5 /* notifications-sound-127856.mp3 */; };
-		150FD4C62A4C7EC10003C9F5 /* item-pick-up-38258.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4AC2A4C7EC10003C9F5 /* item-pick-up-38258.mp3 */; };
-		150FD4C72A4C7EC10003C9F5 /* decidemp3-14575.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4AD2A4C7EC10003C9F5 /* decidemp3-14575.mp3 */; };
-		150FD4C82A4C7EC10003C9F5 /* correct-2-46134.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4AE2A4C7EC10003C9F5 /* correct-2-46134.mp3 */; };
-		150FD4C92A4C7EC10003C9F5 /* click-menu-app-147357.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4B02A4C7EC10003C9F5 /* click-menu-app-147357.mp3 */; };
-		150FD4CA2A4C7EC10003C9F5 /* swoosh-transition-with-metal-overtones-142375.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4B12A4C7EC10003C9F5 /* swoosh-transition-with-metal-overtones-142375.mp3 */; };
-		150FD4CB2A4C7EC10003C9F5 /* short-success-sound-glockenspiel-treasure-video-game-6346.mp3 21-34-04-101.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4B32A4C7EC10003C9F5 /* short-success-sound-glockenspiel-treasure-video-game-6346.mp3 21-34-04-101.mp3 */; };
-		150FD4CC2A4C7EC10003C9F5 /* game-level-complete-143022.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4B42A4C7EC10003C9F5 /* game-level-complete-143022.mp3 */; };
-		150FD4CD2A4C7EC10003C9F5 /* notification-37858.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4B62A4C7EC10003C9F5 /* notification-37858.mp3 */; };
-		150FD4CE2A4C7EC10003C9F5 /* new-notification-sound-effect-138807.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4B72A4C7EC10003C9F5 /* new-notification-sound-effect-138807.mp3 */; };
-		150FD4CF2A4C7EC10003C9F5 /* notification-sound-7062.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4B82A4C7EC10003C9F5 /* notification-sound-7062.mp3 */; };
-		150FD4D02A4C7EC10003C9F5 /* rain-and-thunder-113218.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4BA2A4C7EC10003C9F5 /* rain-and-thunder-113218.mp3 */; };
-		150FD4D12A4C7EC10003C9F5 /* thunder-124465.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4BB2A4C7EC10003C9F5 /* thunder-124465.mp3 */; };
-		150FD4D22A4C7EC10003C9F5 /* dark-cinematic-apocalyptic-153277.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4BC2A4C7EC10003C9F5 /* dark-cinematic-apocalyptic-153277.mp3 */; };
-		150FD4D32A4C7EC10003C9F5 /* piano-logo-108963.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4BD2A4C7EC10003C9F5 /* piano-logo-108963.mp3 */; };
-		150FD4D42A4C7EC10003C9F5 /* lonely-piano-clip-32779.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4BE2A4C7EC10003C9F5 /* lonely-piano-clip-32779.mp3 */; };
-		150FD4D52A4C7EC10003C9F5 /* dream-magic-prolonged-94891.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4BF2A4C7EC10003C9F5 /* dream-magic-prolonged-94891.mp3 */; };
-		150FD4D62A4C7EC10003C9F5 /* game-music-loop-6-144641.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4C02A4C7EC10003C9F5 /* game-music-loop-6-144641.mp3 */; };
-		150FD4D72A4C7EC10003C9F5 /* calm_game_music_1-49209.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150FD4C12A4C7EC10003C9F5 /* calm_game_music_1-49209.mp3 */; };
 		15434F2F2A406B550086583E /* VisualComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F2E2A406B550086583E /* VisualComponent.swift */; };
 		15434F332A40A1780086583E /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F322A40A1780086583E /* MovementComponent.swift */; };
 		15434F352A42A1020086583E /* PhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F342A42A1020086583E /* PhysicsComponent.swift */; };
@@ -52,7 +31,6 @@
 		15CFF4312A4DCEB100FF949D /* Door Opening Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15CFF4262A4DCEB100FF949D /* Door Opening Sound.mp3 */; };
 		15CFF4322A4DCEB100FF949D /* Cahaya Transition.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15CFF4272A4DCEB100FF949D /* Cahaya Transition.mp3 */; };
 		15CFF4332A4DCEB100FF949D /* Chapter 1 BGM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15CFF4282A4DCEB100FF949D /* Chapter 1 BGM.mp3 */; };
-		15CFF4342A4DCEB100FF949D /* BGM For Menu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15CFF4292A4DCEB100FF949D /* BGM For Menu.mp3 */; };
 		15CFF4352A4DCEB100FF949D /* Puppy Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15CFF42A2A4DCEB100FF949D /* Puppy Sound.mp3 */; };
 		15CFF4362A4DCEB100FF949D /* Prologue BGM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15CFF42B2A4DCEB100FF949D /* Prologue BGM.mp3 */; };
 		15CFF4372A4DCEB100FF949D /* Credit Scene BGM.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15CFF42C2A4DCEB100FF949D /* Credit Scene BGM.mp3 */; };
@@ -94,29 +72,8 @@
 		0B7ECDE82A41AE9F00B0709B /* RemoveInventoryComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoveInventoryComponent.swift; sourceTree = "<group>"; };
 		0BE797842A45A5AC00B1F155 /* InventoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryManager.swift; sourceTree = "<group>"; };
 		0BE797862A45B64800B1F155 /* iCloudAuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudAuthController.swift; sourceTree = "<group>"; };
+		150642902A4F1C1A00EBDA35 /* BGM For Menu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "BGM For Menu.mp3"; sourceTree = "<group>"; };
 		150FD4A22A4C7D480003C9F5 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
-		150FD4A72A4C7EC10003C9F5 /* wind-blow-141288.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "wind-blow-141288.mp3"; sourceTree = "<group>"; };
-		150FD4A92A4C7EC10003C9F5 /* the-notification-email-143029.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "the-notification-email-143029.mp3"; sourceTree = "<group>"; };
-		150FD4AA2A4C7EC10003C9F5 /* collected-item-104743.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "collected-item-104743.mp3"; sourceTree = "<group>"; };
-		150FD4AB2A4C7EC10003C9F5 /* notifications-sound-127856.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "notifications-sound-127856.mp3"; sourceTree = "<group>"; };
-		150FD4AC2A4C7EC10003C9F5 /* item-pick-up-38258.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "item-pick-up-38258.mp3"; sourceTree = "<group>"; };
-		150FD4AD2A4C7EC10003C9F5 /* decidemp3-14575.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "decidemp3-14575.mp3"; sourceTree = "<group>"; };
-		150FD4AE2A4C7EC10003C9F5 /* correct-2-46134.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "correct-2-46134.mp3"; sourceTree = "<group>"; };
-		150FD4B02A4C7EC10003C9F5 /* click-menu-app-147357.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "click-menu-app-147357.mp3"; sourceTree = "<group>"; };
-		150FD4B12A4C7EC10003C9F5 /* swoosh-transition-with-metal-overtones-142375.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "swoosh-transition-with-metal-overtones-142375.mp3"; sourceTree = "<group>"; };
-		150FD4B32A4C7EC10003C9F5 /* short-success-sound-glockenspiel-treasure-video-game-6346.mp3 21-34-04-101.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "short-success-sound-glockenspiel-treasure-video-game-6346.mp3 21-34-04-101.mp3"; sourceTree = "<group>"; };
-		150FD4B42A4C7EC10003C9F5 /* game-level-complete-143022.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "game-level-complete-143022.mp3"; sourceTree = "<group>"; };
-		150FD4B62A4C7EC10003C9F5 /* notification-37858.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "notification-37858.mp3"; sourceTree = "<group>"; };
-		150FD4B72A4C7EC10003C9F5 /* new-notification-sound-effect-138807.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "new-notification-sound-effect-138807.mp3"; sourceTree = "<group>"; };
-		150FD4B82A4C7EC10003C9F5 /* notification-sound-7062.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "notification-sound-7062.mp3"; sourceTree = "<group>"; };
-		150FD4BA2A4C7EC10003C9F5 /* rain-and-thunder-113218.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "rain-and-thunder-113218.mp3"; sourceTree = "<group>"; };
-		150FD4BB2A4C7EC10003C9F5 /* thunder-124465.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "thunder-124465.mp3"; sourceTree = "<group>"; };
-		150FD4BC2A4C7EC10003C9F5 /* dark-cinematic-apocalyptic-153277.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "dark-cinematic-apocalyptic-153277.mp3"; sourceTree = "<group>"; };
-		150FD4BD2A4C7EC10003C9F5 /* piano-logo-108963.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "piano-logo-108963.mp3"; sourceTree = "<group>"; };
-		150FD4BE2A4C7EC10003C9F5 /* lonely-piano-clip-32779.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "lonely-piano-clip-32779.mp3"; sourceTree = "<group>"; };
-		150FD4BF2A4C7EC10003C9F5 /* dream-magic-prolonged-94891.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "dream-magic-prolonged-94891.mp3"; sourceTree = "<group>"; };
-		150FD4C02A4C7EC10003C9F5 /* game-music-loop-6-144641.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "game-music-loop-6-144641.mp3"; sourceTree = "<group>"; };
-		150FD4C12A4C7EC10003C9F5 /* calm_game_music_1-49209.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "calm_game_music_1-49209.mp3"; sourceTree = "<group>"; };
 		15434F2E2A406B550086583E /* VisualComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualComponent.swift; sourceTree = "<group>"; };
 		15434F322A40A1780086583E /* MovementComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		15434F342A42A1020086583E /* PhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsComponent.swift; sourceTree = "<group>"; };
@@ -130,7 +87,6 @@
 		15CFF4262A4DCEB100FF949D /* Door Opening Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Door Opening Sound.mp3"; sourceTree = "<group>"; };
 		15CFF4272A4DCEB100FF949D /* Cahaya Transition.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Cahaya Transition.mp3"; sourceTree = "<group>"; };
 		15CFF4282A4DCEB100FF949D /* Chapter 1 BGM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Chapter 1 BGM.mp3"; sourceTree = "<group>"; };
-		15CFF4292A4DCEB100FF949D /* BGM For Menu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "BGM For Menu.mp3"; sourceTree = "<group>"; };
 		15CFF42A2A4DCEB100FF949D /* Puppy Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Puppy Sound.mp3"; sourceTree = "<group>"; };
 		15CFF42B2A4DCEB100FF949D /* Prologue BGM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Prologue BGM.mp3"; sourceTree = "<group>"; };
 		15CFF42C2A4DCEB100FF949D /* Credit Scene BGM.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Credit Scene BGM.mp3"; sourceTree = "<group>"; };
@@ -188,91 +144,6 @@
 			path = StoryScene;
 			sourceTree = "<group>";
 		};
-		150FD4A42A4C7EC10003C9F5 /* Last-Woof-Audio copy */ = {
-			isa = PBXGroup;
-			children = (
-				150FD4A52A4C7EC10003C9F5 /* Sound Effects */,
-				150FD4B92A4C7EC10003C9F5 /* BGM */,
-			);
-			path = "Last-Woof-Audio copy";
-			sourceTree = "<group>";
-		};
-		150FD4A52A4C7EC10003C9F5 /* Sound Effects */ = {
-			isa = PBXGroup;
-			children = (
-				150FD4A62A4C7EC10003C9F5 /* Transition */,
-				150FD4A82A4C7EC10003C9F5 /* Gathered Item */,
-				150FD4AF2A4C7EC10003C9F5 /* Menu Button Clicked */,
-				150FD4B22A4C7EC10003C9F5 /* Win Sound */,
-				150FD4B52A4C7EC10003C9F5 /* Notifications */,
-			);
-			path = "Sound Effects";
-			sourceTree = "<group>";
-		};
-		150FD4A62A4C7EC10003C9F5 /* Transition */ = {
-			isa = PBXGroup;
-			children = (
-				150FD4A72A4C7EC10003C9F5 /* wind-blow-141288.mp3 */,
-				150FD4B12A4C7EC10003C9F5 /* swoosh-transition-with-metal-overtones-142375.mp3 */,
-			);
-			path = Transition;
-			sourceTree = "<group>";
-		};
-		150FD4A82A4C7EC10003C9F5 /* Gathered Item */ = {
-			isa = PBXGroup;
-			children = (
-				150FD4A92A4C7EC10003C9F5 /* the-notification-email-143029.mp3 */,
-				150FD4AA2A4C7EC10003C9F5 /* collected-item-104743.mp3 */,
-				150FD4AB2A4C7EC10003C9F5 /* notifications-sound-127856.mp3 */,
-				150FD4AC2A4C7EC10003C9F5 /* item-pick-up-38258.mp3 */,
-				150FD4AD2A4C7EC10003C9F5 /* decidemp3-14575.mp3 */,
-				150FD4AE2A4C7EC10003C9F5 /* correct-2-46134.mp3 */,
-			);
-			path = "Gathered Item";
-			sourceTree = "<group>";
-		};
-		150FD4AF2A4C7EC10003C9F5 /* Menu Button Clicked */ = {
-			isa = PBXGroup;
-			children = (
-				150FD4B02A4C7EC10003C9F5 /* click-menu-app-147357.mp3 */,
-			);
-			path = "Menu Button Clicked";
-			sourceTree = "<group>";
-		};
-		150FD4B22A4C7EC10003C9F5 /* Win Sound */ = {
-			isa = PBXGroup;
-			children = (
-				150FD4B32A4C7EC10003C9F5 /* short-success-sound-glockenspiel-treasure-video-game-6346.mp3 21-34-04-101.mp3 */,
-				150FD4B42A4C7EC10003C9F5 /* game-level-complete-143022.mp3 */,
-			);
-			path = "Win Sound";
-			sourceTree = "<group>";
-		};
-		150FD4B52A4C7EC10003C9F5 /* Notifications */ = {
-			isa = PBXGroup;
-			children = (
-				150FD4B62A4C7EC10003C9F5 /* notification-37858.mp3 */,
-				150FD4B72A4C7EC10003C9F5 /* new-notification-sound-effect-138807.mp3 */,
-				150FD4B82A4C7EC10003C9F5 /* notification-sound-7062.mp3 */,
-			);
-			path = Notifications;
-			sourceTree = "<group>";
-		};
-		150FD4B92A4C7EC10003C9F5 /* BGM */ = {
-			isa = PBXGroup;
-			children = (
-				150FD4BA2A4C7EC10003C9F5 /* rain-and-thunder-113218.mp3 */,
-				150FD4BB2A4C7EC10003C9F5 /* thunder-124465.mp3 */,
-				150FD4BC2A4C7EC10003C9F5 /* dark-cinematic-apocalyptic-153277.mp3 */,
-				150FD4BD2A4C7EC10003C9F5 /* piano-logo-108963.mp3 */,
-				150FD4BE2A4C7EC10003C9F5 /* lonely-piano-clip-32779.mp3 */,
-				150FD4BF2A4C7EC10003C9F5 /* dream-magic-prolonged-94891.mp3 */,
-				150FD4C02A4C7EC10003C9F5 /* game-music-loop-6-144641.mp3 */,
-				150FD4C12A4C7EC10003C9F5 /* calm_game_music_1-49209.mp3 */,
-			);
-			path = BGM;
-			sourceTree = "<group>";
-		};
 		15434F2D2A405FB60086583E /* Scene1 */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,7 +159,8 @@
 				1594EE2D2A4C8232003AA041 /* AVFoundation.framework */,
 			);
 			name = Frameworks;
-        };
+			sourceTree = "<unknown>";
+		};
 		15CFF41F2A4DCBF700FF949D /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
@@ -304,10 +176,10 @@
 				15CFF4262A4DCEB100FF949D /* Door Opening Sound.mp3 */,
 				15CFF4272A4DCEB100FF949D /* Cahaya Transition.mp3 */,
 				15CFF4282A4DCEB100FF949D /* Chapter 1 BGM.mp3 */,
-				15CFF4292A4DCEB100FF949D /* BGM For Menu.mp3 */,
 				15CFF42A2A4DCEB100FF949D /* Puppy Sound.mp3 */,
 				15CFF42B2A4DCEB100FF949D /* Prologue BGM.mp3 */,
 				15CFF42C2A4DCEB100FF949D /* Credit Scene BGM.mp3 */,
+				150642902A4F1C1A00EBDA35 /* BGM For Menu.mp3 */,
 				15CFF42E2A4DCEB100FF949D /* Pond Sound.mp3 */,
 				15CFF42F2A4DCEB100FF949D /* Cloud Transition.mp3 */,
 			);
@@ -337,7 +209,6 @@
 		91F357ED2A3A1EFF0072FF71 /* LastWoof */ = {
 			isa = PBXGroup;
 			children = (
-				150FD4A42A4C7EC10003C9F5 /* Last-Woof-Audio copy */,
 				15CFF4242A4DCEB100FF949D /* MC 2 Sound */,
 				91F358092A3A20F90072FF71 /* Database */,
 				91F358052A3A20A60072FF71 /* Managers */,
@@ -535,37 +406,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				150FD4C32A4C7EC10003C9F5 /* the-notification-email-143029.mp3 in Resources */,
-				150FD4D32A4C7EC10003C9F5 /* piano-logo-108963.mp3 in Resources */,
 				91F357FB2A3A1F000072FF71 /* LaunchScreen.storyboard in Resources */,
-				150FD4CD2A4C7EC10003C9F5 /* notification-37858.mp3 in Resources */,
-				150FD4D02A4C7EC10003C9F5 /* rain-and-thunder-113218.mp3 in Resources */,
-				150FD4C62A4C7EC10003C9F5 /* item-pick-up-38258.mp3 in Resources */,
-				150FD4C42A4C7EC10003C9F5 /* collected-item-104743.mp3 in Resources */,
-				150FD4D62A4C7EC10003C9F5 /* game-music-loop-6-144641.mp3 in Resources */,
 				15CFF43A2A4DCEB100FF949D /* Cloud Transition.mp3 in Resources */,
-				15CFF4342A4DCEB100FF949D /* BGM For Menu.mp3 in Resources */,
 				91F357FB2A3A1F000072FF71 /* LaunchScreen.storyboard in Resources */,
 				D608120C2A430CA6004E842E /* MainMenu.sks in Resources */,
 				91F358AC2A3B27860072FF71 /* Main.storyboard in Resources */,
 				D6B3F0FA2A49727A008D06C2 /* MemoriesScene.sks in Resources */,
 				91F3587A2A3B13A40072FF71 /* GameScene.sks in Resources */,
-				150FD4D12A4C7EC10003C9F5 /* thunder-124465.mp3 in Resources */,
 				91F357F82A3A1F000072FF71 /* Assets.xcassets in Resources */,
-				150FD4CB2A4C7EC10003C9F5 /* short-success-sound-glockenspiel-treasure-video-game-6346.mp3 21-34-04-101.mp3 in Resources */,
-				150FD4D22A4C7EC10003C9F5 /* dark-cinematic-apocalyptic-153277.mp3 in Resources */,
-				150FD4CF2A4C7EC10003C9F5 /* notification-sound-7062.mp3 in Resources */,
-				150FD4D42A4C7EC10003C9F5 /* lonely-piano-clip-32779.mp3 in Resources */,
-				150FD4C22A4C7EC10003C9F5 /* wind-blow-141288.mp3 in Resources */,
-				150FD4D52A4C7EC10003C9F5 /* dream-magic-prolonged-94891.mp3 in Resources */,
-				150FD4CE2A4C7EC10003C9F5 /* new-notification-sound-effect-138807.mp3 in Resources */,
-				150FD4CA2A4C7EC10003C9F5 /* swoosh-transition-with-metal-overtones-142375.mp3 in Resources */,
-				150FD4CC2A4C7EC10003C9F5 /* game-level-complete-143022.mp3 in Resources */,
-				150FD4C52A4C7EC10003C9F5 /* notifications-sound-127856.mp3 in Resources */,
-				150FD4C82A4C7EC10003C9F5 /* correct-2-46134.mp3 in Resources */,
-				150FD4D72A4C7EC10003C9F5 /* calm_game_music_1-49209.mp3 in Resources */,
-				150FD4C92A4C7EC10003C9F5 /* click-menu-app-147357.mp3 in Resources */,
-				150FD4C72A4C7EC10003C9F5 /* decidemp3-14575.mp3 in Resources */,
 				15CFF4322A4DCEB100FF949D /* Cahaya Transition.mp3 in Resources */,
 				15CFF4392A4DCEB100FF949D /* Pond Sound.mp3 in Resources */,
 				15CFF4312A4DCEB100FF949D /* Door Opening Sound.mp3 in Resources */,
@@ -574,6 +422,7 @@
 				D6FEF0282A4D6DB0009C933B /* StoryScene.sks in Resources */,
 				15CFF4362A4DCEB100FF949D /* Prologue BGM.mp3 in Resources */,
 				15CFF4352A4DCEB100FF949D /* Puppy Sound.mp3 in Resources */,
+				150642912A4F1C1A00EBDA35 /* BGM For Menu.mp3 in Resources */,
 				15CFF4302A4DCEB100FF949D /* Leaves Sound.mp3 in Resources */,
 				15CFF43C2A4DD78300FF949D /* Click Sound.mp3 in Resources */,
 				D631DFB52A43FEF600DF6251 /* CreditsScene.sks in Resources */,

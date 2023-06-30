@@ -48,6 +48,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private var inventoryManager = InventoryManager.shared
     
     override func didMove(to view: SKView) {
+        AudioManager.shared.stopAllAudio()
         entityManager.scene = self
         physicsWorld.contactDelegate = self
         guard let backgroundNode = childNode(withName: "background") as? SKSpriteNode else {
@@ -62,8 +63,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         generateEntities()
         generateMissions()
         dogThought()
-        AudioManager.shared.stopAllAudio()
-        AudioManager.shared.playAudio(fileName: "Chapter 1 BGM", isBGM: true)
+        DispatchQueue.main.async {
+            AudioManager.shared.playAudio(fileName: "Chapter 1 BGM", isBGM: true)
+        }
         
     }
     
