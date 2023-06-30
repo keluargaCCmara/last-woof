@@ -284,6 +284,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
                 if node.name == "Inventory" {
                     // mau open inventory
                     if !isInventoryOpen {
+                        AudioManager.shared.playAudio(fileName: "click-menu-app-147357")
                         if let camera = self.camera {
                             self.inventoryEntities = inventoryManager.showInventory(sceneSize: self.frame.size, position: camera.position, currentlyHolding: currentlyHolding)
                             for inv in self.inventoryEntities {
@@ -306,6 +307,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
                 if node.name?.contains("InventoryItem") == true {
                     if let _ = entityManager.isInventoryItem(node: node) {
                         if let realName = node.name?.split(separator: "_").dropFirst().first.map({ String($0) }) {
+
                             if realName == currentlyHolding {
                                 // unselect currently holding
                                 currentlyHolding = nil
@@ -363,6 +365,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         guard let objectNode = objectNode else { return }
         if let entity = entityManager.isInventoryAble(node: objectNode) as? CustomEntity {
             if let result = missionSystem.checkMission(entity: entity, characterHolding: currentlyHolding ?? nil) {
+                AudioManager.shared.playAudio(fileName: "notification-sound-7062")
                 result.position = CGPoint(x: -200, y: 150)
                 self.camera?.addChild(result)
                 contactPoint = CGPoint(x: 0, y: 0)

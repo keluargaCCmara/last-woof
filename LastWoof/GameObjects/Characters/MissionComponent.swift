@@ -45,6 +45,7 @@ class MissionComponent: Hashable {
     }
 
     func success() {
+        for (object, action) in successState {
         for str in successState {
             let object = str.split(separator: "_").first.map({ String($0) })!
             let action = str.split(separator: "_").last.map({ String($0) })!
@@ -55,6 +56,7 @@ class MissionComponent: Hashable {
                 entityManager.removeEntity(entity: entity)
             } else if action == "Store" {
                 entityManager.storeInventory(entity: entity)
+                entityManager.removeEntity(entity: entity)
             } else if action == "Change" {
                 entity.changeState()
             }

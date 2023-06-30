@@ -33,13 +33,7 @@ class VisualComponent: GKComponent {
 //        circle?.position = visualNode.position
 //        print(circle?.position)
         visualNode.position = CGPoint(x: visualNode.position.x + (data.velocity.x * velocityMultiplier),
-                                           y: visualNode.position.y + (data.velocity.y * velocityMultiplier))
-//        print(visualNode.position)
-        
-//        let x = visualNode.position.x
-//        let y = visualNode.position.y - visualNode.size.height/2 + 30
-//        circle?.position = CGPoint(x: x, y: y)
-//        visualNode.zRotation = data.angular
+            y: visualNode.position.y + (data.velocity.y * velocityMultiplier))
     }
     
     override func update(deltaTime seconds: TimeInterval) {
