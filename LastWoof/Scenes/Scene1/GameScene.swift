@@ -458,27 +458,30 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         }
         interractToMission()
     }
-
+    
     func cutscene() {
-            let waitDuration = 2.0
-            let smokeDuration = 2.0
+        let waitDuration = 2.0
+        let smokeDuration = 2.0
+        
+        let waitAction = SKAction.wait(forDuration: waitDuration)
+        let addSmokeAction = SKAction.run { [weak self] in
+            guard let self = self else { return }
+            AudioManager.shared.playAudio(fileName: "Cloud Transition", isBGM: false)
+            let smokeParticleRight = SKEmitterNode(fileNamed: "SubHomeSmoke")!
+            smokeParticleRight.position = CGPoint(x: self.frame.minX, y: self.frame.midY)
+            smokeParticleRight.run(SKAction.moveTo(x: self.frame.midX, duration: smokeDuration))
+            smokeParticleRight.zPosition = 99
+            self.addChild(smokeParticleRight)
             
-            let waitAction = SKAction.wait(forDuration: waitDuration)
-            let addSmokeAction = SKAction.run { [weak self] in
-                guard let self = self else { return }
-                AudioManager.shared.playAudio(fileName: "Cloud Transition", isBGM: false)
-                let smokeParticleRight = SKEmitterNode(fileNamed: "SubHomeSmoke")!
-                smokeParticleRight.position = CGPoint(x: self.frame.minX, y: self.frame.midY)
-                smokeParticleRight.run(SKAction.moveTo(x: self.frame.midX, duration: smokeDuration))
-                smokeParticleRight.zPosition = 99
-                self.addChild(smokeParticleRight)
-                
-                let smokeParticleLeft = SKEmitterNode(fileNamed: "SubHomeSmoke")!
-                smokeParticleLeft.position = CGPoint(x: self.frame.maxX, y: self.frame.midY)
-                smokeParticleLeft.run(SKAction.moveTo(x: self.frame.midX, duration: smokeDuration))
-                smokeParticleLeft.zPosition = 99
-                self.addChild(smokeParticleLeft)
-            }
+            let smokeParticleLeft = SKEmitterNode(fileNamed: "SubHomeSmoke")!
+            smokeParticleLeft.position = CGPoint(x: self.frame.maxX, y: self.frame.midY)
+            smokeParticleLeft.run(SKAction.moveTo(x: self.frame.midX, duration: smokeDuration))
+            smokeParticleLeft.zPosition = 99
+            self.addChild(smokeParticleLeft)
+        }
+        
+        let transitionAction = SKAction.run { [weak self] in
+            guard let self = self else { return }
             
             let transitionAction = SKAction.run { [weak self] in
                 guard let self = self else { return }
