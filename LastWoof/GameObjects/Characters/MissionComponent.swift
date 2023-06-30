@@ -29,11 +29,12 @@ class MissionComponent: Hashable {
     let interractObject: [String]?
     let neededObject: String?
     let failedPrompt: String?
-    let successState: [String : String]
+    let successState: [String]
     let successPrompt: String
     var sideMissionNeedToBeDone: [MissionComponent]?
+    let sound: String?
     
-    init(missionID: String, type: MissionType, interractObject: [String]?, neededObject: String?, failedPrompt: String?, successState: [String : String], successPrompt: String, sideMissionNeedToBeDone: [MissionComponent]?) {
+    init(missionID: String, type: MissionType, interractObject: [String]?, neededObject: String?, failedPrompt: String?, successState: [String], successPrompt: String, sideMissionNeedToBeDone: [MissionComponent]?, sound: String?) {
         self.missionID = missionID
         self.type = type
         self.interractObject = interractObject
@@ -42,16 +43,23 @@ class MissionComponent: Hashable {
         self.successState = successState
         self.successPrompt = successPrompt
         self.sideMissionNeedToBeDone = sideMissionNeedToBeDone
+        self.sound = sound
     }
 
-    func succes() {
-        for (object, action) in successState {
+    func success() {
+        if sound != nil {
+            AudioManager.shared.playAudio(fileName: sound!, isBGM: false)
+        }
+        for str in successState {
+            let object = str.split(separator: "_").first.map({ String($0) })!
+            let action = str.split(separator: "_").last.map({ String($0) })!
+            
             guard let entity = entitySearcher(name: object) as? CustomEntity else { return }
             if action == "Remove" {
+                entityManager.removePhysics(entity: entity)
                 entityManager.removeEntity(entity: entity)
             } else if action == "Store" {
                 entityManager.storeInventory(entity: entity)
-                entityManager.removeEntity(entity: entity)
             } else if action == "Change" {
                 entity.changeState()
             }
@@ -68,4 +76,3 @@ class MissionComponent: Hashable {
     }
     
 }
-

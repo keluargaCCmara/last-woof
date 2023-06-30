@@ -28,35 +28,43 @@ class VisualComponent: GKComponent {
     }
     
     func moveCharacter(_ data: AnalogJoystickData, velocityMultiplier: CGFloat) {
+//        let circle = visualNode.childNode(withName: "CharacterCircle")
+//        circle?.position = .zero
+//        circle?.position = visualNode.position
+//        print(circle?.position)
         visualNode.position = CGPoint(x: visualNode.position.x + (data.velocity.x * velocityMultiplier),
-                                           y: visualNode.position.y + (data.velocity.y * velocityMultiplier))
-        visualNode.zRotation = data.angular
+            y: visualNode.position.y + (data.velocity.y * velocityMultiplier))
     }
     
     override func update(deltaTime seconds: TimeInterval) {
         let background = SKSpriteNode(imageNamed: "Background")
-        background.size = CGSize(width: 4242, height: 2167)
-        background.position = CGPoint(x: 520, y: -480)
+        background.size = CGSize(width: 1400, height: 715)
+        background.position = CGPoint(x: -7, y: -163)
         boundsCheckCharacter(background: background)
     }
     
     private func boundsCheckCharacter(background: SKSpriteNode) {
         if ((entity?.component(ofType: MovementComponent.self)) != nil) {
+            let circle = visualNode.childNode(withName: "CharacterCircle")
             let minX = background.position.x - background.size.width / 2 + visualNode.size.width / 2
             let minY = background.position.y - background.size.height / 2 + visualNode.size.height / 2
             let maxX = background.position.x + background.size.width / 2 - visualNode.size.width / 2
-            let maxY = background.position.y + background.size.height / 2 - visualNode.size.height / 2
+            let maxY = background.position.y + background.size.height / 2 - visualNode.size.height / 2 + 75
 
             if visualNode.position.x < minX {
                 visualNode.position.x = minX
+                circle?.position.x = minX
             } else if visualNode.position.x > maxX {
                 visualNode.position.x = maxX
+                circle?.position.x = minX
             }
 
             if visualNode.position.y < minY {
                 visualNode.position.y = minY
+                circle?.position.y = minY
             } else if visualNode.position.y > maxY {
                 visualNode.position.y = maxY
+                circle?.position.y = minY
             }
         }
     }
