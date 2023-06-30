@@ -485,7 +485,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
                 
                 let transition = SKTransition.fade(with: .white, duration: 0.5)
                 let cutscene = StoryScene()
-                cutscene.nFrames = 4
+                cutscene.nFrames = 5
                 cutscene.sceneName = "Chapter1-"
                 cutscene.size = CGSize(width: 844, height: 390)
                 self.scene?.view?.presentScene(cutscene, transition: transition)

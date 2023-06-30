@@ -18,7 +18,7 @@ class CreditsScene: SKScene {
 
     
     override func didMove(to view: SKView) {
-    
+        AudioManager.shared.playAudio(fileName: "BGM For Menu", isBGM: true)
         self.backgroundColor = SKColor.white
         guard let backgroundNode = childNode(withName: "background") as? SKSpriteNode else {
             fatalError("Background node not found in .sks file")

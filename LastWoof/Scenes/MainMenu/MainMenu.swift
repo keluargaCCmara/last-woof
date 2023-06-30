@@ -31,26 +31,26 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
         self.background?.zPosition = -1
         
         let playButton = generateEntity(components: [
-            VisualComponent(name: "Home-Play", imageName: "home-play", size: CGSize(width: 217, height: 44), position: CGPoint(x: frame.midX, y: frame.midY), zPosition: 2, zRotation: 0)
+            VisualComponent(name: "Home-Play", imageName: "home-play", size: CGSize(width: 217, height: 44), position: CGPoint(x: frame.midX, y: frame.midY-15), zPosition: 2, zRotation: 0)
         ])
         playButtonNode = playButton.component(ofType: VisualComponent.self)?.visualNode
         
-        let memoriesButton = generateEntity(components: [
-            VisualComponent(name: "Home-Memories", imageName: "home-memories", size: CGSize(width: 217, height: 44), position: CGPoint(x: frame.midX, y: frame.midY-60), zPosition: 2, zRotation: 0)
-        ])
-        memoriesButtonNode = memoriesButton.component(ofType: VisualComponent.self)?.visualNode
+//        let memoriesButton = generateEntity(components: [
+//            VisualComponent(name: "Home-Memories", imageName: "home-memories", size: CGSize(width: 217, height: 44), position: CGPoint(x: frame.midX, y: frame.midY-60), zPosition: 2, zRotation: 0)
+//        ])
+//        memoriesButtonNode = memoriesButton.component(ofType: VisualComponent.self)?.visualNode
         
         let creditsButton = generateEntity(components: [
-            VisualComponent(name: "Home-Credit", imageName: "home-credit", size: CGSize(width: 217, height: 44), position: CGPoint(x: frame.midX, y: frame.midY-120), zPosition: 2, zRotation: 0)
+            VisualComponent(name: "Home-Credit", imageName: "home-credit", size: CGSize(width: 217, height: 44), position: CGPoint(x: frame.midX, y: frame.midY-85), zPosition: 2, zRotation: 0)
         ])
         creditsButtonNode = creditsButton.component(ofType: VisualComponent.self)?.visualNode
         
         let title = generateEntity(components: [
-            VisualComponent(name: "Home-Title", imageName: "home-title", size: CGSize(width: 500, height: 232), position: CGPoint(x: frame.midX, y: frame.midY+100), zPosition: 0, zRotation: 0)
+            VisualComponent(name: "Home-Title", imageName: "home-title", size: CGSize(width: 500, height: 232), position: CGPoint(x: frame.midX, y: frame.midY+90), zPosition: 0, zRotation: 0)
         ])
         
         let colar = generateEntity(components: [
-            VisualComponent(name: "Home-Colar", imageName: "home-colar", size: CGSize(width: 200, height: 230), position: CGPoint(x: -260, y: -20), zPosition: 1, zRotation: 0),
+            VisualComponent(name: "Home-Colar", imageName: "home-colar", size: CGSize(width: 150, height: 180), position: CGPoint(x: -260, y: -20), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 1200, height: 513), imageName: "home-colar", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ])
         colarNode = colar.component(ofType: VisualComponent.self)?.visualNode
@@ -68,7 +68,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
         dogfoodNode = dogfood.component(ofType: VisualComponent.self)?.visualNode
         moveElements()
         
-        entities = [playButton, memoriesButton, creditsButton, title, colar, bone, dogfood]
+        entities = [playButton, creditsButton, title, colar, bone, dogfood]
         entities.forEach { entity in
             if let visualComponent = entity.component(ofType: VisualComponent.self) {
                 addChild(visualComponent.visualNode)
@@ -119,7 +119,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                 }
             }
             
-            [playButtonNode, memoriesButtonNode, creditsButtonNode].compactMap { $0 }.forEach { node in
+            [playButtonNode, creditsButtonNode].compactMap { $0 }.forEach { node in
                 if node.contains(t.location(in: self)) {
                     node.run(SKAction.sequence([
                         SKAction.scale(by: 1.1, duration: 0.05),
@@ -156,19 +156,19 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                         return
                     }
                     
-                    if let memoriesButtonNode = memoriesButtonNode, memoriesButtonNode.contains(t.location(in: self)) {
-                        // Add a transition to the CreditsScene
-                        let wait = SKAction.wait(forDuration: 1)
-                        let transition = SKTransition.crossFade(withDuration: 0.001)
-                        let memoriesScene = MemoriesScene(fileNamed: "MemoriesScene")!
-                        let sequence = SKAction.sequence([wait, SKAction.run {
-                            memoriesScene.size = self.size
-                            self.view?.presentScene(memoriesScene, transition: transition)
-                        }])
-                        self.run(sequence)
-                        AudioManager.shared.stopBGM()
-                        return
-                    }
+//                    if let memoriesButtonNode = memoriesButtonNode, memoriesButtonNode.contains(t.location(in: self)) {
+//                        // Add a transition to the CreditsScene
+//                        let wait = SKAction.wait(forDuration: 1)
+//                        let transition = SKTransition.crossFade(withDuration: 0.001)
+//                        let memoriesScene = MemoriesScene(fileNamed: "MemoriesScene")!
+//                        let sequence = SKAction.sequence([wait, SKAction.run {
+//                            memoriesScene.size = self.size
+//                            self.view?.presentScene(memoriesScene, transition: transition)
+//                        }])
+//                        self.run(sequence)
+//                        AudioManager.shared.stopBGM()
+//                        return
+//                    }
                     
                     
                     if let creditsButtonNode = creditsButtonNode, creditsButtonNode.contains(t.location(in: self)) {

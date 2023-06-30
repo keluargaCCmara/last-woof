@@ -48,13 +48,13 @@ class StoryScene: SKScene {
         if sceneName == "Prologue" {
             timeRemaining = 67
         } else if sceneName.starts(with: "Chapter1-") {
-            timeRemaining = 15
+            timeRemaining = 20
         }
     }
     
     @objc func updateTimer() {
         
-        if timeRemaining == 40 {
+        if timeRemaining == 46 {
             let whiteRectangle = SKSpriteNode(color: .white, size: CGSize(width: frame.size.width, height: frame.size.height))
             whiteRectangle.position = CGPoint(x: frame.midX, y: frame.midY)
             whiteRectangle.alpha = 1.0
@@ -65,7 +65,9 @@ class StoryScene: SKScene {
             AudioManager.shared.playAudio(fileName: "Puppy Sound", isBGM: false)
             timeRemaining -= 1
         } else if timeRemaining == 12 {
-            AudioManager.shared.playAudio(fileName: "Door Opening Sound", isBGM: false)
+            if sceneName == "Prologue" {
+                AudioManager.shared.playAudio(fileName: "Door Opening Sound", isBGM: false)
+            }
             timeRemaining -= 1
         } else if timeRemaining > 2 {
             if sceneName == "Chapter1-" {
@@ -79,9 +81,6 @@ class StoryScene: SKScene {
             timeRemaining -= 1
         } else if timeRemaining == 2 {
             AudioManager.shared.playAudio(fileName: "Cloud Transition", isBGM: false)
-            print(timeRemaining)
-            print("smoke")
-            print(frame.size)
             timeRemaining -= 1
             let smokeParticleRight = SKEmitterNode(fileNamed: "SubHomeSmoke")!
             smokeParticleRight.position = CGPoint(x: frame.minX, y: frame.midY)
@@ -98,11 +97,14 @@ class StoryScene: SKScene {
             timeRemaining -= 1
         } else if timeRemaining == 0 {
             timeRemaining = -100
-            print(timeRemaining)
-            AudioManager.shared.stopBGM()
-            AudioManager.shared.playAudio(fileName: "Cloud Transition", isBGM: false)
-            let scene = GameScene(fileNamed: "GameScene")!
-            self.view?.presentScene(scene)
+            if sceneName == "Prologue" {
+                let scene = GameScene(fileNamed: "GameScene")!
+                self.view?.presentScene(scene)
+                AudioManager.shared.stopBGM()
+                AudioManager.shared.playAudio(fileName: "Cloud Transition", isBGM: false)
+            } else if sceneName == "Chapter1-" {
+                print("To be continue")
+            }
         }
     }
     
