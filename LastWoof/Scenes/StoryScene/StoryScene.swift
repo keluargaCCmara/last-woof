@@ -80,7 +80,9 @@ class StoryScene: SKScene {
             print(timeRemaining)
             timeRemaining -= 1
         } else if timeRemaining == 2 {
-            AudioManager.shared.playAudio(fileName: "Cloud Transition", isBGM: false)
+            print(timeRemaining)
+            print("smoke")
+            print(frame.size)
             timeRemaining -= 1
             let smokeParticleRight = SKEmitterNode(fileNamed: "SubHomeSmoke")!
             smokeParticleRight.position = CGPoint(x: frame.minX, y: frame.midY)

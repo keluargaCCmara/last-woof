@@ -152,7 +152,6 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                             self.view?.presentScene(prologue, transition: transition)
                         }])
                         self.run(sequence)
-                        AudioManager.shared.playAudio(fileName: "Cloud Transition", isBGM: false)
                         AudioManager.shared.stopBGM()
                         return
                     }

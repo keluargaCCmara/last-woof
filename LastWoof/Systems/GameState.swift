@@ -17,7 +17,6 @@ class GameState {
     }
     
     func completeMainMission() {
-        print("MAIN MISSION COMPLETE WOYYYYY")
         AudioManager.shared.stopBGM()
         mainMissionCompleted = true
     }
