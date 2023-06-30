@@ -14,6 +14,7 @@ struct PhysicsCategory {
     static let character: UInt32 = 0b10
     static let obstacle: UInt32 = 0b100
     static let task: UInt32 = 0b1000
+    static let obstacleTask:UInt32 = 0b10000
 }
 
 protocol PhysicsContactDelegate: AnyObject {
@@ -67,110 +68,125 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     
     private func generateEntities() {
         character = generateEntity(components: [
-            VisualComponent(name: "Character",imageName: "DummyCharacter", size: CGSize(width: 80, height: 173), position: CGPoint(x: 140, y: -183), zPosition: 10, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 50, height: 173), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object, contactTestBitMask: PhysicsCategory.obstacle),
-            MovementComponent(analogJoystick: analogJoystick!),
-            PlayerControlComponent(entityManager: entityManager)
-        ], state: 0, imageState: nil)
-        
-        self.camera?.position = (character?.component(ofType: VisualComponent.self)?.visualNode.position)!
-        
-        let pond = generateEntity(components: [
-            VisualComponent(name: "Pond", imageName: "Pond", size: CGSize(width: 376, height: 192), position: CGPoint(x: 345, y: -433), zPosition: 2, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 376, height: 192), imageName: "Pond", isDynamic: false, categoryBitMask: PhysicsCategory.task , collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            StateChangeComponent(),
-            StoreInventoryComponent()
-        ], state: 2, imageState: ["Pond2", "Pond3"])
-        
-        let pond2 = generateEntity(components: [
-            VisualComponent(name: "Pond2", imageName: "Pond3", size: CGSize(width: 376, height: 192), position: CGPoint(x: 345, y: -433), zPosition: -1, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 376, height: 192), imageName: "Pond", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
-            StateChangeComponent(),
-            StoreInventoryComponent()
-        ], state: 0, imageState: nil)
-        
-        let nameTag = generateEntity(components: [
-            VisualComponent(name: "NameTag", imageName: "NameTag", size: CGSize(width: 67, height: 30), position: CGPoint(x: 349, y: -454), zPosition: -2, zRotation: 0),
-            StateChangeComponent(),
-            StoreInventoryComponent()
-        ], state: 0, imageState: nil)
-        
-        let sapuGarpu = generateEntity(components: [
-            VisualComponent(name: "SapuGarpu", imageName: "SapuGarpu", size: CGSize(width: 67, height: 170), position: CGPoint(x: -572, y: -148), zPosition: 1, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 67, height: 170), imageName: "SapuGarpu", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            StoreInventoryComponent(),
-            StateChangeComponent(),
-        ], state: 0, imageState: nil)
-        
-        let leaves = generateEntity(components: [
-            VisualComponent(name: "Leaves", imageName: "Leaves", size: CGSize(width: 820, height: 332), position: CGPoint(x: -251, y: -362), zPosition: 1, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 820, height: 332), imageName: "Leaves", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            StateChangeComponent(),
-            StoreInventoryComponent()
-        ], state: 2, imageState: ["Leaves2", "Leaves3"])
-        
-        let netStick = generateEntity(components: [
-            VisualComponent(name: "Net", imageName: "NetStick", size: CGSize(width: 52, height: 55), position: CGPoint(x: -120, y: -140), zPosition: 1, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 52, height: 55), imageName: "NetStick", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            StoreInventoryComponent(),
-            StateChangeComponent()
-        ], state: 1, imageState: ["Net"])
-        
-        let plant1 = generateEntity(components: [
-            VisualComponent(name: "Plant1", imageName: "Plant1-Task", size: CGSize(width: 273, height: 189), position: CGPoint(x: 391, y: 100), zPosition: 2, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 273, height: 189), imageName: "Plant1-Task", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
-        ], state: 0, imageState: nil)
-        
-        let dogCollar = generateEntity(components: [
-            VisualComponent(name: "DogCollar", imageName: "DogCollar", size: CGSize(width: 100, height: 50), position: CGPoint(x: 327, y: 41), zPosition: 1, zRotation: 56),
-            PhysicsComponent(size: CGSize(width: 100, height: 50), imageName: "DogCollar", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            StoreInventoryComponent(),
-            StateChangeComponent()
-        ], state: 0, imageState: nil)
-        
-        let plant2 = generateEntity(components: [
-            VisualComponent(name: "Plant2", imageName: "Plant2-Decoration", size: CGSize(width: 233, height: 280), position: CGPoint(x: 486, y: -220), zPosition: 2, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 233, height: 280), imageName: "Plant2-Decoration", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
-        ], state: 0, imageState: nil)
-        
-        let plant2shadow = generateEntity(components: [
-            VisualComponent(name: "Plant2Shadow", imageName: "Plant2-Decoration-Shadow", size: CGSize(width: 228, height: 190), position: CGPoint(x: 463, y: -247), zPosition: 2, zRotation: -90),
-            PhysicsComponent(size: CGSize(width: 228, height: 190), imageName: "Plant2-Decoration-Shadow", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
-        ], state: 0, imageState: nil)
-        
-        let frisbee = generateEntity(components: [
-            VisualComponent(name: "Frisbee", imageName: "Frisbee", size: CGSize(width: 90, height: 58), position: CGPoint(x: -16, y: -371), zPosition: 0, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 90, height: 58), imageName: "Frisbee", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
-            StoreInventoryComponent(),
-            StateChangeComponent()
-        ], state: 0, imageState: nil)
-        
-        let fence = generateEntity(components: [
-            VisualComponent(name: "Fence", imageName: "Fence", size: CGSize(width: 328, height: 715), position: CGPoint(x: 529, y: -162), zPosition: 1, zRotation: 0),
-            PhysicsComponent(size: CGSize(width: 328, height: 715), imageName: "Fence", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
-        ], state: 0, imageState: nil)
-        
-        let terrace = generateEntity(components: [
-            VisualComponent(name: "Terrace", imageName: "terrace", size: CGSize(width: 873, height: 373), position: CGPoint(x: -270, y: 8), zPosition: 0, zRotation: 0)
-        ], state: 0, imageState: nil)
-        
-        let rectangle = generateEntity(components: [
-            VisualComponent(name: "rectangle", imageName: "rectangle", size: CGSize(width: 207, height: 648), position: CGPoint(x: -385, y: 96), zPosition: -1, zRotation: -90),
-            PhysicsComponent(size: CGSize(width: 207, height: 648), imageName: "rectangle", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
-        ], state: 0, imageState: nil)
-        
-        let triangle = generateEntity(components: [
-            VisualComponent(name: "triangle", imageName: "triangle", size: CGSize(width: 164, height: 206), position: CGPoint(x: 5, y: 96), zPosition: -1, zRotation: 0.267),
-            PhysicsComponent(size: CGSize(width: 164, height: 206), imageName: "triangle", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
-        ], state: 0, imageState: nil)
-        
-        let bubble = generateEntity(components: [
-            VisualComponent(name: "bubble", imageName: "DogBubbleOfThought", size: CGSize(width: 230, height: 191), position: CGPoint(x: -134, y: 31), zPosition: 1, zRotation: 0)
-        ], state: 0, imageState: nil)
-        
-        let dog = generateEntity(components: [
-            VisualComponent(name: "Dog", imageName: "ShibaInu", size: CGSize(width: 68, height: 107), position: CGPoint(x: -217, y: -41), zPosition: 1, zRotation: 0)
-        ], state: 0, imageState: nil)
+                    VisualComponent(name: "Character",imageName: "DummyCharacter", size: CGSize(width: 80, height: 173), position: CGPoint(x: 140, y: -183), zPosition: 10, zRotation: 0),
+                    PhysicsComponent(size: CGSize(width: 50, height: 173), imageName: "DummyCharacter", isDynamic: true, categoryBitMask: PhysicsCategory.character, collisionBitMask: PhysicsCategory.obstacle | PhysicsCategory.object | PhysicsCategory.obstacleTask, contactTestBitMask: PhysicsCategory.obstacle | PhysicsCategory.obstacleTask),
+                    MovementComponent(analogJoystick: analogJoystick!),
+                    PlayerControlComponent(entityManager: entityManager)
+                ], state: 0, imageState: nil)
+                
+                self.camera?.position = (character?.component(ofType: VisualComponent.self)?.visualNode.position)!
+                
+                let pond = generateEntity(components: [
+                    VisualComponent(name: "Pond", imageName: "Pond", size: CGSize(width: 376, height: 192), position: CGPoint(x: 345, y: -433), zPosition: 2, zRotation: 0),
+                    PhysicsComponent(size: CGSize(width: 376, height: 192), imageName: "Pond", isDynamic: false, categoryBitMask: PhysicsCategory.task , collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
+                    StateChangeComponent(),
+                    StoreInventoryComponent()
+                ], state: 2, imageState: ["Pond2", "Pond3"])
+                
+                let pond2 = generateEntity(components: [
+                    VisualComponent(name: "Pond2", imageName: "Pond3", size: CGSize(width: 376, height: 192), position: CGPoint(x: 345, y: -433), zPosition: -1, zRotation: 0),
+                    PhysicsComponent(size: CGSize(width: 376, height: 192), imageName: "Pond", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
+                    StateChangeComponent(),
+                    StoreInventoryComponent()
+                ], state: 0, imageState: nil)
+                
+                let nameTag = generateEntity(components: [
+                    VisualComponent(name: "NameTag", imageName: "NameTag", size: CGSize(width: 67, height: 30), position: CGPoint(x: 349, y: -454), zPosition: -2, zRotation: 0),
+                    StateChangeComponent(),
+                    StoreInventoryComponent()
+                ], state: 0, imageState: nil)
+
+                let sapuGarpu = generateEntity(components: [
+                    VisualComponent(name: "SapuGarpu", imageName: "SapuGarpu", size: CGSize(width: 67, height: 170), position: CGPoint(x: -572, y: -148), zPosition: 2, zRotation: 0),
+                    PhysicsComponent(size: CGSize(width: 67, height: 170), imageName: "SapuGarpu", isDynamic: false, categoryBitMask: PhysicsCategory.obstacleTask, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
+                    StoreInventoryComponent(),
+                    StateChangeComponent(),
+                ], state: 0, imageState: nil)
+                
+                let leaves = generateEntity(components: [
+                    VisualComponent(name: "Leaves", imageName: "Leaves", size: CGSize(width: 820, height: 332), position: CGPoint(x: -251, y: -362), zPosition: 1, zRotation: 0),
+                    PhysicsComponent(size: CGSize(width: 820, height: 332), imageName: "Leaves", isDynamic: false, categoryBitMask: PhysicsCategory.task, collisionBitMask: PhysicsCategory.none, contactTestBitMask: PhysicsCategory.character),
+                    StateChangeComponent(),
+                    StoreInventoryComponent()
+                ], state: 2, imageState: ["Leaves2", "Leaves3"])
+
+                let netStick = generateEntity(components: [
+                    VisualComponent(name: "Net", imageName: "NetStick", size: CGSize(width: 72.762, height: 76.478), position: CGPoint(x: -101.329, y: -154.761), zPosition: 2, zRotation: 0),
+                    PhysicsComponent(size: CGSize(width: 72.762, height: 76.478), imageName: "NetStick", isDynamic: false, categoryBitMask: PhysicsCategory.obstacleTask, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
+                    StoreInventoryComponent(),
+                    StateChangeComponent()
+                ], state: 1, imageState: ["Net"])
+                
+                let plant1 = generateEntity(components: [
+                    VisualComponent(name: "Plant1", imageName: "Plant1-Task", size: CGSize(width: 273, height: 189), position: CGPoint(x: 391, y: 100), zPosition: 2, zRotation: 0),
+                    PhysicsComponent(size: CGSize(width: 273, height: 189), imageName: "Plant1-Task", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
+                ], state: 0, imageState: nil)
+
+                let dogCollar = generateEntity(components: [
+                    VisualComponent(name: "DogCollar", imageName: "DogCollar", size: CGSize(width: 100, height: 50), position: CGPoint(x: 327, y: 41), zPosition: 1, zRotation: 56),
+                    PhysicsComponent(size: CGSize(width: 100, height: 50), imageName: "DogCollar", isDynamic: false, categoryBitMask: PhysicsCategory.obstacleTask, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
+                    StoreInventoryComponent(),
+                    StateChangeComponent()
+                ], state: 0, imageState: nil)
+                
+                let plant2 = generateEntity(components: [
+                    VisualComponent(name: "Plant2", imageName: "Plant2-Decoration", size: CGSize(width: 233, height: 280), position: CGPoint(x: 486, y: -220), zPosition: 2, zRotation: 0),
+                    PhysicsComponent(size: CGSize(width: 233, height: 280), imageName: "Plant2-Decoration", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
+                ], state: 0, imageState: nil)
+                
+                let plant2shadow = generateEntity(components: [
+                    VisualComponent(name: "Plant2Shadow", imageName: "Plant2-Decoration-Shadow", size: CGSize(width: 228, height: 190), position: CGPoint(x: 463, y: -247), zPosition: 2, zRotation: -90),
+                    PhysicsComponent(size: CGSize(width: 228, height: 190), imageName: "Plant2-Decoration-Shadow", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
+                ], state: 0, imageState: nil)
+                
+                let frisbee = generateEntity(components: [
+                    VisualComponent(name: "Frisbee", imageName: "Frisbee", size: CGSize(width: 90, height: 58), position: CGPoint(x: -16, y: -371), zPosition: 0, zRotation: 0),
+                    PhysicsComponent(size: CGSize(width: 90, height: 58), imageName: "Frisbee", isDynamic: false, categoryBitMask: PhysicsCategory.obstacleTask, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character),
+                    StoreInventoryComponent(),
+                    StateChangeComponent()
+                ], state: 0, imageState: nil)
+
+                let fence = generateEntity(components: [
+                    VisualComponent(name: "Fence", imageName: "Fence", size: CGSize(width: 328, height: 715), position: CGPoint(x: 529, y: -162), zPosition: 1, zRotation: 0),
+                    PhysicsComponent(size: CGSize(width: 328, height: 715), imageName: "Fence", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
+                ], state: 0, imageState: nil)
+                
+        //        let terrace = generateEntity(components: [
+        //               VisualComponent(name: "Terrace", imageName: "terrace", size: CGSize(width: 873, height: 373), position: CGPoint(x: -270, y: 8), zPosition: 0, zRotation: 0),
+        //        ], state: 0, imageState: nil)
+        //
+                let rectangle = generateEntity(components: [
+                    VisualComponent(name: "rectangle", imageName: "rectangle", size: CGSize(width: 207, height: 648), position: CGPoint(x: -385, y: 96), zPosition: -1, zRotation: -90),
+                    PhysicsComponent(size: CGSize(width: 207, height: 648), imageName: "rectangle", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
+                ], state: 0, imageState: nil)
+        //
+        //        let triangle = generateEntity(components: [
+        //            VisualComponent(name: "triangle", imageName: "triangle", size: CGSize(width: 164, height: 206), position: CGPoint(x: 5, y: 96), zPosition: -1, zRotation: 0.267),
+        //            PhysicsComponent(size: CGSize(width: 164, height: 206), imageName: "triangle", isDynamic: false, categoryBitMask: PhysicsCategory.object, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
+        //        ], state: 0, imageState: nil)
+                
+                let window = generateEntity(components: [
+                    VisualComponent(name: "Window", imageName: "Window", size: CGSize(width: 791.147, height: 217.558), position: CGPoint(x: -311.45, y: 88.221), zPosition: 15, zRotation: 0),
+        //            PhysicsComponent(size: CGSize(width: 791.147, height: 217.558), imageName: "Window", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
+                ], state: 0, imageState: nil)
+                
+                let terrace = generateEntity(components: [
+                    VisualComponent(name: "Terrace", imageName: "Terrace", size: CGSize(width: 659.48, height: 184.443), position: CGPoint(x: -375.284, y: -88.51), zPosition: 1, zRotation: 0),
+                    PhysicsComponent(size: CGSize(width: 659.48, height: 184.443), imageName: "Terrace", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
+                ], state: 0, imageState: nil)
+                
+                let pole = generateEntity(components: [
+                    VisualComponent(name: "Pole", imageName: "Pole", size: CGSize(width: 246.282, height: 308.259), position: CGPoint(x: 52.86, y: 41.871), zPosition: 20, zRotation: 0),
+                ], state: 0, imageState: nil)
+                
+                let bubble = generateEntity(components: [
+                    VisualComponent(name: "bubble", imageName: "DogBubbleOfThought", size: CGSize(width: 230, height: 191), position: CGPoint(x: -134, y: 31), zPosition: 16, zRotation: 0)
+                ], state: 0, imageState: nil)
+                
+                let dog = generateEntity(components: [
+                    VisualComponent(name: "Dog", imageName: "ShibaInu", size: CGSize(width: 68, height: 107), position: CGPoint(x: -217, y: -41), zPosition: 5, zRotation: 0)
+                ], state: 0, imageState: nil)
+            
     }
     
     private func generateEntity(components: [GKComponent], state: Int, imageState: [String]?) -> GKEntity {
@@ -330,19 +346,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     // MARK: PhysicsContactDelegate Protocol
     func didBegin(_ contact: SKPhysicsContact) {
         let interract = contact.bodyA.categoryBitMask | contact.bodyB.categoryBitMask
-        
-        if interract == PhysicsCategory.character | PhysicsCategory.task {
-            handleCharacterObstacleCollision(contact: contact)
-        }
+                
+                if (interract == PhysicsCategory.character | PhysicsCategory.task) || (interract == PhysicsCategory.character | PhysicsCategory.obstacleTask) {
+                    handleCharacterObstacleCollision(contact: contact)
+                }
     }
     
     private func handleCharacterObstacleCollision(contact: SKPhysicsContact) {
-        let taskNode = contact.bodyA.categoryBitMask == PhysicsCategory.task ? contact.bodyA.node : contact.bodyB.node
-        
-        // Perform actions or logic when character collides with an obstacle
-        contactPoint = contact.contactPoint
-        objectNode = taskNode
-        actionButton?.alpha = 1
+        let taskNode = (contact.bodyA.categoryBitMask == PhysicsCategory.task || contact.bodyA.categoryBitMask == PhysicsCategory.obstacleTask) ? contact.bodyA.node : contact.bodyB.node
+                
+                // Perform actions or logic when character collides with an obstacle
+                contactPoint = contact.contactPoint
+                objectNode = taskNode
+                actionButton?.alpha = 1
     }
     
     private func checkIfCharacterStillContact(characterPosition: CGPoint, contactPoint: CGPoint) -> Bool {
@@ -353,13 +369,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     
     private func interractToMission() {
         guard let objectNode = objectNode else { return }
-        if let entity = entityManager.isInventoryAble(node: objectNode) as? CustomEntity {
-            let result = missionSystem.checkMission(entity: entity, characterHolding: currentlyHolding ?? nil)
-            result.position = CGPoint(x: -200, y: 150)
-            self.camera?.addChild(result)
-            contactPoint = CGPoint(x: 0, y: 0)
-            isColliding = false
-        }
+                if let entity = entityManager.isInventoryAble(node: objectNode) as? CustomEntity {
+                    let result = missionSystem.checkMission(entity: entity, characterHolding: currentlyHolding ?? nil)
+                        result.position = CGPoint(x: -200, y: 150)
+                        self.camera?.addChild(result)
+                        contactPoint = CGPoint(x: 0, y: 0)
+                        isColliding = false
+                }
     }
     
     func setupJoystick() {
