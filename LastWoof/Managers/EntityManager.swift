@@ -119,7 +119,6 @@ class EntityManager {
         let visComp = entity.component(ofType: VisualComponent.self)
         stateChangeComp?.changeState(mode: .fade)
         // remove from entity list
-        scene.removeChildren(in: [visComp!.visualNode as SKNode])
         entities.remove(entity as! CustomEntity)
     }
     

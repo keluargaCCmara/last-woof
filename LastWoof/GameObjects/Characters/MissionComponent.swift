@@ -60,6 +60,7 @@ class MissionComponent: Hashable {
                 entityManager.removeEntity(entity: entity)
             } else if action == "Store" {
                 entityManager.storeInventory(entity: entity)
+                entityManager.removeEntity(entity: entity)
             } else if action == "Change" {
                 entity.changeState()
             }
