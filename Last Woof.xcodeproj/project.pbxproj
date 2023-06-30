@@ -18,7 +18,6 @@
 		0BE797852A45A5AC00B1F155 /* InventoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE797842A45A5AC00B1F155 /* InventoryManager.swift */; };
 		0BE797872A45B64800B1F155 /* iCloudAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE797862A45B64800B1F155 /* iCloudAuthController.swift */; };
 		150642912A4F1C1A00EBDA35 /* BGM For Menu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 150642902A4F1C1A00EBDA35 /* BGM For Menu.mp3 */; };
-		150FD4A32A4C7D480003C9F5 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 150FD4A22A4C7D480003C9F5 /* AudioManager.swift */; };
 		15434F2F2A406B550086583E /* VisualComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F2E2A406B550086583E /* VisualComponent.swift */; };
 		15434F332A40A1780086583E /* MovementComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F322A40A1780086583E /* MovementComponent.swift */; };
 		15434F352A42A1020086583E /* PhysicsComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15434F342A42A1020086583E /* PhysicsComponent.swift */; };
@@ -26,7 +25,6 @@
 		1596197B2A445202002F3CA9 /* MissionComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1596197A2A445202002F3CA9 /* MissionComponent.swift */; };
 		1596197D2A445292002F3CA9 /* GameState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1596197C2A445292002F3CA9 /* GameState.swift */; };
 		159619A62A488DFB002F3CA9 /* CustomEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 159619A52A488DFB002F3CA9 /* CustomEntity.swift */; };
-		15CFF4212A4DCDBD00FF949D /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15CFF4202A4DCDBD00FF949D /* AudioManager.swift */; };
 		15CFF4302A4DCEB100FF949D /* Leaves Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15CFF4252A4DCEB100FF949D /* Leaves Sound.mp3 */; };
 		15CFF4312A4DCEB100FF949D /* Door Opening Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15CFF4262A4DCEB100FF949D /* Door Opening Sound.mp3 */; };
 		15CFF4322A4DCEB100FF949D /* Cahaya Transition.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15CFF4272A4DCEB100FF949D /* Cahaya Transition.mp3 */; };
@@ -37,6 +35,7 @@
 		15CFF4392A4DCEB100FF949D /* Pond Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15CFF42E2A4DCEB100FF949D /* Pond Sound.mp3 */; };
 		15CFF43A2A4DCEB100FF949D /* Cloud Transition.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15CFF42F2A4DCEB100FF949D /* Cloud Transition.mp3 */; };
 		15CFF43C2A4DD78300FF949D /* Click Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 15CFF43B2A4DD78300FF949D /* Click Sound.mp3 */; };
+		914C0F752A4F223800561771 /* AudioManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 914C0F742A4F223800561771 /* AudioManager.swift */; };
 		91F357F82A3A1F000072FF71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91F357F72A3A1F000072FF71 /* Assets.xcassets */; };
 		91F357FB2A3A1F000072FF71 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91F357F92A3A1F000072FF71 /* LaunchScreen.storyboard */; };
 		91F358782A3B13A40072FF71 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F358752A3B13A40072FF71 /* GameViewController.swift */; };
@@ -73,7 +72,6 @@
 		0BE797842A45A5AC00B1F155 /* InventoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InventoryManager.swift; sourceTree = "<group>"; };
 		0BE797862A45B64800B1F155 /* iCloudAuthController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudAuthController.swift; sourceTree = "<group>"; };
 		150642902A4F1C1A00EBDA35 /* BGM For Menu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "BGM For Menu.mp3"; sourceTree = "<group>"; };
-		150FD4A22A4C7D480003C9F5 /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		15434F2E2A406B550086583E /* VisualComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualComponent.swift; sourceTree = "<group>"; };
 		15434F322A40A1780086583E /* MovementComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementComponent.swift; sourceTree = "<group>"; };
 		15434F342A42A1020086583E /* PhysicsComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsComponent.swift; sourceTree = "<group>"; };
@@ -82,7 +80,6 @@
 		1596197A2A445202002F3CA9 /* MissionComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MissionComponent.swift; sourceTree = "<group>"; };
 		1596197C2A445292002F3CA9 /* GameState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameState.swift; sourceTree = "<group>"; };
 		159619A52A488DFB002F3CA9 /* CustomEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEntity.swift; sourceTree = "<group>"; };
-		15CFF4202A4DCDBD00FF949D /* AudioManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		15CFF4252A4DCEB100FF949D /* Leaves Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Leaves Sound.mp3"; sourceTree = "<group>"; };
 		15CFF4262A4DCEB100FF949D /* Door Opening Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Door Opening Sound.mp3"; sourceTree = "<group>"; };
 		15CFF4272A4DCEB100FF949D /* Cahaya Transition.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Cahaya Transition.mp3"; sourceTree = "<group>"; };
@@ -93,6 +90,7 @@
 		15CFF42E2A4DCEB100FF949D /* Pond Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Pond Sound.mp3"; sourceTree = "<group>"; };
 		15CFF42F2A4DCEB100FF949D /* Cloud Transition.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Cloud Transition.mp3"; sourceTree = "<group>"; };
 		15CFF43B2A4DD78300FF949D /* Click Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Click Sound.mp3"; sourceTree = "<group>"; };
+		914C0F742A4F223800561771 /* AudioManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioManager.swift; sourceTree = "<group>"; };
 		91F357EB2A3A1EFF0072FF71 /* Last Woof.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Last Woof.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F357F72A3A1F000072FF71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91F357FA2A3A1F000072FF71 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -258,10 +256,9 @@
 		91F358052A3A20A60072FF71 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				914C0F742A4F223800561771 /* AudioManager.swift */,
 				0B6529972A43E5A20057EAC6 /* EntityManager.swift */,
 				0BE797842A45A5AC00B1F155 /* InventoryManager.swift */,
-				150FD4A22A4C7D480003C9F5 /* AudioManager.swift */,
-				15CFF4202A4DCDBD00FF949D /* AudioManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -461,11 +458,10 @@
 				0B2A7BCF2A4306D8008310E6 /* LastWoof.xcdatamodeld in Sources */,
 				15434F332A40A1780086583E /* MovementComponent.swift in Sources */,
 				0B7ECDE52A41AE5100B0709B /* StateChangeComponent.swift in Sources */,
-				150FD4A32A4C7D480003C9F5 /* AudioManager.swift in Sources */,
 				1596197D2A445292002F3CA9 /* GameState.swift in Sources */,
 				0B7ECDE72A41AE8A00B0709B /* StoreInventoryComponent.swift in Sources */,
 				15434F2F2A406B550086583E /* VisualComponent.swift in Sources */,
-				15CFF4212A4DCDBD00FF949D /* AudioManager.swift in Sources */,
+				914C0F752A4F223800561771 /* AudioManager.swift in Sources */,
 				0B65299C2A43FAF40057EAC6 /* PlayerControlComponent.swift in Sources */,
 				0BE797872A45B64800B1F155 /* iCloudAuthController.swift in Sources */,
 			);
@@ -616,7 +612,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Last Woof.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = R4FBGZQ29P;
+				DEVELOPMENT_TEAM = XA29694495;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Last-Woof-Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -629,7 +625,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Leonardo.Last-Woof";
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.winxen.Last-Woof";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -647,7 +643,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Last Woof.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = R4FBGZQ29P;
+				DEVELOPMENT_TEAM = XA29694495;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Last-Woof-Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -660,7 +656,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "Leonardo.Last-Woof";
+				PRODUCT_BUNDLE_IDENTIFIER = "dev.winxen.Last-Woof";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
