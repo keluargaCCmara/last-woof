@@ -106,7 +106,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         for t in touches {
             self.touchDown(atPoint: t.location(in: self))
-            AudioManager.shared.playAudio(fileName: "Click Sound", isBGM: false)
+            AudioManager.shared.playAudio(fileName: "Click 2 Sound", isBGM: false)
             
             [boneNode, colarNode, dogfoodNode].compactMap { $0 }.forEach { node in
                 if node.contains(t.location(in: self)) {
@@ -141,17 +141,30 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                     
                     
                     if let playButtonNode = playButtonNode, playButtonNode.contains(t.location(in: self)) {
+                        let defaults = UserDefaults.standard
+                        let opened = defaults.bool(forKey: "OpenedBefore")
+    
                         // Add a transition to the CreditsScene
                         let wait = SKAction.wait(forDuration: 1)
                         let transition = SKTransition.fade(with: .white, duration: 0.5)
-                        let prologue = StoryScene()
-                        let sequence = SKAction.sequence([wait, SKAction.run {
-                            prologue.nFrames = 17
-                            prologue.sceneName = "Prologue"
-                            prologue.size = CGSize(width: 844, height: 390)
-                            self.view?.presentScene(prologue, transition: transition)
-                        }])
-                        self.run(sequence)
+                        
+                        if opened {
+                            let scene = GameScene(fileNamed: "GameScene")!
+                            let sequence = SKAction.sequence([wait, SKAction.run {
+                                self.view?.presentScene(scene, transition: transition)
+                            }])
+                            self.run(sequence)
+                        } else {
+                            let prologue = StoryScene()
+                            let sequence = SKAction.sequence([wait, SKAction.run {
+                                prologue.nFrames = 17
+                                prologue.sceneName = "Prologue"
+                                prologue.size = CGSize(width: 844, height: 390)
+                                self.view?.presentScene(prologue, transition: transition)
+                            }])
+                            self.run(sequence)
+                        }
+                        
                         AudioManager.shared.stopBGM()
                         return
                     }

@@ -16,8 +16,9 @@ class GameViewController: UIViewController {
         
         let icloud = iCloudAuthController()
         
-        // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
-        // including entities and graphs.
+        let defaults = UserDefaults.standard
+        defaults.set(true, forKey: "OpenedBefore")
+        
         if let scene = GKScene(fileNamed: "MainMenu") {
             
             // Get the SKScene from the loaded GKScene

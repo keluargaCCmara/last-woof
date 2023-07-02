@@ -29,7 +29,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     private var lastDidBeginTime: TimeInterval = 0
     private var character: GKEntity?
     
-    let missionSystem = MissionSystem(gameState: GameState())
+    var missionSystem: MissionSystem!
     private var detectedObject: SKNode?
     private var actionButton: SKSpriteNode?
     private var isActionButtonClicked: Bool = false
@@ -46,9 +46,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     
     private var entityManager = EntityManager.shared
     private var inventoryManager = InventoryManager.shared
+    private var missionManager = MissionManager.shared
     
     override func didMove(to view: SKView) {
         AudioManager.shared.stopAllAudio()
+        
+        let gameState = GameState()
+        missionSystem = MissionSystem(gameState: gameState)
+        missionManager.state = gameState
+        
         entityManager.scene = self
         physicsWorld.contactDelegate = self
         guard let backgroundNode = childNode(withName: "background") as? SKSpriteNode else {
@@ -192,34 +198,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     }
     
     private func generateMissions() {
-        let plant1Mission = MissionComponent(missionID: "DogCollar", type: .side, interractObject: ["DogCollar"], neededObject: nil, failedPrompt: "I need to find the Dog Collar", successState: ["DogCollar_Store"], successPrompt: "You acquired a Dog Collar", sideMissionNeedToBeDone: nil, sound: nil)
+        let plant1Mission = MissionComponent(missionID: "DogCollar", type: .side, interractObject: ["DogCollar"], neededObject: nil, failedPrompt: "I need to find the Dog Collar.", successState: ["DogCollar_Store"], successPrompt: "You acquired a Dog Collar.", sideMissionNeedToBeDone: nil, sound: nil)
         missionSystem.addComponent(mission: plant1Mission)
         
         let getRake = MissionComponent(missionID: "Rake", type: .side, interractObject: ["SapuGarpu"], neededObject: nil, failedPrompt: "I need to get the Rake", successState: ["SapuGarpu_Store"], successPrompt: "You acquired a rake", sideMissionNeedToBeDone: nil, sound: nil)
         missionSystem.addComponent(mission: getRake)
         
-        let swipeLeaves = MissionComponent(missionID: "Leaves", type: .side, interractObject: ["Leaves"], neededObject: "SapuGarpu", failedPrompt: "This backyard could have some cleaning", successState: ["Leaves_Change"], successPrompt: "Now this backyard looks better", sideMissionNeedToBeDone: [getRake], sound: "Leaves Sound")
+        let swipeLeaves = MissionComponent(missionID: "Leaves", type: .side, interractObject: ["Leaves"], neededObject: "SapuGarpu", failedPrompt: "This backyard could do with some cleaning.", successState: ["Leaves_Change"], successPrompt: "Now this backyard looks better.", sideMissionNeedToBeDone: [getRake], sound: "Leaves Sound")
         missionSystem.addComponent(mission: swipeLeaves)
         
-        let swipeLeaves2 = MissionComponent(missionID: "Leaves2", type: .side, interractObject: ["Leaves"], neededObject: "SapuGarpu", failedPrompt: "This backyard could have some cleaning", successState: ["Leaves_Change"], successPrompt: "Now this backyard looks better", sideMissionNeedToBeDone: [getRake, swipeLeaves], sound: "Leaves Sound")
+        let swipeLeaves2 = MissionComponent(missionID: "Leaves2", type: .side, interractObject: ["Leaves"], neededObject: "SapuGarpu", failedPrompt: "This backyard could do with some cleaning.", successState: ["Leaves_Change"], successPrompt: "Now this backyard looks better.", sideMissionNeedToBeDone: [getRake, swipeLeaves], sound: "Leaves Sound")
         missionSystem.addComponent(mission: swipeLeaves2)
         
-        let swipeLeaves3 = MissionComponent(missionID: "Leaves3", type: .side, interractObject: ["Leaves"], neededObject: "SapuGarpu", failedPrompt: "This backyard could have some cleaning", successState: ["Leaves_Remove"], successPrompt: "Now this backyard looks better", sideMissionNeedToBeDone: [getRake, swipeLeaves, swipeLeaves2], sound: "Leaves Sound")
+        let swipeLeaves3 = MissionComponent(missionID: "Leaves3", type: .side, interractObject: ["Leaves"], neededObject: "SapuGarpu", failedPrompt: "This backyard could do with some cleaning.", successState: ["Leaves_Remove"], successPrompt: "Now this backyard looks better.", sideMissionNeedToBeDone: [getRake, swipeLeaves, swipeLeaves2], sound: "Leaves Sound")
         missionSystem.addComponent(mission: swipeLeaves3)
         
-        let getFrisbee = MissionComponent(missionID: "Frisbee", type: .side, interractObject: ["Frisbee"], neededObject: nil, failedPrompt: "This backyard could have some cleaning", successState: ["Frisbee_Store"], successPrompt: "You have acquired a Frisbee", sideMissionNeedToBeDone: [swipeLeaves, swipeLeaves2, swipeLeaves3], sound: nil)
+        let getFrisbee = MissionComponent(missionID: "Frisbee", type: .side, interractObject: ["Frisbee"], neededObject: nil, failedPrompt: "This backyard could do with some cleaning.", successState: ["Frisbee_Store"], successPrompt: "You have acquired a Frisbee.", sideMissionNeedToBeDone: [swipeLeaves, swipeLeaves2, swipeLeaves3], sound: nil)
         missionSystem.addComponent(mission: getFrisbee)
         
-        let getFishNet = MissionComponent(missionID: "NetStick", type: .side, interractObject: ["Net"], neededObject: nil, failedPrompt: "I need to get a Fish Net", successState: ["Net_Change", "Net_Store"], successPrompt: "You have acquired a Net", sideMissionNeedToBeDone: nil, sound: nil)
+        let getFishNet = MissionComponent(missionID: "NetStick", type: .side, interractObject: ["Net"], neededObject: nil, failedPrompt: "I need to get a Fishing Net.", successState: ["Net_Change", "Net_Store"], successPrompt: "You have acquired a Fishing Net.", sideMissionNeedToBeDone: nil, sound: nil)
         missionSystem.addComponent(mission: getFishNet)
         
-        let pondMission = MissionComponent(missionID: "Pond", type: .side, interractObject: ["Pond"], neededObject: "Net", failedPrompt: "I couldn't see the bottom of the pond", successState: ["Pond_Change"], successPrompt: "Now I can see the bottom of the pond", sideMissionNeedToBeDone: [getFishNet], sound: "Pond Sound")
+        let pondMission = MissionComponent(missionID: "Pond", type: .side, interractObject: ["Pond"], neededObject: "Net", failedPrompt: "I can't see the bottom of the pond.", successState: ["Pond_Change"], successPrompt: "Now the pond looks cleaner.", sideMissionNeedToBeDone: [getFishNet], sound: "Pond Sound")
         missionSystem.addComponent(mission: pondMission)
         
-        let pondMission2 = MissionComponent(missionID: "Pond2", type: .side, interractObject: ["Pond"], neededObject: "Net", failedPrompt: "I couldn't see the bottom of the pond", successState: ["Pond_Remove", "NameTag_Store"], successPrompt: "You have acquired a name tag", sideMissionNeedToBeDone: [pondMission], sound: "Pond Sound")
+        let pondMission2 = MissionComponent(missionID: "Pond2", type: .side, interractObject: ["Pond"], neededObject: "Net", failedPrompt: "I can't see the bottom of the pond.", successState: ["Pond_Remove", "NameTag_Store"], successPrompt: "You have acquired a name tag.", sideMissionNeedToBeDone: [pondMission], sound: "Pond Sound")
         missionSystem.addComponent(mission: pondMission2)
         
-        let mainMission = MissionComponent(missionID: "MainMissioin", type: .main, interractObject: nil, neededObject: nil, failedPrompt: "I need to get Frisbee, DogCollar and NameTag", successState: ["_"], successPrompt: "Main Mission succeeded", sideMissionNeedToBeDone: [getFrisbee, pondMission2, plant1Mission], sound: nil)
+        let mainMission = MissionComponent(missionID: "MainMissioin", type: .main, interractObject: nil, neededObject: nil, failedPrompt: "I need to get Frisbee, DogCollar and NameTag.", successState: ["_"], successPrompt: "Main Mission succeeded", sideMissionNeedToBeDone: [getFrisbee, pondMission2, plant1Mission], sound: nil)
         missionSystem.addComponent(mission: mainMission)
     }
     
@@ -282,7 +288,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
             
             for node in touchedNodes {
                 if node.name == "Inventory" {
-                    AudioManager.shared.playAudio(fileName: "Click Sound", isBGM: false)
+                    AudioManager.shared.playAudio(fileName: "Click 2 Sound", isBGM: false)
                     // mau open inventory
                     if !isInventoryOpen {
                         if let camera = self.camera {
@@ -307,6 +313,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
                 if node.name?.contains("InventoryItem") == true {
                     if let _ = entityManager.isInventoryItem(node: node) {
                         if let realName = node.name?.split(separator: "_").dropFirst().first.map({ String($0) }) {
+                            AudioManager.shared.playAudio(fileName: "Click Sound", isBGM: false)
                             if realName == currentlyHolding {
                                 // unselect currently holding
                                 currentlyHolding = nil
@@ -472,9 +479,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         let waitDuration = 2.0
         let smokeDuration = 2.0
         
+//        let successAction = SKAction.run {
+//            AudioManager.shared.playAudio(fileName: "Success Sound", isBGM: false)
+//        }
         let waitAction = SKAction.wait(forDuration: waitDuration)
         let addSmokeAction = SKAction.run { [weak self] in
             guard let self = self else { return }
+            
             AudioManager.shared.playAudio(fileName: "Cloud Transition", isBGM: false)
             let smokeParticleRight = SKEmitterNode(fileNamed: "SubHomeSmoke")!
             smokeParticleRight.position = CGPoint(x: self.frame.minX, y: self.frame.midY)

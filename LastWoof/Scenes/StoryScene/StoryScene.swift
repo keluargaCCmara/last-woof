@@ -22,8 +22,6 @@ class StoryScene: SKScene {
             self.sceneFrames.append(SKTexture(imageNamed: "\(sceneName)\(i)"))
         }
         
-        print(frame.size)
-        
         let entity = GKEntity()
         
         let vc = VisualComponent(name: sceneName, imageName: "\(sceneName)1", size: CGSize(
@@ -77,12 +75,8 @@ class StoryScene: SKScene {
                 whiteRectangle.zPosition = -1
                 addChild(whiteRectangle)
             }
-            print(timeRemaining)
             timeRemaining -= 1
         } else if timeRemaining == 2 {
-            print(timeRemaining)
-            print("smoke")
-            print(frame.size)
             timeRemaining -= 1
             let smokeParticleRight = SKEmitterNode(fileNamed: "SubHomeSmoke")!
             smokeParticleRight.position = CGPoint(x: frame.minX, y: frame.midY)

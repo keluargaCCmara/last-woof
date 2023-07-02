@@ -95,6 +95,7 @@ class EntityManager {
         let wait = SKAction.wait(forDuration: 0.5)
         
         let removeAction = SKAction.run({
+            AudioManager.shared.playAudio(fileName: "Store Sound", isBGM: false)
             inventorySi?.storeInventory()
             self.removeEntity(entity: entity)
             inventoryBtn.texture = SKTexture(imageNamed: "Inventory")
@@ -129,6 +130,7 @@ class EntityManager {
             scene.removeChildren(in: [vn!.visualNode as SKNode])
             entities.remove(entity)
         }
+        self.toRemove = Set<GKEntity>()
     }
     
     func getEntity(name: String) -> GKEntity? {
