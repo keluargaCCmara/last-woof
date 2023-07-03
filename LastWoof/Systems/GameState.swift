@@ -8,9 +8,13 @@
 import GameplayKit
 
 class GameState {
-    
+    var chapter: Int
     var mainMissionCompleted: Bool = false
     var sideMissionsCompleted: [MissionComponent] = []
+    
+    init(chapter: Int) {
+        self.chapter = chapter
+    }
     
     func setSideMissionComplete(_ missionID: MissionComponent) {
         sideMissionsCompleted.append(missionID)

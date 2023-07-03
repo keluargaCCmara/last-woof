@@ -148,13 +148,13 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                         let wait = SKAction.wait(forDuration: 1)
                         let transition = SKTransition.fade(with: .white, duration: 0.5)
                         
-                        if opened {
-                            let scene = GameScene(fileNamed: "GameScene")!
-                            let sequence = SKAction.sequence([wait, SKAction.run {
-                                self.view?.presentScene(scene, transition: transition)
-                            }])
-                            self.run(sequence)
-                        } else {
+//                        if opened {
+//                            let scene = GameScene(fileNamed: "GameScene")!
+//                            let sequence = SKAction.sequence([wait, SKAction.run {
+//                                self.view?.presentScene(scene, transition: transition)
+//                            }])
+//                            self.run(sequence)
+//                        } else {
                             let prologue = StoryScene()
                             let sequence = SKAction.sequence([wait, SKAction.run {
                                 prologue.nFrames = 17
@@ -163,7 +163,7 @@ class MainMenu: SKScene, SKPhysicsContactDelegate {
                                 self.view?.presentScene(prologue, transition: transition)
                             }])
                             self.run(sequence)
-                        }
+//                        }
                         
                         AudioManager.shared.stopBGM()
                         return

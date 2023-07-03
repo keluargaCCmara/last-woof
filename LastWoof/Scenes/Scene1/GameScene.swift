@@ -51,7 +51,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
     override func didMove(to view: SKView) {
         AudioManager.shared.stopAllAudio()
         
-        let gameState = GameState()
+        let gameState = GameState(chapter: 1)
         missionSystem = MissionSystem(gameState: gameState)
         missionManager.state = gameState
         
@@ -170,7 +170,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, PhysicsContactDelegate {
         ], state: 0, imageState: nil)
         
         let terrace = generateEntity(components: [
-            VisualComponent(name: "Terrace", imageName: "Terrace", size: CGSize(width: 659.48, height: 184.443), position: CGPoint(x: -375.284, y: -88.51), zPosition: 1, zRotation: 0),
+            VisualComponent(name: "Terrace", imageName: "terrace", size: CGSize(width: 659.48, height: 184.443), position: CGPoint(x: -375.284, y: -88.51), zPosition: 1, zRotation: 0),
             PhysicsComponent(size: CGSize(width: 659.48, height: 184.443), imageName: "Terrace", isDynamic: false, categoryBitMask: PhysicsCategory.obstacle, collisionBitMask: PhysicsCategory.character, contactTestBitMask: PhysicsCategory.character)
         ], state: 0, imageState: nil)
         
