@@ -27,7 +27,7 @@ class AudioManager {
                 bgmPlayer?.stop()
                 bgmPlayer = player
                 bgmPlayer?.numberOfLoops = -1 // Infinite looping
-                bgmPlayer?.volume = 0.8
+                bgmPlayer?.setVolume(0.8, fadeDuration: 1.5)
                 bgmPlayer?.play()
             } else {
                 soundEffectPlayer = player
@@ -41,6 +41,7 @@ class AudioManager {
     }
     
     func stopBGM() {
+        bgmPlayer?.setVolume(0.0, fadeDuration: 1.5)
         bgmPlayer?.stop()
         bgmPlayer = nil
     }
